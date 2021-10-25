@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import * as React from 'react';
 import { Component } from 'react-simplified';
 import { HashRouter, Route } from 'react-router-dom';
-import { NavBar, Card, Alert, Row, Column, Button, Form } from './widgets';
+import { NavBar, Card, Alert } from './widgets';
 import axios from 'axios';
 
 

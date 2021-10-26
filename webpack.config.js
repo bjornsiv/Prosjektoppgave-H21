@@ -8,6 +8,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js',
+    hashFunction: "xxhash64",
   },
   devtool: 'source-map',
   module: {

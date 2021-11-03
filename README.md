@@ -27,7 +27,7 @@ Deretter må du kjøre 'npm start' kommandoen, da vil et nytt nettleser vindu å
 
 
 **2. Server**
-For at noen av funksjonene av client siden til å fungere, må man og kjøre serveren lokalt. Her må man navigere til './server' og kjøre 'npm install' for å installere alle nødvendige pakker. Deretter må man kjøre 'npm start' for å starte serveren lokalt. 
+For at noen av funksjonene av client siden til å fungere, må man og kjøre serveren lokalt. Her må man navigere til './server' og kjøre 'npm install' for å installere alle nødvendige pakker. Deretter må man kjøre 'npm start' for å starte serveren lokalt.           
 
 
 ## Lage en deployment klar pakke av client siden
@@ -63,3 +63,5 @@ Hvis du er i ønsket branch, og er ferdig med å gjøre endringer kan du sende d
 'git commit -m "My-message"' - Denne ferdigstiller 'pakka', og my-message er meldingen som beskriver hva som er gjort
 
 'git push' - Denne sender den ferdigstilte pakka til github serveren
+
+    Hvis det er en ny branch du sender opp, som ikke enda eksisterer i github repositorien så er du nødt til å bruke 'git push -u origin your-shiny-branch'

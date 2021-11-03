@@ -9,16 +9,16 @@ Dette er foreløpelig kun client siden av prosjektet
 
 ## Før du starter - Node.js og NPM
 
-Du må ha Node.js og NPM installert på PC-en din. Node.js blir blant annet brukt når vi vil kjøre JavaScript kode i en server. NPM er en pakkebehandler, denne gjør det enklere å installere programvarebiblioteker som vi kan benytte oss av når vi programmer. NPM (Node Package Manager) bruker vi både på nettsiden og spillet.
+Du må ha Node.js og NPM installert på PC-en din. Node.js blir blant annet brukt når vi vil kjøre JavaScript kode i en server. NPM er en pakkebehandler, denne gjør det enklere å installere programvarebiblioteker som vi kan benytte oss av når vi programmer. NPM (Node Package Manager) bruker vi både på client og server delen.
 
 
 
 
-## Kjøring a Nettside lokalt.
+## Kjøring av Nettside lokalt.
 
 **1. Client**
-Start med å kopiere filene lokalt til maskinen din med 'git clone' kommandoen. Når det er gjort må du åpne et terminalvindu og navigere til mappen der du klonet filene. Der må du kjøre 'npm install' for å installere alle pakkene. 
-
+Start med å kopiere filene lokalt til maskinen din med 'git clone' kommandoen. Når det er gjort må du åpne et terminalvindu og navigere til mappen der du klonet filene, og videre in på './client'. Der må du kjøre 'npm install' for å installere alle pakkene. 
+Deretter må du kjøre 'npm start' kommandoen, da vil et nytt nettleser vindu åpne seg meg 'localhost:3000'. Denne vil forhåndsvise client siden. 
 
 
 **2. Server**
@@ -35,3 +35,27 @@ TBA
 
 **3. npm test**
 TBA
+
+## git
+
+**git clone**
+git clone %repo% - for å klone et git prosjekt til sin lokale maskin. erstatt %repo% med link til github/gitlab mappen. 
+
+**git checkout**
+for å lage en ny branch må du kjøre 'git checkout -b "my-branch"' der my-branch er navnet på den nye branchen
+
+for å bytte branch, må du kjøre 'git checkout "my-branch"'. der my-branch er navnet på branchen du vil bytte til. 
+
+det skal merkes at du bør være i riktig branch før du starter å gjøre endringer. Dette er ikke et absolutt krav, men det gjør prosessen mye enklere. 
+
+**sende endringer til git hub/lab**
+Hvis du er i ønsket branch, og er ferdig med å gjøre endringer kan du sende det til github/lab. Da bør følgende kommandoer kjøres i følgende rekkefølge, det bør merkes at man ikke bør gjøre endringene i filene iløpet av denne prosessen: 
+
+'git add .' - Denne legger alle filene med endringer i en 'pakke' som skal sendes til git. 
+
+
+'git stage .' - Denne 'fryser' filene som er lagt i 'pakka'.
+
+'git commit -m "My-message"' - Denne ferdigstiller 'pakka', og my-message er meldingen som beskriver hva som er gjort
+
+git push

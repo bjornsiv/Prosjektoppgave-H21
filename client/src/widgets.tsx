@@ -3,7 +3,7 @@ import { ReactNode, ChangeEvent } from 'react';
 import { Component } from 'react-simplified';
 import { NavLink } from 'react-router-dom';
 
-class Messages extends Component<{ from: string; message: string; key: number }> {
+class Messagesss extends Component<{ from: string; message: string; key: number }> {
     render() {
       return (
         <div className="card" style={{ width: '18rem' }} key={this.props.key}>
@@ -26,7 +26,7 @@ class Send extends Component<{ incomName: string; key: number }> {
     }
 
 export class List {
-    static Message = Messages;
+    static Message = Messagesss;
     static Send = Send;
     }
 

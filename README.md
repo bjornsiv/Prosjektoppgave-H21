@@ -58,4 +58,4 @@ Hvis du er i ønsket branch, og er ferdig med å gjøre endringer kan du sende d
 
 'git commit -m "My-message"' - Denne ferdigstiller 'pakka', og my-message er meldingen som beskriver hva som er gjort
 
-git push
+git push    

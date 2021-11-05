@@ -51,6 +51,8 @@ det skal merkes at du bør være i riktig branch før du starter å gjøre endri
 **sende endringer til git hub/lab**
 Hvis du er i ønsket branch, og er ferdig med å gjøre endringer kan du sende det til github/lab. Da bør følgende kommandoer kjøres i følgende rekkefølge, det bør merkes at man ikke bør gjøre endringene i filene iløpet av denne prosessen: 
 
+'git pull' - oppdaterer branchen man er i 
+
 'git add .' - Denne legger alle filene med endringer i en 'pakke' som skal sendes til git. 
 
 'git stage .' - Denne 'fryser' filene som er lagt i 'pakka'.

@@ -1,11 +1,11 @@
-// Her ligger widgets med Bootstrap
+// Her ligger widgets, laget med Bootstrap
 import * as React from 'react';
 import { ReactNode, ChangeEvent } from 'react';
 import { Component } from 'react-simplified';
 import { NavLink } from 'react-router-dom';
 
 
-// Card - for å ramme inn innhold på nettsiden, sette tittel
+// Card - for å ramme inn innhold på nettsiden, kan sette tittel
 // Properties: title
 export class Card extends Component<{ title: ReactNode }> {
   render() {
@@ -84,16 +84,43 @@ class ButtonLight extends Component <{onClick: () => void }> {
   }
 }
 
+class ButtonInfo extends Component <{onClick: () => void }> {
+  render() {
+    return (
+      <button type="button" 
+          className="btn btn-info" 
+          onClick={this.props.onClick}>
+        {this.props.children}
+      </button>
+    );
+  }
+}
+
+
+class ButtonSecondary extends Component <{onClick: () => void }> {
+  render() {
+    return (
+      <button type="button" 
+          className="btn btn-secondary" 
+          onClick={this.props.onClick}>
+        {this.props.children}
+      </button>
+    );
+  }
+}
+
 
 export class Button {
   static Success = ButtonSuccess;
   static Danger = ButtonDanger;
   static Light = ButtonLight;
+  static Info = ButtonInfo; 
+  static Secondary = ButtonSecondary;
 }
 
 
 // Navigation bar link (properties: to)
-class NavBarLink extends Component<{ to: string }> {
+export class NavBarLink extends Component<{ to: string }> {
   render() {
     return (
       <NavLink className="nav-link" activeClassName="active" to={this.props.to}>
@@ -209,7 +236,7 @@ class FormSelect extends Component<{
 }
 
 export class Form {
-  static Label = FormLabel;   // From.Label osv. 
+  static Label = FormLabel;   // = From.Label osv. 
   static Input = FormInput;
   static Textarea = FormTextarea;
   static Checkbox = FormCheckbox;
@@ -318,7 +345,7 @@ export class SearchBar extends Component {
       <nav className="navbar navbar-light bg-light">
       <form className="form-inline">
         <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Søk</button>
+        <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
       </nav>
     );
@@ -328,7 +355,8 @@ export class SearchBar extends Component {
 
 // Innlogging. Hentet fra (Menu forms) https://getbootstrap.com/docs/4.0/components/dropdowns/#menu-forms
 // Mulig vi ikke kommer til å bruke denne hvis vi har innlogging via fb e.l.
-export class MenuForm extends Component {
+// Bytte ut 
+export class SignIn extends Component {
   render() {
     return (
         <div className="dropdown-menu">
@@ -353,6 +381,35 @@ export class MenuForm extends Component {
     <a className="dropdown-item" href="#">Opprett ny bruker</a>
     <a className="dropdown-item" href="#">Glemt passordet?</a>
   </div>
+    );
+  }
+}
+
+
+/* Må legge inn en rekke avhengigheter som Bootstrap Vue her (?) */
+
+
+// Rating 1-5 stjerner (fungerer ikke, må fikses senere)
+export class Rating extends Component {
+  render() {
+    return ( 
+      <template>
+        <div>
+          <label htmlFor="rating-inline">Inline rating:</label>
+          <b-form-rating id="rating-inline" inline value="4"></b-form-rating>
+        </div>
+      </template>
+    );
+  }
+}
+
+// Image - bilder av spill o.l.
+export class Image extends Component {
+  render() {
+    return (
+      <div>
+        <b-img src="https://picsum.photos/1024/400/?image=41" fluid alt="Responsive image"></b-img>
+      </div>
     );
   }
 }

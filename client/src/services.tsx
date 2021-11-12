@@ -1,5 +1,8 @@
 import axios from 'axios'
 
+axios.defaults.baseURL = 'http://localhost:3000/api/v1';
+
+
 export type Game = {
     id: number;
     title: string;
@@ -68,25 +71,25 @@ export class GameService {
 
 export class ReviewService {
     get(id: number) {
-        return axios.get<Game>('/gamereviews/' + id).then((response) => response.data);
+        return axios.get<Review>('/gamereviews/' + id).then((response) => response.data);
     }
     getAll() {
-        return axios.get<Game>('/gamereviews').then((response) => response.data);
+        return axios.get<Review>('/gamereviews').then((response) => response.data);
     }
     search() {
-        return axios.get<Game>('/gamesearch').then((response) => response.data);
+        return axios.get<Review>('/gamesearch').then((response) => response.data);
     }
-    create(game: Game){
-        return axios.post<Game>('/gamereviews/new', {
-            game: game,
+    create(review: Review){
+        return axios.post<Review>('/gamereviews/new', {
+            review: review,
         }).then((response) => response.data.id);
     }
     delete(id:number) {
         return axios.delete<Game>('/gamereviews/' + id);
     }
-    update(game: Game){
-        return axios.put<Game>('/gamereviews/update/' + game.id, {
-            game: game,
+    update(review: Review){
+        return axios.put<Review>('/gamereviews', {
+            review:review,
         })
         .then((response) => response.data);
     }

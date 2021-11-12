@@ -43,7 +43,7 @@ export type Game = {
     created_at: Date;
   }
   
-export class GameService {
+class GameService {
     get(id: number) {
         return axios.get<Game>('/gamedetails/' + id).then((response) => response.data);
     }
@@ -69,12 +69,14 @@ export class GameService {
     }
 } 
 
-export class ReviewService {
+
+
+class ReviewService {
     get(id: number) {
         return axios.get<Review>('/gamereviews/' + id).then((response) => response.data);
     }
-    getAll() {
-        return axios.get<Review>('/gamereviews').then((response) => response.data);
+    getAll(gId: number) {
+        return axios.get<Review>('/gamereviews/' + gId).then((response) => response.data);
     }
     search() {
         return axios.get<Review>('/gamesearch').then((response) => response.data);
@@ -94,7 +96,13 @@ export class ReviewService {
         .then((response) => response.data);
     }
 } 
+const gameservice = new GameService;
 
+const reviewservice = new ReviewService;
+export {
+    reviewservice,
+    gameservice
+}
 
 
 /*

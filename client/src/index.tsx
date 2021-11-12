@@ -5,7 +5,7 @@ import { Component } from 'react-simplified';
 import { HashRouter, NavLink, Route } from 'react-router-dom';
 import { NavBar, Card, Alert } from './widgets';
 import axios from 'axios';
-
+import { GameReview } from './game-review';
 
 
 // Meny med link til andre sider - Finn ut hva som skal med her, legg evt. til senere
@@ -14,7 +14,7 @@ class Menu extends Component {
       return (
           <NavBar brand="Menu">
             <NavBar.Link to="/">Home/Figur</NavBar.Link>
-            <NavBar.Link to="/"></NavBar.Link> 
+            <NavBar.Link to="/gamereview"></NavBar.Link> 
             <NavBar.Link to="/"></NavBar.Link>
           </NavBar>
       );

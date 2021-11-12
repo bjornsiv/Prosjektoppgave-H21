@@ -407,7 +407,7 @@ export class SignIn extends Component {
 
 
 /* Må legge inn en rekke avhengigheter som Bootstrap Vue her (?) */
-
+/*
 
 // Rating 1-5 stjerner (fungerer ikke, må fikses senere)
 export class Rating extends Component {
@@ -433,3 +433,5 @@ export class Image extends Component {
     );
   }
 }
+
+*/

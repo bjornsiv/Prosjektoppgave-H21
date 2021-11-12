@@ -6,7 +6,7 @@ import { HashRouter, NavLink, Route } from 'react-router-dom';
 import { NavBar, Card, Alert } from './widgets';
 import axios from 'axios';
 import { GameReview } from './game-review';
-
+import { GameDetails } from './game-details';
 
 // Meny med link til andre sider - Finn ut hva som skal med her, legg evt. til senere
 class Menu extends Component {
@@ -45,10 +45,10 @@ ReactDOM.render(
         <Alert />
         <Menu />
         <Route exact path="/" component={FrontPage} />
-        <Route path="/gamesearch" component={GameSearch} />
+        <Route path="/gamesearch" />
         <Route path="/gamedetails" component={GameDetails} />
         <Route path="/gamereview" component={GameReview} />
-        <Route path="/newgame" component={NewGame} />
+        <Route path="/newgame" />
       </div>
     </HashRouter>,
     document.getElementById('root')

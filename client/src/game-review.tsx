@@ -51,12 +51,6 @@ export class GameReview extends Component<{ match: { params: { id: number } } }>
               </Row>
               <Row>
                 <Column width={2}>score:</Column>
-                <Column>
-                  <Form.NumberInput
-                    value={this.review.score}
-                    onChange={(event) => (this.review.score = event.currentTarget.value)}
-                  />
-                </Column>
               </Row>
             </Card>
             <Row>
@@ -86,3 +80,15 @@ export class GameReview extends Component<{ match: { params: { id: number } } }>
             .catch((error) => Alert.danger('Error getting game: ' + error.message));
     }
 }
+
+
+/*
+
+<Column>
+                  <Form.NumberInput
+                    value={this.review.score}
+                    //onChange={(event) => (this.review.score = event.currentTarget.value)}
+                  />
+                </Column>
+
+*/ 

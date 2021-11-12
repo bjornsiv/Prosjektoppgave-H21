@@ -8,16 +8,13 @@ import axios from 'axios';
 
 
 
-// Meny med link til andre sider - Finn ut hva som skal med her
+// Meny med link til andre sider - Finn ut hva som skal med her, legg evt. til senere
 class Menu extends Component {
   render() {
       return (
           <NavBar brand="Menu">
-            <NavBar.Link to="/"></NavBar.Link>
-            <NavBar.Link to="/"></NavBar.Link>
-            <NavBar.Link to="/"></NavBar.Link>
-            <NavBar.Link to="/"></NavBar.Link>
-            <NavBar.Link to="/"></NavBar.Link>
+            <NavBar.Link to="/">Home/Figur</NavBar.Link>
+            <NavBar.Link to="/"></NavBar.Link> 
             <NavBar.Link to="/"></NavBar.Link>
           </NavBar>
       );

@@ -3,14 +3,14 @@ import reviewService from './review-service';
 
 const router = express.Router();
 
-router.get('', (_request, response) => {
+router.get('/gamereviews', (_request, response) => {
   reviewService
     .getAll()
     .then((rows) => response.send(rows))
     .catch((error) => response.status(500).send(error));
 });
 
-router.get(':id', (request, response) => {
+router.get('/gamereviews/:id', (request, response) => {
   const id = Number(request.params.id);
   reviewService
     .get(id)
@@ -18,8 +18,9 @@ router.get(':id', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
-router.post('', (request, response) => {
+router.post('/gamereviews/new/:gId', (request, response) => {
   const data = request.body;
+  const id = Number(request.params.gId);
   if (! data)  {
     response.status(500).send('Missing data');
     return;
@@ -34,12 +35,12 @@ router.post('', (request, response) => {
     return;
   }
   reviewService
-    .create(data)
+    .create(data, id)
     .then((id) => response.send({ id: id }))
     .catch((error) => response.status(500).send(error));
 });
 
-router.put('', (request, response) => {
+router.put('/gamereviews', (request, response) => {
   reviewService
     .update(
       request.body
@@ -48,7 +49,7 @@ router.put('', (request, response) => {
     .catch((error) => response.status(400).send(error));
 });
 
-router.delete(':id', (request, response) => {
+router.delete('/gamereviews/:id', (request, response) => {
   reviewService
     .delete(Number(request.params.id))
     .then((_result) => response.send())

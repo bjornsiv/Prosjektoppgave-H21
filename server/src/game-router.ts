@@ -3,14 +3,14 @@ import gameService from './game-service';
 
 const router = express.Router();
 
-router.get('', (_request, response) => {
+router.get('/', (_request, response) => {
   gameService
     .getAll()
     .then((rows) => response.send(rows))
     .catch((error) => response.status(500).send(error));
 });
 
-router.get(':id', (request, response) => {
+router.get('/gamedetails/:id', (request, response) => {
   const id = Number(request.params.id);
   gameService
     .get(id)
@@ -18,7 +18,7 @@ router.get(':id', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
-router.post('', (request, response) => {
+router.post('/newgame', (request, response) => {
   const data = request.body;
   if (! data)  {
     response.status(500).send('Missing data');
@@ -36,7 +36,7 @@ router.post('', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
-router.put('', (request, response) => {
+router.put('/gamedetails', (request, response) => {
   gameService
     .update(
       request.body
@@ -45,7 +45,7 @@ router.put('', (request, response) => {
     .catch((error) => response.status(400).send(error));
 });
 
-router.delete(':id', (request, response) => {
+router.delete('/gamedetails/:id', (request, response) => {
   gameService
     .delete(Number(request.params.id))
     .then((_result) => response.send())

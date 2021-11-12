@@ -21,7 +21,7 @@ For å kjøre client siden lokalt må du navigere til './client'. Der må du kj�
 Deretter må du kjøre 'npm start' kommandoen, denne starter webpack-dev-server, som gir deg en forhåndsvisning av client siden, dog uten database oppsett. Den oppdaterer seg når en gjør endringer i koden, og kan gjernes kjøres i bakgrunnen. Den åpner automatisk en nettleser vindu med riktig adresse, som er : 'http://localhost:8080/#/'
 
 **2.1. npm build**
-'npm build' bygger en produksjonsklar bundle av nettsiden og den vil legge seg i './public' mappen
+'npm build' bygger en produksjonsklar bundle av nettsiden og den vil legge seg i './public' mappen.  Hvis kommandoen får feilmelding kan man prøve med 'npm run-script build' som et alternativ. 
 
 
 **3. Server**

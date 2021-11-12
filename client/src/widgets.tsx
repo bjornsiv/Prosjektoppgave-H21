@@ -159,7 +159,6 @@ class FormLabel extends Component {
 
 // Form input - legge til spill
 class FormInput extends Component<{
-  type: string;
   value: string | number;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   [prop: string]: any;
@@ -180,6 +179,26 @@ class FormInput extends Component<{
   }
 }
 
+class FormNumberInput extends Component<{
+  value: number;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  [prop: number]: any;
+}> {
+  render() {
+    // ...rest will contain extra passed attributes such as disabled, required, width, height, pattern
+    // For further information, see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+    const { value, onChange, ...rest } = this.props;
+    return (
+      <input
+        {...rest}
+        type='number'
+        className="form-control"
+        value={this.props.value}
+        onChange={this.props.onChange}
+      />
+    );
+  }
+}
 
 // Form textarea - legge til spill
 class FormTextarea extends React.Component<{
@@ -241,6 +260,7 @@ export class Form {
   static Textarea = FormTextarea;
   static Checkbox = FormCheckbox;
   static Select = FormSelect;
+  static NumberInput = FormNumberInput;
 }
 
 // Alert messages - beskjeder på nettsiden 

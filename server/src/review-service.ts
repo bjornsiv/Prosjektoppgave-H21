@@ -14,9 +14,9 @@ class ReviewService {
     });
   }
 
-  getAll() {
+  getAll(gId: number) {
     return new Promise<Review[]>((resolve, reject) => {
-      pool.query('SELECT * FROM reviews', (error, results) => {
+      pool.query('SELECT * FROM reviews WHERE game_id=?', [gId], (error, results) => {
         if (error) return reject(error);
 
         resolve(results);
@@ -24,11 +24,11 @@ class ReviewService {
     });
   }
 
-  create(review: Review, game: Game, user: User) {
+  create(review: Review, id: Number) {
     return new Promise<number>((resolve, reject) => {
       pool.query(
-        'INSERT INTO reviews SET game_id=?, user_id=?, title=?, description=?, score=?',
-        [game.id, user.id, review.title, review.description, review.score],
+        'INSERT INTO reviews SET game_id=?, title=?, description=?, score=?',
+        [id, review.title, review.description, review.score],
         (error, results) => {
           if (error) return reject(error);
 

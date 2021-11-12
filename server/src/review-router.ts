@@ -3,9 +3,10 @@ import reviewService from './review-service';
 
 const router = express.Router();
 
-router.get('/gamereviews', (_request, response) => {
+router.get('/gamereviews/:gId', (request, response) => {
+  const gId = Number(request.params.gId)
   reviewService
-    .getAll()
+    .getAll(gId)
     .then((rows) => response.send(rows))
     .catch((error) => response.status(500).send(error));
 });

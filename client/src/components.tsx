@@ -21,58 +21,7 @@ KOMPONENTER / KLASSER
 
 
 
-// Side for søkeresultat
-class GameSearch extends Component {
-    games = [];
 
-    render() {
-        return (
-            <Card title="Game results"></Card>
-        );
-    }
-}
-
-// Side for detaljer om hvert spill
-class GameDetails extends Component {
-    game = null;
-
-    render() {
-        if (!this.game) return null;
-
-        return (
-            <div>
-                <Card title="Game details">
-                  <Row>
-                    <Column width={2}>Game title:</Column>
-                    <Column>{this.game.title}</Column>
-                  </Row>
-                  <Row>
-                    <Column width={2}>Release date:</Column>
-                    <Column>{this.game.releasedate}</Column>
-                  </Row>
-                  <Row>
-                    <Column width={2}>Genre:</Column>
-                    <Column>{this.game.genre}</Column>
-                  </Row>
-                  <Row>
-                    <Column width={2}>Plattforms:</Column>
-                    <Column>{this.game.plattforms}</Column>
-                  </Row>
-                  <Row>
-                    <Column width={2}>Description:</Column>
-                    <Column>{this.game.description}</Column>
-                  </Row>
-
-                  {/* Legg til reviews, add reviews*/}
-                  
-                  
-
-                </Card>
-            </div>
-        );
-    }
-
-}
 
 // Side for å opprette anmeldelse av spill
 class GameReview extends Component {

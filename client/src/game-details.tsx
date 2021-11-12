@@ -2,7 +2,6 @@
 // Komponenter for siden 'GameDetails'. Her vises detaljer om et valgt spill. 
 
 import * as React from 'react';
-import { KeyboardEvent } from 'react';
 import { Component } from 'react-simplified';
 import { Card, Row, Column, Button, NavBarLink, NavBar, Form, Alert, SearchBar, SignIn } from './widgets';
 import { NavLink, HashRouter, Route } from 'react-router-dom';
@@ -75,3 +74,5 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
           .catch((error) => Alert.danger('Error getting reviews: ' + error.message))
   }
 }
+
+export default GameDetails;

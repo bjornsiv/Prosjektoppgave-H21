@@ -45,16 +45,16 @@ export type Game = {
   
 class GameService {
     get(id: number) {
-        return axios.get<Game>('/gamedetails/' + id).then((response) => response.data);
+        return axios.get<Game>('/games/gamedetails/' + id).then((response) => response.data);
     }
     getAll() {
-        return axios.get<Game>('/').then((response) => response.data);
+        return axios.get<Game[]>('/games/').then((response) => response.data);
     }
     search(id:number) {
         return axios.get<Game>('/gamesearch').then((response) => response.data);
     }
     create(game: Game){
-        return axios.post<Game>('/newgame', {
+        return axios.post<Game>('/games/newgame', {
             game: game,
         }).then((response) => response.data.id);
     }

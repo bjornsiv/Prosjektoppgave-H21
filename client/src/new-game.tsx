@@ -8,7 +8,7 @@ import { gameservice, reviewservice, Game } from './services';
 
 
 
-class NewGame extends Component<{}> {
+export class NewGame extends Component<{}> {
     render() {
         return (
             <Card title="Add new game">
@@ -20,24 +20,8 @@ class NewGame extends Component<{}> {
            
         );
     }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 mounted() {
+}
 }

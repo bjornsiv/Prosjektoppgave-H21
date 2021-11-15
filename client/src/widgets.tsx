@@ -27,6 +27,27 @@ export class Row extends Component {
   }
 }
 
+export class CardRow extends Component {
+  render() {
+    return (
+      <div className="card">
+        <div className="row">{this.props.children}</div>);
+      </div>
+    )
+  }
+}
+
+export class ColumnPadd extends Component<{ width?: number; right?: boolean }> {
+  render() {
+    return (
+      <div padding-left={5}>
+        <div className={'col' + (this.props.width ? '-' + this.props.width : '')}>
+          <div className={'float-' + (this.props.right ? 'end' : 'start')}>{this.props.children}</div>
+        </div>
+      </div>
+    );
+  }
+}
 // Column (properties: width, right)
 export class Column extends Component<{ width?: number; right?: boolean }> {
   render() {

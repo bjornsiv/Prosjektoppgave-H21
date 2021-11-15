@@ -20,7 +20,7 @@ FORSLAG/IDÉER
 */
 
 
-class NewGame extends Component<{ match: { params: { id: number } } }> {
+export class NewGame extends Component<{ match: { params: { id: number } } }> {
 
     game: Game = {id: 0, title: '', description: '', release_date: new Date(), genre: '', platform: ''};
     title: String = this.game.title;

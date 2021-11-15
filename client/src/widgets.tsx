@@ -1,9 +1,9 @@
 // Her ligger widgets, laget med Bootstrap
 import * as React from 'react';
-import { ReactNode, ChangeEvent } from 'react';
+import { ReactNode, ChangeEvent, useState } from 'react';
 import { Component } from 'react-simplified';
 import { NavLink } from 'react-router-dom';
-
+import { Rating, RatingView } from 'react-simple-star-rating';
 
 // Card - for å ramme inn innhold på nettsiden, kan sette tittel
 // Properties: title
@@ -19,7 +19,6 @@ export class Card extends Component<{ title: ReactNode }> {
     );
   }
 }
-
 
 // Row
 export class Row extends Component {
@@ -49,7 +48,6 @@ export class ColumnPadd extends Component<{ width?: number; right?: boolean }> {
     );
   }
 }
-
 // Column (properties: width, right)
 export class Column extends Component<{ width?: number; right?: boolean }> {
   render() {
@@ -61,84 +59,69 @@ export class Column extends Component<{ width?: number; right?: boolean }> {
   }
 }
 
-
-// Button Success - opprette spill, anmeldelse, rating 
+// Button Success - opprette spill, anmeldelse, rating
 // properties: onClick
-class ButtonSuccess extends Component <{onClick: () => void }> {
+class ButtonSuccess extends Component<{ onClick: () => void }> {
   render() {
     return (
-      <button type="button" 
-          className="btn btn-success" 
-          onClick={this.props.onClick}>
+      <button type="button" className="btn btn-success" onClick={this.props.onClick}>
         {this.props.children}
       </button>
     );
   }
 }
 
-
-// Button Danger - slette spill, anmeldelse, rating 
+// Button Danger - slette spill, anmeldelse, rating
 // properties: onClick
-class ButtonDanger extends Component <{onClick: () => void }> {
+class ButtonDanger extends Component<{ onClick: () => void }> {
   render() {
     return (
-      <button type="button" 
-          className="btn btn-danger" 
-          onClick={this.props.onClick}>
+      <button type="button" className="btn btn-danger" onClick={this.props.onClick}>
         {this.props.children}
       </button>
     );
   }
 }
 
-// Button Light - lys knapp som brukes til ... 
+// Button Light - lys knapp som brukes til ...
 // properties: onClick
-class ButtonLight extends Component <{onClick: () => void }> {
+class ButtonLight extends Component<{ onClick: () => void }> {
   render() {
     return (
-      <button type="button" 
-          className="btn btn-light" 
-          onClick={this.props.onClick}>
+      <button type="button" className="btn btn-light" onClick={this.props.onClick}>
         {this.props.children}
       </button>
     );
   }
 }
 
-class ButtonInfo extends Component <{onClick: () => void }> {
+class ButtonInfo extends Component<{ onClick: () => void }> {
   render() {
     return (
-      <button type="button" 
-          className="btn btn-info float-end"
-          onClick={this.props.onClick}>
+      <button type="button" className="btn btn-info" onClick={this.props.onClick}>
         {this.props.children}
       </button>
     );
   }
 }
 
-
-class ButtonSecondary extends Component <{onClick: () => void }> {
+class ButtonSecondary extends Component<{ onClick: () => void }> {
   render() {
     return (
-      <button type="button" 
-          className="btn btn-secondary" 
-          onClick={this.props.onClick}>
+      <button type="button" className="btn btn-secondary" onClick={this.props.onClick}>
         {this.props.children}
       </button>
     );
   }
 }
-
 
 export class Button {
   static Success = ButtonSuccess;
   static Danger = ButtonDanger;
   static Light = ButtonLight;
-  static Info = ButtonInfo; 
+  static Info = ButtonInfo;
   static Secondary = ButtonSecondary;
 }
-
 
 // Navigation bar link (properties: to)
 export class NavBarLink extends Component<{ to: string }> {
@@ -150,7 +133,6 @@ export class NavBarLink extends Component<{ to: string }> {
     );
   }
 }
-
 
 // Navigation bar (properties: brand)
 export class NavBar extends Component<{ brand: ReactNode }> {
@@ -170,8 +152,7 @@ export class NavBar extends Component<{ brand: ReactNode }> {
   }
 }
 
-
-// Form label - etikett 
+// Form label - etikett
 class FormLabel extends Component {
   render() {
     return <label className="col-form-label">{this.props.children}</label>;
@@ -212,7 +193,7 @@ class FormNumberInput extends Component<{
     return (
       <input
         {...rest}
-        type='number'
+        type="number"
         className="form-control"
         value={this.props.value}
         onChange={this.props.onChange}
@@ -276,7 +257,7 @@ class FormSelect extends Component<{
 }
 
 export class Form {
-  static Label = FormLabel;   // = From.Label osv. 
+  static Label = FormLabel; // = From.Label osv.
   static Input = FormInput;
   static Textarea = FormTextarea;
   static Checkbox = FormCheckbox;
@@ -284,7 +265,7 @@ export class Form {
   static NumberInput = FormNumberInput;
 }
 
-// Alert messages - beskjeder på nettsiden 
+// Alert messages - beskjeder på nettsiden
 export class Alert extends Component {
   alerts: { id: number; text: ReactNode; type: string }[] = [];
   nextId: number = 0;
@@ -309,125 +290,159 @@ export class Alert extends Component {
     );
   }
 
-          // Success alert
-          static success(text: ReactNode) {
-            // To avoid 'Cannot update during an existing state transition' errors, run after current event through setTimeout
-            setTimeout(() => {
-              let instance = Alert.instance(); // Get rendered Alert component instance
-              if (instance) instance.alerts.push({ id: instance.nextId++, text: text, type: 'success' });
-            });
-          }
+  // Success alert
+  static success(text: ReactNode) {
+    // To avoid 'Cannot update during an existing state transition' errors, run after current event through setTimeout
+    setTimeout(() => {
+      let instance = Alert.instance(); // Get rendered Alert component instance
+      if (instance) instance.alerts.push({ id: instance.nextId++, text: text, type: 'success' });
+    });
+  }
 
-          // Info alert 
-          static info(text: ReactNode) {
-            // To avoid 'Cannot update during an existing state transition' errors, run after current event through setTimeout
-            setTimeout(() => {
-              let instance = Alert.instance(); // Get rendered Alert component instance
-              if (instance) instance.alerts.push({ id: instance.nextId++, text: text, type: 'info' });
-            });
-          }
+  // Info alert
+  static info(text: ReactNode) {
+    // To avoid 'Cannot update during an existing state transition' errors, run after current event through setTimeout
+    setTimeout(() => {
+      let instance = Alert.instance(); // Get rendered Alert component instance
+      if (instance) instance.alerts.push({ id: instance.nextId++, text: text, type: 'info' });
+    });
+  }
 
-          // Warning alert
-          static warning(text: ReactNode) {
-            // To avoid 'Cannot update during an existing state transition' errors, run after current event through setTimeout
-            setTimeout(() => {
-              let instance = Alert.instance(); // Get rendered Alert component instance
-              if (instance) instance.alerts.push({ id: instance.nextId++, text: text, type: 'warning' });
-            });
-          }
+  // Warning alert
+  static warning(text: ReactNode) {
+    // To avoid 'Cannot update during an existing state transition' errors, run after current event through setTimeout
+    setTimeout(() => {
+      let instance = Alert.instance(); // Get rendered Alert component instance
+      if (instance) instance.alerts.push({ id: instance.nextId++, text: text, type: 'warning' });
+    });
+  }
 
-          // Danger alert
-          static danger(text: ReactNode) {
-            // To avoid 'Cannot update during an existing state transition' errors, run after current event through setTimeout
-            setTimeout(() => {
-              let instance = Alert.instance(); // Get rendered Alert component instance
-              if (instance) instance.alerts.push({ id: instance.nextId++, text: text, type: 'danger' });
-            });
-          }
+  // Danger alert
+  static danger(text: ReactNode) {
+    // To avoid 'Cannot update during an existing state transition' errors, run after current event through setTimeout
+    setTimeout(() => {
+      let instance = Alert.instance(); // Get rendered Alert component instance
+      if (instance) instance.alerts.push({ id: instance.nextId++, text: text, type: 'danger' });
+    });
+  }
 }
-        
-
 
 // Messages (Sivert) - ta bort hvis fra chat-app?
 class Messages extends Component<{ from: string; message: string; key: number }> {
-    render() {
-      return (
-        <div className="card" style={{ width: '18rem' }} key={this.props.key}>
-          <span className="card-text">
-            {this.props.from}: {this.props.message}{' '}
-          </span>
-        </div>
-      );
-    }
+  render() {
+    return (
+      <div className="card" style={{ width: '18rem' }} key={this.props.key}>
+        <span className="card-text">
+          {this.props.from}: {this.props.message}{' '}
+        </span>
+      </div>
+    );
   }
-  
+}
 
 // Send (Sivert) - ta bort hvis fra chat-app?
 class Send extends Component<{ incomName: string; key: number }> {
-    render() {
-        return (
-            <div className="card" style={{ width: '18rem' }} key={this.props.key}>
-                <span className="card-text"> {this.props.incomName} </span>
-            </div>
-            );
-        }
-    }
+  render() {
+    return (
+      <div className="card" style={{ width: '18rem' }} key={this.props.key}>
+        <span className="card-text"> {this.props.incomName} </span>
+      </div>
+    );
+  }
+}
 
 export class List {
-    static Message = Messages;
-    static Send = Send;
-    }
-
+  static Message = Messages;
+  static Send = Send;
+}
 
 // Søkefelt. Hentet fra (Forms) https://getbootstrap.com/docs/4.0/components/navbar/#forms
 export class SearchBar extends Component {
   render() {
     return (
       <nav className="navbar navbar-light bg-light">
-      <form className="form-inline">
-        <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
+        <form className="form-inline">
+          <input
+            className="form-control mr-sm-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
+            Search
+          </button>
+        </form>
       </nav>
     );
   }
 }
 
-
 // Innlogging. Hentet fra (Menu forms) https://getbootstrap.com/docs/4.0/components/dropdowns/#menu-forms
 // Mulig vi ikke kommer til å bruke denne hvis vi har innlogging via fb e.l.
-// Bytte ut 
+// Bytte ut
 export class SignIn extends Component {
   render() {
     return (
-        <div className="dropdown-menu">
-    <form className="px-4 py-3">
-      <div className="form-group">
-        <label htmlFor="exampleDropdownFormEmail1">E-post</label>
-        <input type="email" className="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com"/>
+      <div className="dropdown-menu">
+        <form className="px-4 py-3">
+          <div className="form-group">
+            <label htmlFor="exampleDropdownFormEmail1">E-post</label>
+            <input
+              type="email"
+              className="form-control"
+              id="exampleDropdownFormEmail1"
+              placeholder="email@example.com"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="exampleDropdownFormPassword1">Passord</label>
+            <input
+              type="password"
+              className="form-control"
+              id="exampleDropdownFormPassword1"
+              placeholder="Password"
+            />
+          </div>
+          <div className="form-check">
+            <input type="checkbox" className="form-check-input" id="dropdownCheck" />
+            <label className="form-check-label" htmlFor="dropdownCheck">
+              Husk meg
+            </label>
+          </div>
+          <button type="submit" className="btn btn-primary">
+            Logg inn
+          </button>
+        </form>
+        <div className="dropdown-divider"></div>
+        <a className="dropdown-item" href="#">
+          Opprett ny bruker
+        </a>
+        <a className="dropdown-item" href="#">
+          Glemt passordet?
+        </a>
       </div>
-      <div className="form-group">
-        <label htmlFor="exampleDropdownFormPassword1">Passord</label>
-        <input type="password" className="form-control" id="exampleDropdownFormPassword1" placeholder="Password"/>
-      </div>
-      <div className="form-check">
-        <input type="checkbox" className="form-check-input" id="dropdownCheck"/>
-        <label className="form-check-label" htmlFor="dropdownCheck">
-          Husk meg
-        </label>
-      </div>
-      <button type="submit" className="btn btn-primary">Logg inn</button>
-    </form>
-    <div className="dropdown-divider"></div>
-    <a className="dropdown-item" href="#">Opprett ny bruker</a>
-    <a className="dropdown-item" href="#">Glemt passordet?</a>
-  </div>
     );
   }
 }
 
+// Rating stjerner 1-5 med React simple star rating: https://www.npmjs.com/package/react-simple-star-rating
 
-/* Må legge inn en rekke avhengigheter som Bootstrap Vue her (?) */
+export class StarRating extends Component<{ score: number }> {
+  rating: number = 0;
+  setRating: any;
+
+  mounted() {
+    [this.rating, this.setRating] = useState(this.props.score);
+  }
+
+  render() {
+    return (
+        <Rating onClick={this.setRating} ratingValue={this.rating} />
+    );
+  }
+}
+
+/* Må legge inn Bootstrap Vue hvis disse skal brukes */
 /*
 
 // Rating 1-5 stjerner (fungerer ikke, må fikses senere)

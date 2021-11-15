@@ -76,7 +76,7 @@ class ReviewService {
         return axios.get<Review>('/gamereviews/' + id).then((response) => response.data);
     }
     getAll(gId: number) {
-        return axios.get<Review>('/gamereviews/' + gId).then((response) => response.data);
+        return axios.get<Review[]>('/gamereviews/' + gId).then((response) => response.data);
     }
     search() {
         return axios.get<Review>('/gamesearch').then((response) => response.data);

@@ -3,7 +3,8 @@ import * as React from 'react';
 import { ReactNode, ChangeEvent, useState } from 'react';
 import { Component } from 'react-simplified';
 import { NavLink } from 'react-router-dom';
-import { Rating, RatingView } from 'react-simple-star-rating';
+import rater from 'rater-js';
+import ReactDOM from 'react-dom';
 
 // Card - for å ramme inn innhold på nettsiden, kan sette tittel
 // Properties: title
@@ -425,22 +426,49 @@ export class SignIn extends Component {
   }
 }
 
-// Rating stjerner 1-5 med React simple star rating: https://www.npmjs.com/package/react-simple-star-rating
+// Rating stjerner 1-5 med rater-js: https://www.npmjs.com/package/rater-js
 
-export class StarRating extends Component<{ score: number }> {
-  rating: number = 0;
-  setRating: any;
+export class StarRating extends Component<
+  { 
+    value: number, 
+    edit: boolean, 
+    onChange?: (element: StarRating, value:number) => void 
+  }> 
+{
+  rating: Rater | null = null;
+
+  onChange(value: number, done?: (() => any) | undefined){
+    if (this.props.onChange) {
+      this.props.onChange(this, value);
+    }
+    if (done) {
+      done();
+    }
+  }
 
   mounted() {
-    [this.rating, this.setRating] = useState(this.props.score);
+    const element = ReactDOM.findDOMNode(this);
+
+    if (element instanceof HTMLElement && !isNaN(this.props.value)) {
+      this.rating = rater(
+        {
+          element: element, 
+          rateCallback: this.props.onChange ? this.onChange : undefined,
+          readOnly: !this.props.edit
+        }
+      );
+
+      this.rating.setRating(this.props.value);
+    }
   }
 
   render() {
     return (
-        <Rating onClick={this.setRating} ratingValue={this.rating} />
+        <div />
     );
   }
 }
+
 
 /* Må legge inn Bootstrap Vue hvis disse skal brukes */
 /*

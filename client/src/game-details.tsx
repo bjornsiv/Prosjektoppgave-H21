@@ -45,7 +45,7 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
 
                 <Card title="Average rating:">
                   <Column>
-                    <StarRating score={this.average}/>
+                    <StarRating value={this.average} edit={false}/>
                   </Column>
 
                   <Column>
@@ -62,7 +62,7 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
                                   {review.title}
                               </Column>
                               <Column>
-                                  <StarRating score={review.score}></StarRating>
+                                  <StarRating edit={false} value={review.score}/>
                               </Column>
                             </Row>
                             <Row>

@@ -10,7 +10,7 @@ router.get('/', (_request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
-router.get('/gamedetails/:id', (request, response) => {
+router.get('/:id', (request, response) => {
   const id = Number(request.params.id);
   gameService
     .get(id)
@@ -18,7 +18,7 @@ router.get('/gamedetails/:id', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
-router.post('/newgame', (request, response) => {
+router.post('/', (request, response) => {
   const data = request.body;
   if (! data)  {
     response.status(500).send('Missing data');
@@ -36,7 +36,7 @@ router.post('/newgame', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
-router.put('/gamedetails', (request, response) => {
+router.put('/', (request, response) => {
   gameService
     .update(
       request.body
@@ -45,7 +45,7 @@ router.put('/gamedetails', (request, response) => {
     .catch((error) => response.status(400).send(error));
 });
 
-router.delete('/gamedetails/:id', (request, response) => {
+router.delete('/:id', (request, response) => {
   gameService
     .delete(Number(request.params.id))
     .then((_result) => response.send())

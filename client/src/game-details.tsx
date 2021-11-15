@@ -4,11 +4,10 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
 import { Card, Row, Column, Button, NavBarLink, NavBar, Form, Alert, SearchBar, SignIn, StarRating } from './widgets';
-import { NavLink, HashRouter, Route } from 'react-router-dom';
 import { createHashHistory } from 'history';
 import { gameservice, reviewservice, Game, Review } from './services';
 
-
+const history = createHashHistory();
 
 class GameDetails extends Component <{ match: { params: { id: number } } }> {
   reviews: Review[] = [];
@@ -50,24 +49,24 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
                   </Column>
 
                   <Column>
-                  <Button.Success onClick={() => history.push('/game-review/' + this.game.id)}>Add review</Button.Success>
+                  <Button.Success onClick={() => history.push('/gamereview/' + this.game.id)}>Add review</Button.Success>
                   </Column>
                 </Card>
 
                 <Card title="Game reviews">
-                {this.review.map((data, key) => {
+                {this.reviews.map((review) => {
                       return (
-                          <Card title={data.title} key={key}>
+                          <Card title={review.title} key={review.id}>
                             <Row>
                               <Column>
-                                  {data.title}
+                                  {review.title}
                               </Column>
                               <Column>
-                                  <StarRating score={data.score}></StarRating>
+                                  <StarRating score={review.score}></StarRating>
                               </Column>
                             </Row>
                             <Row>
-                              {data.description}
+                              {review.description}
                             </Row>
                           </Card>
                       )

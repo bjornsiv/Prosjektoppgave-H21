@@ -13,7 +13,7 @@ const history = createHashHistory();
 
 FORSLAG/IDÉER
 - Genre: Endre fra Form.Input til at man kan velge fra en liste med besteme genres og platforms?
-- Legge til slik at man ikke kan legge til spill som allerede eksisterer?
+- Legge til sjekk slik at man ikke kan legge til spill som allerede eksisterer?
 
 - FIKS FEIL MED Release date: onChange={(event) => (this.game.release_date...)
 
@@ -44,7 +44,7 @@ class NewGame extends Component<{ match: { params: { id: number } } }> {
                 </Row>
                 <Row>
                     <Column width={1}>
-                        <Form.Label>Release date:</Form.Label>
+                        <Form.Label>Released:</Form.Label>
                     </Column>
                     <Column width={4}>
                         <Form.Input 

@@ -21,6 +21,7 @@
   "dependencies": {
     "axios": "^0.23.0",
     "react-router-dom": "^5.2.0",
+    "react-simple-star-rating": "^3.0.0",
     "react-simplified": "^3.0.0"
   },
   "devDependencies": {

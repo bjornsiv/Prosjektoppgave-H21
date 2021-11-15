@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import { Component } from 'react-simplified';
-import { Card, Row, Column, Button, NavBarLink, NavBar, Form, Alert, SearchBar, SignIn } from './widgets';
+import { Card, Row, Column, Button, NavBarLink, NavBar, Form, Alert, SearchBar, SignIn, StarRating } from './widgets';
 import { NavLink, HashRouter, Route } from 'react-router-dom';
 import { createHashHistory } from 'history';
 import { gameservice, reviewservice, Game, Review } from './services';
@@ -11,7 +11,8 @@ import { gameservice, reviewservice, Game, Review } from './services';
 
 
 class GameDetails extends Component <{ match: { params: { id: number } } }> {
-  review: Review[] = [];
+  reviews: Review[] = [];
+  average: number = 0;
   game: Game = {id: 0, title: '', description: '', release_date: new Date(), genre: '', platform: ''};
   title: String = this.game.title;
 
@@ -43,15 +44,31 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
                   </Row>
                 </Card>
 
+                <Card title="Average rating:">
+                  <Column>
+                    <StarRating score={this.average}/>
+                  </Column>
+
+                  <Column>
+                  <Button.Success onClick={() => history.push('/game-review/' + this.game.id)}>Add review</Button.Success>
+                  </Column>
+                </Card>
+
                 <Card title="Game reviews">
                 {this.review.map((data, key) => {
                       return (
                           <Card title={data.title} key={key}>
+                            <Row>
                               <Column>
-                                  <Row>{data.description}</Row>
-                                  <Row>{data.score}</Row>
-                                  <Row>{data.created_at}</Row>
+                                  {data.title}
                               </Column>
+                              <Column>
+                                  <StarRating score={data.score}></StarRating>
+                              </Column>
+                            </Row>
+                            <Row>
+                              {data.description}
+                            </Row>
                           </Card>
                       )
                   })}
@@ -69,7 +86,10 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
 
       reviewservice.getAll(this.game.id)
           .then((reviews) => {
-              this.review.push(reviews)
+              this.reviews = reviews;
+              this.average = this.reviews.reduce((previous: number, current: Review) => {
+                return current.score + previous;
+              }, 0) / this.reviews.length;
           })
           .catch((error) => Alert.danger('Error getting reviews: ' + error.message))
   }

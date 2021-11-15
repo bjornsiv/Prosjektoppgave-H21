@@ -60,7 +60,6 @@ export class GameReview extends Component<{ match: { params: { id: number } } }>
                     reviewservice
                       .create(this.review)
                       .then(() => {
-                        GameReview.instance()?.mounted();
                         history.push('/gamedetails/' + this.game.id);
                       })
                   }

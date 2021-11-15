@@ -27,7 +27,7 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
                   </Row>
                   <Row>
                     <Column width={2}>Release date:</Column>
-                    <Column>{this.game.release_date}</Column>
+                    <Column>{this.game.release_date?.toISOString()}</Column>
                   </Row>
                   <Row>
                     <Column width={2}>Genre:</Column>

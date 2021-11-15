@@ -3,12 +3,15 @@ import ReactDOM from 'react-dom';
 import * as React from 'react';
 import { Component } from 'react-simplified';
 import { HashRouter, Route } from 'react-router-dom';
-import { NavBar, Card, Alert, Column, Row } from './widgets';
+import { NavBar, Card, Alert, Column, Row, Button, CardRow } from './widgets';
 import axios from 'axios';
 import { GameReview } from './game-review';
 import GameDetails  from './game-details';
+import {NewGame} from './new-game'
 import { gameservice, Game } from './services';
+import { createHashHistory } from 'history';
 
+const history = createHashHistory();
 
 // Meny med link til andre sider - Finn ut hva som skal med her, legg evt. til senere
 class Menu extends Component {
@@ -31,25 +34,43 @@ class FrontPage extends Component {
   games:Game[] = [];
   
   render() {
+      console.log(this.games);
       return (
+        <>
         <div>
-          <Card title="GameRatings.com">Rate top games</Card> 
-          {this.games.map((data, key) => {
-            <Row key={key}>
-              <Column>{data.title}</Column>
-              <Column>{data.description}</Column>
-              <Column>{data.genre}</Column>
-              <Column>{data.platform}</Column>
+          <Card title="GameRatings.com">Rate top games <Button.Info onClick={() => history.push('/addgame/')}>Add game</Button.Info></Card> 
+            
+          <div>
+            <Card title="">
+            <Row>
+              <Column>Title</Column>
+              <Column>Description</Column>
+              <Column>Genre</Column>
+              <Column>Platform</Column> 
+              <Column width={3} right= {true}></Column>
             </Row>
-          })}
+            </Card>
+          {this.games.map((game) => (
+            <CardRow key={game.id}>
+              <Column>{game.title}</Column>
+              <Column>{game.description}</Column>
+              <Column>{game.genre}</Column>
+              <Column>{game.platform}</Column>
+              <Column width={3} right= {true}>
+                <Button.Success onClick={() => history.push('/gamedetails/' + game.id)}>See Reviews</Button.Success>
+                <Button.Success onClick={() => history.push('/editgame/' + game.id)}>Edit game</Button.Success>
+              </Column>
+            </CardRow>
+          ))}
+          </div>
      </div>
-   );
+     </>
+   )
   }
   mounted(){
     gameservice.getAll()
-    .then((games) => this.games.push(games))
+    .then((games) => { this.games = games; } )
     .catch((error) => Alert.danger('You got an error: ' + error.message));
-    console.log(this.games);
   }
 }
 
@@ -75,7 +96,7 @@ ReactDOM.render(
         <Route path="/gamesearch" />
         <Route path="/gamedetails" component={GameDetails} />
         <Route path="/gamereview" component={GameReview} />
-        <Route path="/newgame" />
+        <Route path="/newgame" component={NewGame}/>
       </div>
     </HashRouter>,
     document.getElementById('root')

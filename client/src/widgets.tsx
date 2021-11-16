@@ -3,6 +3,7 @@ import * as React from 'react';
 import { ReactNode, ChangeEvent, useState } from 'react';
 import { Component } from 'react-simplified';
 import { NavLink } from 'react-router-dom';
+import { Rating } from 'react-simple-star-rating'
 import rater from 'rater-js';
 import ReactDOM from 'react-dom';
 
@@ -428,7 +429,7 @@ export class SignIn extends Component {
 
 // Rating stjerner 1-5 med rater-js: https://www.npmjs.com/package/rater-js
 
-export class StarRating extends Component<{ score: number }>
+export class StarRating extends Component<
   { 
     value: number, 
     edit: boolean, 
@@ -465,6 +466,20 @@ export class StarRating extends Component<{ score: number }>
   render() {
     return (
         <div />
+    );
+  }
+}
+
+export class StarRatingOld extends Component<{ score: number }> {
+  rating: number = 0;
+  setRating: any;
+
+  handleRating = (score: number) => {
+    this.setRating(score)
+  }
+  render() {
+    return (
+        <Rating onClick={this.handleRating} ratingValue={this.rating} />
     );
   }
 }

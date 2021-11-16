@@ -3,7 +3,6 @@ import * as React from 'react';
 import { ReactNode, ChangeEvent, useState } from 'react';
 import { Component } from 'react-simplified';
 import { NavLink } from 'react-router-dom';
-import { Rating } from 'react-simple-star-rating'
 import rater from 'rater-js';
 import ReactDOM from 'react-dom';
 
@@ -469,21 +468,6 @@ export class StarRating extends Component<
     );
   }
 }
-
-export class StarRatingOld extends Component<{ score: number }> {
-  rating: number = 0;
-  setRating: any;
-
-  handleRating = (score: number) => {
-    this.setRating(score)
-  }
-  render() {
-    return (
-        <Rating onClick={this.handleRating} ratingValue={this.rating} />
-    );
-  }
-}
-
 
 /* Må legge inn Bootstrap Vue hvis disse skal brukes */
 

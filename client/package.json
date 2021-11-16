@@ -5,7 +5,7 @@
   "main": "/src/index.js",
   "scripts": {
     "start": "webpack serve --static --open --mode development",
-    "build": "webpack --mode production",
+    "build": "webpack --mode development",
     "test": "jest --setupFiles ./test/setup.tsx"
   },
   "repository": {
@@ -16,6 +16,10 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/bjornsiv/Prosjektoppgave-H21/issues"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverage": true
   },
   "homepage": "https://github.com/bjornsiv/Prosjektoppgave-H21#readme",
   "dependencies": {

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { ReactNode, ChangeEvent, useState } from 'react';
 import { Component } from 'react-simplified';
 import { NavLink } from 'react-router-dom';
-import { Rating, RatingView } from 'react-simple-star-rating';
+import { Rating } from 'react-simple-star-rating';
 
 // Card - for å ramme inn innhold på nettsiden, kan sette tittel
 // Properties: title
@@ -427,6 +427,40 @@ export class SignIn extends Component {
 
 // Rating stjerner 1-5 med React simple star rating: https://www.npmjs.com/package/react-simple-star-rating
 
+class StarRatingSet extends Component<{ score: number }> {
+  rating: number = 0;
+  setRating: any;
+
+  handleRating = () => {
+    console.log('Heyooo')
+  }
+  render() {
+    return (
+        <Rating onClick={this.handleRating} ratingValue={this.props.score} />
+    );
+  }
+}
+
+class StarRatingAvg extends Component<{ score: number }> {
+  rating: number = 0;
+  setRating: any;
+
+  handleRating = (score: number) => {
+    this.setRating(score)
+  }
+  render() {
+    return (
+        <Rating onClick={this.handleRating} ratingValue={this.rating} />
+    );
+  }
+}
+
+export class StarRating {
+  static Set = StarRatingSet;
+  static Avg = StarRatingAvg;
+}
+
+/*
 export class StarRating extends Component<{ score: number }> {
   rating: number = 0;
   setRating: any;
@@ -443,22 +477,23 @@ export class StarRating extends Component<{ score: number }> {
 }
 
 /* Må legge inn Bootstrap Vue hvis disse skal brukes */
-/*
 
+/*
 // Rating 1-5 stjerner (fungerer ikke, må fikses senere)
-export class Rating extends Component {
+class Rating extends Component<{ onClick: () => void, ratingValue: number }> {
   render() {
     return ( 
       <template>
         <div>
           <label htmlFor="rating-inline">Inline rating:</label>
-          <b-form-rating id="rating-inline" inline value="4"></b-form-rating>
+          <b className="form-rating" id="rating-inline" inline-value="4"></b>
         </div>
       </template>
     );
   }
 }
 
+/*
 // Image - bilder av spill o.l.
 export class Image extends Component {
   render() {

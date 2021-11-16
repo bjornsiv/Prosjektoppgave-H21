@@ -3,7 +3,7 @@ import reviewService from './review-service';
 
 const router = express.Router();
 
-router.get('/:gId', (request, response) => {
+router.get('/gamereviews/:gId', (request, response) => {
   const gId = Number(request.params.gId)
   reviewService
     .getAll(gId)

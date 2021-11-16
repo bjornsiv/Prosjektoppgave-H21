@@ -95,7 +95,7 @@ ReactDOM.render(
         <Route exact path="/" component={FrontPage} />
         <Route path="/gamesearch" />
         <Route path="/gamedetails/:id(\d+)" component={GameDetails} />
-        <Route path="/gamereview/:id(\d+)" component={GameReview} />
+        <Route path="/gamereview/:gId(\d+)" component={GameReview} />
         <Route path="/newgame" component={NewGame}/>
       </div>
     </HashRouter>,

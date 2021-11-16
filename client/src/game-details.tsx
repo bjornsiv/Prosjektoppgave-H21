@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import { Component } from 'react-simplified';
-import { Card, Row, Column, Button, NavBarLink, NavBar, Form, Alert, SearchBar, SignIn, StarRating } from './widgets';
+import { Card, Row, Column, Button, Alert, StarRating } from './widgets';
 import { createHashHistory } from 'history';
 import { gameservice, reviewservice, Game, Review } from './services';
 
@@ -59,9 +59,6 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
                       return (
                           <Card title={review.title} key={review.id}>
                             <Row>
-                              <Column>
-                                  {review.title}
-                              </Column>
                               <Column>
                                   <StarRating edit={false} value={review.score}/>
 

@@ -59,6 +59,7 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
                       return (
                           <Card title={review.title} key={review.id}>
                             <Row>
+                              <Row>{}</Row>
                               <Column>
                                   <StarRating edit={false} value={review.score}/>
 
@@ -82,7 +83,7 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
           .then((game) => (this.game = game))
           .catch((error) => Alert.danger('Error getting game: ' + error.message));
 
-      reviewservice.getAll(this.game.id)
+      reviewservice.getAll(this.props.match.params.id)
           .then((reviews) => {
               this.reviews = reviews;
               this.average = this.reviews.reduce((previous: number, current: Review) => {

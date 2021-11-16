@@ -94,8 +94,8 @@ ReactDOM.render(
         <Menu />
         <Route exact path="/" component={FrontPage} />
         <Route path="/gamesearch" />
-        <Route path="/gamedetails/:gId(\d+)" component={GameDetails} />
-        <Route path="/gamereview" component={GameReview} />
+        <Route path="/gamedetails/:id(\d+)" component={GameDetails} />
+        <Route path="/gamereview/:id(\d+)" component={GameReview} />
         <Route path="/newgame" component={NewGame}/>
       </div>
     </HashRouter>,

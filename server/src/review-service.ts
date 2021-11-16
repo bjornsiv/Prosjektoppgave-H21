@@ -1,6 +1,8 @@
 import pool from './mysql-pool';
 import {Game, Review, ReviewEvaluation, User} from './db-types';
 
+//Vi må ha med at vi kan markere en anbefaling som relevant etter at den er registrert
+//skal være mulig å redigeere og slette en anmeldelse 
 
 class ReviewService {
 

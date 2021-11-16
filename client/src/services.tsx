@@ -45,24 +45,24 @@ export type Game = {
   
 class GameService {
     get(id: number) {
-        return axios.get<Game>('/games/gamedetails/' + id).then((response) => response.data);
+        return axios.get<Game>('/games/' + id).then((response) => response.data);
     }
     getAll() {
         return axios.get<Game[]>('/games/').then((response) => response.data);
     }
-    search(id:number) {
-        return axios.get<Game>('/games/gamesearch').then((response) => response.data);
-    }
+    //search(id:number) {
+    //    return axios.get<Game>('/games').then((response) => response.data);
+    //}
     create(game: Game){
-        return axios.post<Game>('/games/newgame', {
+        return axios.post<Game>('/games/', {
             game: game,
         }).then((response) => response.data.id);
     }
     delete(id:number) {
-        return axios.delete<Game>('/games/gamedetails/' + id);
+        return axios.delete<Game>('/games/' + id);
     }
     update(game: Game){
-        return axios.put<Game>('/games/gamedetails/', {
+        return axios.put<Game>('/games/', {
             game: game,
         })
         .then((response) => response.data);
@@ -73,24 +73,24 @@ class GameService {
 
 class ReviewService {
     get(id: number) {
-        return axios.get<Review>('/reviews/gamereviews/' + id).then((response) => response.data);
+        return axios.get<Review>('/reviews/' + id).then((response) => response.data);
     }
     getAll(gId: number) {
-        return axios.get<Review[]>('/reviews/gamereviews/' + gId).then((response) => response.data);
+        return axios.get<Review[]>('/reviews/' + gId).then((response) => response.data);
     }
     search() {
         return axios.get<Review>('/reviews/gamesearch').then((response) => response.data);
     }
     create(review: Review){
-        return axios.post<Review>('/reviews/gamereviews/new', {
+        return axios.post<Review>('/reviews/', {
             review: review,
         }).then((response) => response.data.id);
     }
     delete(id:number) {
-        return axios.delete<Game>('/reviews/gamereviews/' + id);
+        return axios.delete<Game>('/reviews/' + id);
     }
     update(review: Review){
-        return axios.put<Review>('/reviews/gamereviews', {
+        return axios.put<Review>('/reviews', {
             review:review,
         })
         .then((response) => response.data);

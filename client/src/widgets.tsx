@@ -428,7 +428,7 @@ export class SignIn extends Component {
 
 // Rating stjerner 1-5 med rater-js: https://www.npmjs.com/package/rater-js
 
-export class StarRating extends Component<
+export class StarRating extends Component<{ score: number }>
   { 
     value: number, 
     edit: boolean, 
@@ -471,22 +471,23 @@ export class StarRating extends Component<
 
 
 /* Må legge inn Bootstrap Vue hvis disse skal brukes */
-/*
 
+/*
 // Rating 1-5 stjerner (fungerer ikke, må fikses senere)
-export class Rating extends Component {
+class Rating extends Component<{ onClick: () => void, ratingValue: number }> {
   render() {
     return ( 
       <template>
         <div>
           <label htmlFor="rating-inline">Inline rating:</label>
-          <b-form-rating id="rating-inline" inline value="4"></b-form-rating>
+          <b className="form-rating" id="rating-inline" inline-value="4"></b>
         </div>
       </template>
     );
   }
 }
 
+/*
 // Image - bilder av spill o.l.
 export class Image extends Component {
   render() {

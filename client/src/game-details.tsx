@@ -12,7 +12,7 @@ const history = createHashHistory();
 class GameDetails extends Component <{ match: { params: { id: number } } }> {
   reviews: Review[] = [];
   average: number = 0;
-  game: Game = {id: 0, title: '', description: '', release_date: new Date(), genre: '', platform: ''};
+  game: Game = {id: 0, title: '', description: '', release_date: new Date(500000000000), genre: '', platform: ''};
   title: String = this.game.title;
 
     render() {
@@ -46,6 +46,7 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
                 <Card title="Average rating:">
                   <Column>
                     <StarRating value={this.average} edit={false}/>
+
                   </Column>
 
                   <Column>
@@ -63,6 +64,7 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
                               </Column>
                               <Column>
                                   <StarRating edit={false} value={review.score}/>
+
                               </Column>
                             </Row>
                             <Row>
@@ -92,6 +94,7 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
           })
           .catch((error) => Alert.danger('Error getting reviews: ' + error.message))
   }
+
 }
 
 export default GameDetails;

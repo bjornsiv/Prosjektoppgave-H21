@@ -17,6 +17,10 @@
   "bugs": {
     "url": "https://github.com/bjornsiv/Prosjektoppgave-H21/issues"
   },
+  "jest": {
+    "testEnvironment": "node",
+    "collectCoverage": true
+  },
   "homepage": "https://github.com/bjornsiv/Prosjektoppgave-H21#readme",
   "dependencies": {
     "axios": "^0.23.0",

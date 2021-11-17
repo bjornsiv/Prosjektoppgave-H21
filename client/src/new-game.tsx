@@ -1,14 +1,11 @@
 import * as React from 'react';
-import { KeyboardEvent } from 'react';
 import { Component } from 'react-simplified';
-import { Card, Row, Column, Button, NavBarLink, NavBar, Form, Alert } from './widgets';
-import { NavLink, HashRouter, Route } from 'react-router-dom';
+import { Card, Row, Column, Button, Form, Alert } from './widgets';
 import { createHashHistory } from 'history';
 import { Game, gameservice } from './services';
+import DatePicker from 'sassy-datepicker';
 
 const history = createHashHistory();
-
-
 /* 
 
 FORSLAG/IDÉER
@@ -18,13 +15,27 @@ FORSLAG/IDÉER
 - FIKS FEIL MED Release date: onChange={(event) => (this.game.release_date...)
 
 */
+const [visible, setVisible] = React.useState(false);
+const [date, setDate] = React.useState(new Date());
 
-
-export class NewGame extends Component<{ match: { params: { id: number } } }> {
+class NewGame extends Component {
 
     game: Game = {id: 0, title: '', description: '', release_date: new Date(), genre: '', platform: ''};
     title: String = this.game.title;
-   
+    newId: Number = 0;
+    currentDateValue: Date = new Date();
+    
+      
+    //visible = React.useState(false);
+    //setVisible = React.useState(false);
+    //date = React.useState(new Date());
+    //setDate = React.useState(new Date());
+
+    handleChange(newDate: Date) {
+        setDate(newDate);
+        setVisible(false);
+    };
+    togglePicker = () => setVisible((v) => !v);
 
     render() {
         return (
@@ -47,10 +58,13 @@ export class NewGame extends Component<{ match: { params: { id: number } } }> {
                         <Form.Label>Released:</Form.Label>
                     </Column>
                     <Column width={4}>
-                        <Form.Input 
-                            type="date"
-                            value="1950-01-01"
-                            onChange={(event) => (this.game.release_date = event.currentTarget.value)}/>
+                        {visible ? (
+                        <DatePicker 
+                            initialDate={this.currentDateValue}  
+                            onChange={this.handleChange} 
+                        />
+                        ): null}
+                        
                     </Column>
                 </Row>
                 <Row>
@@ -91,10 +105,10 @@ export class NewGame extends Component<{ match: { params: { id: number } } }> {
                         onClick={() =>
                             gameservice
                             .create(this.game)
-                            .then(() => {
-                                NewGame.instance()?.mounted();
-                                history.push('/gamedetails/' + this.game.id);
-                            })
+                            .then((game) => {
+                                this.newId = game;
+                                history.push('/gamedetails/' + this.newId);
+                            }).catch((error) => Alert.danger('Error' + error.message))
                         }
                         >
                     Add game
@@ -105,10 +119,6 @@ export class NewGame extends Component<{ match: { params: { id: number } } }> {
             </>
         );
     }
-
-    mounted() {
-        gameservice.get(this.props.match.params.id)
-            .then((game) => (this.game = game))
-            .catch((error) => Alert.danger('Error' + error.message));
-    }
 }
+
+export default NewGame;

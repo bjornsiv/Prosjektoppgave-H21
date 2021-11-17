@@ -257,6 +257,8 @@ class FormSelect extends Component<{
   }
 }
 
+
+
 export class Form {
   static Label = FormLabel; // = From.Label osv.
   static Input = FormInput;
@@ -468,6 +470,8 @@ export class StarRating extends Component<
     );
   }
 }
+
+
 
 /* Må legge inn Bootstrap Vue hvis disse skal brukes */
 

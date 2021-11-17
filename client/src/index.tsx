@@ -5,11 +5,13 @@ import { Component } from 'react-simplified';
 import { HashRouter, Route } from 'react-router-dom';
 import { NavBar, Card, Alert, Column, Row, Button, CardRow } from './widgets';
 import axios from 'axios';
-import { GameReview } from './game-review';
-import GameDetails  from './game-details';
-import {NewGame} from './new-game'
+
 import { gameservice, Game } from './services';
 import { createHashHistory } from 'history';
+import NewGame from './new-game'
+
+import GameReview from './game-review';
+import GameDetails  from './game-details';
 
 const history = createHashHistory();
 
@@ -21,6 +23,7 @@ class Menu extends Component {
             <NavBar.Link to="/">Home/Figur</NavBar.Link>
             <NavBar.Link to="/gamereview">gamereview</NavBar.Link> 
             <NavBar.Link to="/gamedetails">gamedetails</NavBar.Link>
+            <NavBar.Link to="/newgame">newgame</NavBar.Link>
           </NavBar>
                  /*<SearchBar placeholder="">Search for games</SearchBar>*/
       );
@@ -38,7 +41,7 @@ class FrontPage extends Component {
       return (
         <>
         <div>
-          <Card title="GameRatings.com">Rate top games <Button.Info onClick={() => history.push('/addgame/')}>Add game</Button.Info></Card> 
+          <Card title="GameRatings.com">Rate top games <Button.Info onClick={() => history.push('/newgame/')}>Add game</Button.Info></Card> 
             
           <div>
             <Card title="">

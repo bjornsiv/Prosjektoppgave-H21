@@ -7,7 +7,7 @@ import { gameservice, reviewservice, Game, Review } from './services';
 
 const history = createHashHistory();
 
-export class GameReview extends Component<{ match: { params: { id: number } } }> {
+class GameReview extends Component<{ match: { params: { id: number } } }> {
 
     review: Review = {id: 0,
         game_id: 0,
@@ -80,7 +80,7 @@ export class GameReview extends Component<{ match: { params: { id: number } } }>
     }
 }
 
-
+export default GameReview
 /*
 
 <Column>

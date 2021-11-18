@@ -100,11 +100,12 @@ class NewGame extends Component {
                 </Row>
             <Row>
                 <Column>
-                    <Button.Light 
-                        onClick={() => {
+
+                    <Button.Secondary 
+                        onClick={() =>
                             this.game.release_date = new Date(this.currentDateValue);
                             console.log(this.game)
-
+                                 
                             gameservice
                             .create(this.game)
                             .then((game) => {
@@ -115,7 +116,7 @@ class NewGame extends Component {
                     }
                         >
                     Add game
-                    </Button.Light>
+                    </Button.Secondary >
                 </Column>
             </Row>
             </Card>

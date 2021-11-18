@@ -1,3 +1,6 @@
+
+// Tror vi kan slette denne filen?
+
 // Importerer nødvendige biblioteker, komponenter og avhengigheter
 import * as React from 'react';
 import { KeyboardEvent } from 'react';

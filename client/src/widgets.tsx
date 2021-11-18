@@ -11,7 +11,7 @@ export class Card extends Component<{ title: ReactNode }> {
     return (
       <div className="card">
         <div className="card-body">
-          <h5 className="card-title">{this.props.title}</h5>
+          <p className="card-title">{this.props.title}</p>
           <div className="card-text">{this.props.children}</div>
         </div>
       </div>
@@ -72,7 +72,7 @@ class ButtonSuccess extends Component<{ onClick: () => void }> {
   }
 }
 
-// Button Danger - slette spill, anmeldelse, rating
+// Button Danger - slette spill, slette anmeldelse, slette rating
 // properties: onClick
 class ButtonDanger extends Component<{ onClick: () => void }> {
   render() {
@@ -106,6 +106,7 @@ class ButtonInfo extends Component<{ onClick: () => void }> {
   }
 }
 
+// Denne passer godt inn med bakgrunnsfargene - vil bli mest brukt
 class ButtonSecondary extends Component<{ onClick: () => void }> {
   render() {
     return (
@@ -377,6 +378,7 @@ export class Alert extends Component {
   }
 }
 
+/*
 // Messages (Sivert) - ta bort hvis fra chat-app?
 class Messages extends Component<{ from: string; message: string; key: number }> {
   render() {
@@ -405,8 +407,10 @@ export class List {
   static Message = Messages;
   static Send = Send;
 }
+*/
 
 // Søkefelt. Hentet fra (Forms) https://getbootstrap.com/docs/4.0/components/navbar/#forms
+// Har endret fra success til secondary button
 export class SearchBar extends Component {
   render() {
     return (
@@ -418,7 +422,7 @@ export class SearchBar extends Component {
             placeholder="Search"
             aria-label="Search"
           />
-          <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
+          <button className="btn btn-secondary my-2 my-sm-0" type="submit">
             Search
           </button>
         </form>

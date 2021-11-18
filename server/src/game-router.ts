@@ -18,11 +18,12 @@ router.get('/:id', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
+//Hente sjanger navnene fra db
 router.get('/newgame/', (_request, response) => {
   gameService
     .getEnum()
     .then((data) => (data ? response.send(data) : response.status(404).send('Genre not found')))
-    .catch((error) => response.status(500).send(error));
+    .catch((error) => response.status(500).send(error.message));
 })
 
 router.post('/newgame/', (request, response) => {

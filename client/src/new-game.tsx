@@ -85,16 +85,24 @@ class NewGame extends Component {
                         <Form.Label>Platform:</Form.Label>
                     </Column>
                     <Column width={4}>
-                        {this.AvaliablePlattform.map((platt) => {
-                            <Form.Checkbox 
-                                checked={false}
-                                value={platt} 
-                                onChange={(event) => (
-                                    this.game.platform = event.currentTarget.value
-                                )
-                                }
-                            />
-                        })}
+                        <form>
+                            {this.AvaliablePlattform.map((platt) => {
+                                let i = 0;
+                                
+                                <>
+                                    <Form.Label>{platt}</Form.Label>
+                                    <Form.Checkbox
+                                        checked={false}
+                                        key={i}
+                                        onChange={(event) => (
+                                            this.game.platform = event.currentTarget.value
+                                            )
+                                        }
+                                    />
+                                </>
+                                i++;
+                            })}
+                        </form>
                     </Column>
                 </Row>
                 <Row>
@@ -132,11 +140,11 @@ class NewGame extends Component {
         );}
     mounted(){
         gameservice.getEnum()
-          .then((data) => (this.AvaliableGenra = data))
-          .catch((error) => Alert.danger('Error getting genre: ' + error.message));
+            .then((data) => (this.AvaliableGenra = data))
+            .catch((error) => Alert.danger('Error getting genre: ' + error.message));
         gameservice.getPlatt()
-        .then((data) => (this.AvaliablePlattform = data))
-        .catch((error) => Alert.danger('Error getting plattform: ' + error.message));
+            .then((data) => (this.AvaliablePlattform = data))
+            .catch((error) => Alert.danger('Error getting plattform: ' + error.message));
     }
 }
 

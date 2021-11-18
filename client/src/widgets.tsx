@@ -224,12 +224,11 @@ class FormCheckbox extends Component<{
   [prop: string]: any;
 }> {
   render() {
-    // ...rest will contain extra passed attributes such as disabled, required, width, height, pattern
-    // For further information, see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
-    const { checked, onChange, ...rest } = this.props;
+    const { checked, onChange, value, ...rest } = this.props;
     return (
       <input
         {...rest}
+        value={value.value}
         className="form-check-input"
         type="checkbox"
         checked={checked}
@@ -246,8 +245,6 @@ class FormSelect extends Component<{
   [prop: string]: any;
 }> {
   render() {
-    // ...rest will contain extra passed attributes such as disabled, required, size.
-    // For further information, see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
     const { value, onChange, children, ...rest } = this.props;
     return (
       <select {...rest} className="custom-select" value={value} onChange={onChange}>

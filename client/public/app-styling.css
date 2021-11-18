@@ -3,7 +3,6 @@ body {
     background:#252525; 
   }
 
-
   h1 {
     color: white;
     text-align: center;
@@ -23,7 +22,7 @@ body {
     font-family: Tahoma, sans-serif;
   }
   
-  .navbar-style {
+  .styling-navbar {
     color: white;
     font-family: Tahoma, sans-serif;
   }
@@ -31,4 +30,5 @@ body {
    .nav-link {
     color: white;
     font-family: Tahoma, sans-serif;
+    background: blue;
   }

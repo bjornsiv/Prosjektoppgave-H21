@@ -54,7 +54,7 @@ class GameService {
     //    return axios.get<Game>('/games').then((response) => response.data);
     //}
     create(game: Game){
-        return axios.post<Game>('/games/', {
+        return axios.post<Game>('/games/newgame/', {
             game: game,
         }).then((response) => response.data.id);
     }
@@ -66,6 +66,9 @@ class GameService {
             game: game,
         })
         .then((response) => response.data);
+    }
+    getEnum() {
+        return axios.get<string[]>('/games/newgame/').then((response) => response.data);
     }
 } 
 

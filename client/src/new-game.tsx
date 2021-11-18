@@ -3,8 +3,20 @@ import { Component } from 'react-simplified';
 import { Card, Row, Column, Button, Form, Alert } from './widgets';
 import { createHashHistory } from 'history';
 import { Game, gameservice } from './services';
+/*
 import DatePicker from 'sassy-datepicker';
 
+{visible ? (
+    <DatePicker 
+        onChange={this.handleChange}
+        minDate={new Date(1980, 10, 16)} 
+    />
+    ): null}
+
+
+const [visible, setVisible] = React.useState(false);
+const [date, setDate] = React.useState(new Date());
+*/
 const history = createHashHistory();
 /* 
 
@@ -15,27 +27,13 @@ FORSLAG/IDÉER
 - FIKS FEIL MED Release date: onChange={(event) => (this.game.release_date...)
 
 */
-const [visible, setVisible] = React.useState(false);
-const [date, setDate] = React.useState(new Date());
 
 class NewGame extends Component {
 
     game: Game = {id: 0, title: '', description: '', release_date: new Date(), genre: '', platform: ''};
-    title: String = this.game.title;
+    currentDateValue: string = '';
     newId: Number = 0;
-    currentDateValue: Date = new Date();
-    
-      
-    //visible = React.useState(false);
-    //setVisible = React.useState(false);
-    //date = React.useState(new Date());
-    //setDate = React.useState(new Date());
-
-    handleChange(newDate: Date) {
-        setDate(newDate);
-        setVisible(false);
-    };
-    togglePicker = () => setVisible((v) => !v);
+    AvaliableGenra: string[] = []
 
     render() {
         return (
@@ -58,13 +56,13 @@ class NewGame extends Component {
                         <Form.Label>Released:</Form.Label>
                     </Column>
                     <Column width={4}>
-                        {visible ? (
-                        <DatePicker 
-                            initialDate={this.currentDateValue}  
-                            onChange={this.handleChange} 
-                        />
-                        ): null}
-                        
+                        <Form.Date
+                            onChange={(event) => (this.currentDateValue = event.currentTarget.value)}
+                            value = {this.currentDateValue}
+                            placeholder = 'Release Date'
+                        >
+
+                        </Form.Date>
                     </Column>
                 </Row>
                 <Row>
@@ -72,10 +70,11 @@ class NewGame extends Component {
                         <Form.Label>Genre:</Form.Label>
                     </Column>
                     <Column width={4}>
-                        <Form.Input 
-                            type="text"
+                        <Form.Genra 
+                            valueList = {this.AvaliableGenra}
                             value={this.game.genre}
-                            onChange={(event) => (this.game.genre = event.currentTarget.value)}/>
+                            onChange={(event) => (this.game.genre = event.currentTarget.value)}
+                        />
                     </Column>
                 </Row>
                 <Row>
@@ -102,14 +101,18 @@ class NewGame extends Component {
             <Row>
                 <Column>
                     <Button.Light 
-                        onClick={() =>
+                        onClick={() => {
+                            this.game.release_date = new Date(this.currentDateValue);
+                            console.log(this.game)
+
                             gameservice
                             .create(this.game)
                             .then((game) => {
                                 this.newId = game;
                                 history.push('/gamedetails/' + this.newId);
-                            }).catch((error) => Alert.danger('Error' + error.message))
+                            }).catch((error) => Alert.danger('Error ' + error.message))
                         }
+                    }
                         >
                     Add game
                     </Button.Light>
@@ -118,6 +121,11 @@ class NewGame extends Component {
             </Card>
             </>
         );
+    }
+    mounted(){
+        gameservice.getEnum()
+          .then((data) => (this.AvaliableGenra = data))
+          .catch((error) => Alert.danger('Error getting genre: ' + error.message));
     }
 }
 

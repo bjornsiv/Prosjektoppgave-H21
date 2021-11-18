@@ -257,7 +257,54 @@ class FormSelect extends Component<{
   }
 }
 
+class FormDate extends Component<{
+  placeholder: string;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  [prop: string]: any;
+}>{
+  render(){
+    const {placeholder, value, onChange, ...rest} = this.props;
+    return(
+      <div>
+        <input 
+          className="form-control"
+          type="date"
+          placeholder={placeholder}
+          onChange = {onChange}
+          value = {value}
+          {...rest}
+          ></input>
+      </div>
+    )
+  }
+}
 
+class FormSelectDropdown extends Component<{
+  valueList: string[];
+  value: string;
+  
+  onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
+  [prop: string]: any;
+}> {
+  render() {
+    const { value, valueList, onChange, ...rest } = this.props;
+    return (
+      <div>
+        <select 
+          className="dropdown-menu" 
+          value={value} 
+          onChange={onChange}
+          {...rest}>
+          {valueList.map((valueList, i)=> {
+            return <option key={i} className="dropdown-item" value={valueList}>{valueList}</option>
+          }
+          
+          )}
+        </select>
+      </div>
+    );
+  }
+}
 
 export class Form {
   static Label = FormLabel; // = From.Label osv.
@@ -266,6 +313,8 @@ export class Form {
   static Checkbox = FormCheckbox;
   static Select = FormSelect;
   static NumberInput = FormNumberInput;
+  static Date = FormDate;
+  static Genra = FormSelectDropdown;
 }
 
 // Alert messages - beskjeder på nettsiden

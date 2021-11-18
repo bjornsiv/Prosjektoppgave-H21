@@ -10,7 +10,7 @@ export type Game = {
     release_date: Date;
     genre: string;         // Should be enum i data base fordi kan lag drop down i front end. Begrenser valg for brukeren! 
                           // Databasen er satt opp slik at kun er en sjanger pr.spill. 
-    platform: string;      // Should be enum i data base fordi kan lag drop down i front end. Begrenser valg for brukeren! 
+    platform: Map<string, boolean>;      // Should be enum i data base fordi kan lag drop down i front end. Begrenser valg for brukeren! 
                           // I tillegg burde det være et array for å kunne lagre FLERE platformer for et spill. SQL Z i databasen. 
   }
   

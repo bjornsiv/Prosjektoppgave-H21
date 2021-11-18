@@ -30,11 +30,10 @@ FORSLAG/IDÉER
 
 class NewGame extends Component {
 
-    game: Game = {id: 0, title: '', description: '', release_date: new Date(), genre: '', platform: ''};
+    game: Game = {id: 0, title: '', description: '', release_date: new Date(), genre: '', platform: new Map<string, boolean>()};
     currentDateValue: string = '';
     newId: Number = 0;
-    AvaliableGenra: string[] = []
-    AvaliablePlattform: string[] = []
+    AvaliableGenres: string[] = [];
 
     render() {
         return (
@@ -73,7 +72,7 @@ class NewGame extends Component {
                     <Column width={4}>
                         <form>
                             <Form.Genra 
-                                valueList = {this.AvaliableGenra}
+                                valueList = {this.AvaliableGenres}
                                 value={this.game.genre}
                                 onChange={(event) => (this.game.genre = event.currentTarget.value)}
                             />
@@ -86,21 +85,22 @@ class NewGame extends Component {
                     </Column>
                     <Column width={4}>
                         <form>
-                            {this.AvaliablePlattform.map((platt) => {
-                                let i = 0;
-                                
+                            
+                            {
+                                Array.from( this.game.platform ).map(([platform, value]) => {
+                                return (
                                 <>
-                                    <Form.Label>{platt}</Form.Label>
+                                    <Form.Label>{platform}</Form.Label>
                                     <Form.Checkbox
-                                        checked={false}
-                                        key={i}
-                                        onChange={(event) => (
-                                            this.game.platform = event.currentTarget.value
-                                            )
+                                        checked={value}
+                                        key={platform}
+                                        onChange={(event) => {
+                                            this.game.platform.set(platform, event.currentTarget.value == "true");
+                                        }
                                         }
                                     />
                                 </>
-                                i++;
+                                );
                             })}
                         </form>
                     </Column>
@@ -139,12 +139,12 @@ class NewGame extends Component {
             </>
         );}
     mounted(){
-        gameservice.getEnum()
-            .then((data) => (this.AvaliableGenra = data))
-            .catch((error) => Alert.danger('Error getting genre: ' + error.message));
         gameservice.getPlatt()
-            .then((data) => (this.AvaliablePlattform = data))
+            .then((data) => (data.map((name) => this.game.platform.set(name, false))))
             .catch((error) => Alert.danger('Error getting plattform: ' + error.message));
+        gameservice.getEnum()
+            .then((data) => (this.AvaliableGenres = data))
+            .catch((error) => Alert.danger('Error getting genre: ' + error.message));
     }
 }
 

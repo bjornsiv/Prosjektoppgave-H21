@@ -12,7 +12,7 @@ const history = createHashHistory();
 class GameDetails extends Component <{ match: { params: { id: number } } }> {
   reviews: Review[] = [];
   average: number = 0;
-  game: Game = {id: 0, title: '', description: '', release_date: new Date(500000000000), genre: '', platform: ''};
+  game: Game = {id: 0, title: '', description: '', release_date: new Date(500000000000), genre: '', platform: new Map<string, boolean>()};
   title: String = this.game.title;
 
     render() {

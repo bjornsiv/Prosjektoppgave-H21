@@ -228,7 +228,7 @@ class FormCheckbox extends Component<{
     return (
       <input
         {...rest}
-        value={value.value}
+        value={value}
         className="form-check-input"
         type="checkbox"
         checked={checked}
@@ -240,14 +240,15 @@ class FormCheckbox extends Component<{
 
 // Form select
 class FormSelect extends Component<{
+  key: string | number;
   value: string | number;
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
   [prop: string]: any;
 }> {
   render() {
-    const { value, onChange, children, ...rest } = this.props;
+    const { key, value, onChange, children, ...rest } = this.props;
     return (
-      <select {...rest} className="custom-select" value={value} onChange={onChange}>
+      <select {...rest} className="custom-select" value={value} key={key} onChange={onChange}>
         {children}
       </select>
     );
@@ -278,8 +279,7 @@ class FormDate extends Component<{
 
 class FormSelectDropdown extends Component<{
   valueList: string[];
-  value: string;
-  
+  value: string;  
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
   [prop: string]: any;
 }> {
@@ -292,8 +292,8 @@ class FormSelectDropdown extends Component<{
           value={value} 
           onChange={onChange}
           {...rest}>
-          {valueList.map((option, i)=> {
-            return <option key={i} className="dropdown-item" value={option}>{option}</option>
+          {valueList.map((option)=> {
+            return <option key={option} className="dropdown-item" value={option}>{option}</option>
           }
           
           )}

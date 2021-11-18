@@ -3,6 +3,8 @@ import * as React from 'react';
 import { ReactNode, ChangeEvent, useState } from 'react';
 import { Component } from 'react-simplified';
 import { NavLink } from 'react-router-dom';
+import rater from 'rater-js';
+import ReactDOM from 'react-dom';
 
 // Card - for å ramme inn innhold på nettsiden, kan sette tittel
 // Properties: title

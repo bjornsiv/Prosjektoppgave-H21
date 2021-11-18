@@ -102,7 +102,7 @@ class NewGame extends Component {
                 <Column>
 
                     <Button.Secondary 
-                        onClick={() =>
+                        onClick={() => {
                             this.game.release_date = new Date(this.currentDateValue);
                             console.log(this.game)
                                  

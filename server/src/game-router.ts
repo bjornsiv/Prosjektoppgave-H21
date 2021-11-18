@@ -19,7 +19,7 @@ router.get('/:id', (request, response) => {
 });
 
 //Hente sjanger navnene fra db
-router.get('/newgame/', (_request, response) => {
+router.get('/newgame/genre/', (_request, response) => {
   gameService
     .getEnum()
     .then((data) => (data ? response.send(data) : response.status(404).send('Genre not found')))

@@ -3,8 +3,6 @@ import * as React from 'react';
 import { ReactNode, ChangeEvent, useState } from 'react';
 import { Component } from 'react-simplified';
 import { NavLink } from 'react-router-dom';
-import rater from 'rater-js';
-import ReactDOM from 'react-dom';
 
 // Card - for å ramme inn innhold på nettsiden, kan sette tittel
 // Properties: title
@@ -34,7 +32,7 @@ export class CardRow extends Component {
       <div className="card">
         <div className="row">{this.props.children}</div>);
       </div>
-    )
+    );
   }
 }
 
@@ -43,7 +41,9 @@ export class ColumnPadd extends Component<{ width?: number; right?: boolean }> {
     return (
       <div padding-left={5}>
         <div className={'col' + (this.props.width ? '-' + this.props.width : '')}>
-          <div className={'float-' + (this.props.right ? 'end' : 'start')}>{this.props.children}</div>
+          <div className={'float-' + (this.props.right ? 'end' : 'start')}>
+            {this.props.children}
+          </div>
         </div>
       </div>
     );
@@ -261,28 +261,28 @@ class FormDate extends Component<{
   placeholder: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   [prop: string]: any;
-}>{
-  render(){
-    const {placeholder, value, onChange, ...rest} = this.props;
-    return(
+}> {
+  render() {
+    const { placeholder, value, onChange, ...rest } = this.props;
+    return (
       <div>
-        <input 
+        <input
           className="form-control"
           type="date"
           placeholder={placeholder}
-          onChange = {onChange}
-          value = {value}
+          onChange={onChange}
+          value={value}
           {...rest}
-          ></input>
+        ></input>
       </div>
-    )
+    );
   }
 }
 
 class FormSelectDropdown extends Component<{
   valueList: string[];
   value: string;
-  
+
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
   [prop: string]: any;
 }> {
@@ -290,16 +290,14 @@ class FormSelectDropdown extends Component<{
     const { value, valueList, onChange, ...rest } = this.props;
     return (
       <div>
-        <select 
-          className="dropdown-menu" 
-          value={value} 
-          onChange={onChange}
-          {...rest}>
-          {valueList.map((valueList, i)=> {
-            return <option key={i} className="dropdown-item" value={valueList}>{valueList}</option>
-          }
-          
-          )}
+        <select className="dropdown-menu" value={value} onChange={onChange} {...rest}>
+          {valueList.map((valueList, i) => {
+            return (
+              <option key={i} className="dropdown-item" value={valueList}>
+                {valueList}
+              </option>
+            );
+          })}
         </select>
       </div>
     );
@@ -479,16 +477,14 @@ export class SignIn extends Component {
 
 // Rating stjerner 1-5 med rater-js: https://www.npmjs.com/package/rater-js
 
-export class StarRating extends Component<
-  { 
-    value: number, 
-    edit: boolean, 
-    onChange?: (element: StarRating, value:number) => void 
-  }> 
-{
+export class StarRating extends Component<{
+  value: number;
+  edit: boolean;
+  onChange?: (element: StarRating, value: number) => void;
+}> {
   rating: Rater | null = null;
 
-  onChange(value: number, done?: (() => any) | undefined){
+  onChange(value: number, done?: (() => any) | undefined) {
     if (this.props.onChange) {
       this.props.onChange(this, value);
     }
@@ -501,26 +497,20 @@ export class StarRating extends Component<
     const element = ReactDOM.findDOMNode(this);
 
     if (element instanceof HTMLElement && !isNaN(this.props.value)) {
-      this.rating = rater(
-        {
-          element: element, 
-          rateCallback: this.props.onChange ? this.onChange : undefined,
-          readOnly: !this.props.edit
-        }
-      );
+      this.rating = rater({
+        element: element,
+        rateCallback: this.props.onChange ? this.onChange : undefined,
+        readOnly: !this.props.edit,
+      });
 
       this.rating.setRating(this.props.value);
     }
   }
 
   render() {
-    return (
-        <div />
-    );
+    return <div />;
   }
 }
-
-
 
 /* Må legge inn Bootstrap Vue hvis disse skal brukes */
 
@@ -528,7 +518,7 @@ export class StarRating extends Component<
 // Rating 1-5 stjerner (fungerer ikke, må fikses senere)
 class Rating extends Component<{ onClick: () => void, ratingValue: number }> {
   render() {
-    return ( 
+    return (
       <template>
         <div>
           <label htmlFor="rating-inline">Inline rating:</label>

@@ -1,4 +1,7 @@
 /node_modules
 /.git
 /config.ts
-/public
+/bootstrap.min.css
+/bootstrap.min.css.map
+/bootstrap.min.js
+/bootstrap.min.js.map

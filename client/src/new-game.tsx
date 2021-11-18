@@ -87,7 +87,7 @@ class NewGame extends Component<{ match: { params: { id: number } } }> {
                 </Row>
             <Row>
                 <Column>
-                    <Button.Light 
+                    <Button.Secondary 
                         onClick={() =>
                             gameservice
                             .create(this.game)
@@ -98,7 +98,7 @@ class NewGame extends Component<{ match: { params: { id: number } } }> {
                         }
                         >
                     Add game
-                    </Button.Light>
+                    </Button.Secondary >
                 </Column>
             </Row>
             </Card>

@@ -26,6 +26,17 @@ class GameService {
       });
     });
   }
+  getEnum(){
+    return new Promise<string[]>((resolve, reject) => {
+      pool.query(
+        "SELECT column_type FROM information_schema.COLUMNS WHERE TABLE_NAME = 'games' AND COLUMN_NAME = 'genre';",
+        (error, results) => {
+          if(error) return reject(error);
+
+          resolve(results);
+        })
+    })
+  }
 
   getAll() {
     return new Promise<Game[]>((resolve, reject) => {
@@ -52,7 +63,7 @@ class GameService {
   create(game: Game) {
     return new Promise<number>((resolve, reject) => {
       pool.query(
-        'INSERT INTO games SET title=?, genre=?, description=?, platform=?, release_date=?',
+        'INSERT INTO games SET title=?, genre, description=?, platform=?, release_date=?',
         [game.title, game.genre, game.description, game.platform, game.release_date],
         (error, results) => {
           if (error) return reject(error);

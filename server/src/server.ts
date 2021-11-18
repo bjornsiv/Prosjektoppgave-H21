@@ -10,4 +10,4 @@ app.listen(port, () => {
   console.info(`Server running on port ${port}`);
 });
 
-//server.ts hoster nettsiden 
+//server.ts hoster nettsiden

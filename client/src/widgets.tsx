@@ -3,10 +3,6 @@ import * as React from 'react';
 import { ReactNode, ChangeEvent, useState } from 'react';
 import { Component } from 'react-simplified';
 import { NavLink } from 'react-router-dom';
-import { Rating, RatingView } from 'react-simple-star-rating';
-// import './app-styling.css';
-
-
 
 // Card - for å ramme inn innhold på nettsiden, kan sette tittel
 // Properties: title
@@ -30,6 +26,29 @@ export class Row extends Component {
   }
 }
 
+export class CardRow extends Component {
+  render() {
+    return (
+      <div className="card">
+        <div className="row">{this.props.children}</div>);
+      </div>
+    );
+  }
+}
+
+export class ColumnPadd extends Component<{ width?: number; right?: boolean }> {
+  render() {
+    return (
+      <div padding-left={5}>
+        <div className={'col' + (this.props.width ? '-' + this.props.width : '')}>
+          <div className={'float-' + (this.props.right ? 'end' : 'start')}>
+            {this.props.children}
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
 // Column (properties: width, right)
 export class Column extends Component<{ width?: number; right?: boolean }> {
   render() {
@@ -239,6 +258,53 @@ class FormSelect extends Component<{
   }
 }
 
+class FormDate extends Component<{
+  placeholder: string;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  [prop: string]: any;
+}> {
+  render() {
+    const { placeholder, value, onChange, ...rest } = this.props;
+    return (
+      <div>
+        <input
+          className="form-control"
+          type="date"
+          placeholder={placeholder}
+          onChange={onChange}
+          value={value}
+          {...rest}
+        ></input>
+      </div>
+    );
+  }
+}
+
+class FormSelectDropdown extends Component<{
+  valueList: string[];
+  value: string;
+
+  onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
+  [prop: string]: any;
+}> {
+  render() {
+    const { value, valueList, onChange, ...rest } = this.props;
+    return (
+      <div>
+        <select className="dropdown-menu" value={value} onChange={onChange} {...rest}>
+          {valueList.map((valueList, i) => {
+            return (
+              <option key={i} className="dropdown-item" value={valueList}>
+                {valueList}
+              </option>
+            );
+          })}
+        </select>
+      </div>
+    );
+  }
+}
+
 export class Form {
   static Label = FormLabel; // = From.Label osv.
   static Input = FormInput;
@@ -246,6 +312,8 @@ export class Form {
   static Checkbox = FormCheckbox;
   static Select = FormSelect;
   static NumberInput = FormNumberInput;
+  static Date = FormDate;
+  static Genra = FormSelectDropdown;
 }
 
 // Alert messages - beskjeder på nettsiden
@@ -411,40 +479,61 @@ export class SignIn extends Component {
   }
 }
 
-// Rating stjerner 1-5 med React simple star rating: https://www.npmjs.com/package/react-simple-star-rating
+// Rating stjerner 1-5 med rater-js: https://www.npmjs.com/package/rater-js
 
-export class StarRating extends Component<{ score: number }> {
-  rating: number = 0;
-  setRating: any;
+export class StarRating extends Component<{
+  value: number;
+  edit: boolean;
+  onChange?: (element: StarRating, value: number) => void;
+}> {
+  rating: Rater | null = null;
+
+  onChange(value: number, done?: (() => any) | undefined) {
+    if (this.props.onChange) {
+      this.props.onChange(this, value);
+    }
+    if (done) {
+      done();
+    }
+  }
 
   mounted() {
-    [this.rating, this.setRating] = useState(this.props.score);
+    const element = ReactDOM.findDOMNode(this);
+
+    if (element instanceof HTMLElement && !isNaN(this.props.value)) {
+      this.rating = rater({
+        element: element,
+        rateCallback: this.props.onChange ? this.onChange : undefined,
+        readOnly: !this.props.edit,
+      });
+
+      this.rating.setRating(this.props.value);
+    }
   }
 
   render() {
-    return (
-        <Rating onClick={this.setRating} ratingValue={this.rating} />
-    );
+    return <div />;
   }
 }
 
 /* Må legge inn Bootstrap Vue hvis disse skal brukes */
-/*
 
+/*
 // Rating 1-5 stjerner (fungerer ikke, må fikses senere)
-export class Rating extends Component {
+class Rating extends Component<{ onClick: () => void, ratingValue: number }> {
   render() {
-    return ( 
+    return (
       <template>
         <div>
           <label htmlFor="rating-inline">Inline rating:</label>
-          <b-form-rating id="rating-inline" inline value="4"></b-form-rating>
+          <b className="form-rating" id="rating-inline" inline-value="4"></b>
         </div>
       </template>
     );
   }
 }
 
+/*
 // Image - bilder av spill o.l.
 export class Image extends Component {
   render() {

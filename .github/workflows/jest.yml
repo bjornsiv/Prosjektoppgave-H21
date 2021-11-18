@@ -1,0 +1,51 @@
+name: Client/Server test with Jest
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+    client-test:
+      runs-on: ubuntu-latest
+
+      strategy:
+        matrix:
+          node-version: [12.x, 14.x, 16.x]
+
+      steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: client-test
+        run: |
+          cd client
+          npm install
+          npm run-script test
+    server-test:
+      runs-on: ubuntu-latest
+
+      strategy:
+        matrix:
+          node-version: [12.x, 14.x, 16.x]
+
+      steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: server-test
+        run: |
+          cd server
+          npm install
+          npm run-script test
+          
+    

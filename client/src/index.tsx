@@ -2,22 +2,30 @@
 import ReactDOM from 'react-dom';
 import * as React from 'react';
 import { Component } from 'react-simplified';
-import { HashRouter, NavLink, Route } from 'react-router-dom';
-import { NavBar, Card, Alert } from './widgets';
+import { HashRouter, Route } from 'react-router-dom';
+import { NavBar, Card, Alert, Column, Row, Button, CardRow } from './widgets';
 import axios from 'axios';
-import { GameReview } from './game-review';
+
+import { gameservice, Game } from './services';
+import { createHashHistory } from 'history';
+import NewGame from './new-game'
+
+import GameReview from './game-review';
 import GameDetails  from './game-details';
 
+const history = createHashHistory();
 
 // Meny med link til andre sider - Finn ut hva som skal med her, legg evt. til senere
 class Menu extends Component {
   render() {
       return (
           <NavBar brand="Menu">
-            <NavBar.Link to="/">Home (logo?)</NavBar.Link>
-            <NavBar.Link to="/gamereview">Reviews</NavBar.Link> 
-            <NavBar.Link to="/"></NavBar.Link>
+            <NavBar.Link to="/">Home/Figur</NavBar.Link>
+            <NavBar.Link to="/gamereview">gamereview</NavBar.Link> 
+            <NavBar.Link to="/gamedetails">gamedetails</NavBar.Link>
+            <NavBar.Link to="/newgame">newgame</NavBar.Link>
           </NavBar>
+                 /*<SearchBar placeholder="">Search for games</SearchBar>*/
       );
   }
 }
@@ -26,14 +34,56 @@ class Menu extends Component {
 
 // Forside - den første siden man kommer inn på 
 class FrontPage extends Component {
+  games:Game[] = [];
+  
   render() {
+      console.log(this.games);
       return (
-          <Card title="GameRatings.com">Rate top games</Card> 
-          /*<SearchBar placeholder="">Search for games</SearchBar>*/
-      );
+        <>
+        <div>
+          <Card title="GameRatings.com">Rate top games <Button.Info onClick={() => history.push('/newgame/')}>Add game</Button.Info></Card> 
+            
+          <div>
+            <Card title="">
+            <Row>
+              <Column>Title</Column>
+              <Column>Description</Column>
+              <Column>Genre</Column>
+              <Column>Platform</Column> 
+              <Column width={3} right= {true}></Column>
+            </Row>
+            </Card>
+          {this.games.map((game) => (
+            <CardRow key={game.id}>
+              <Column>{game.title}</Column>
+              <Column>{game.description}</Column>
+              <Column>{game.genre}</Column>
+              <Column>{game.platform}</Column>
+              <Column width={3} right= {true}>
+                <Button.Success onClick={() => history.push('/gamedetails/' + game.id)}>See Reviews</Button.Success>
+                <Button.Success onClick={() => history.push('/editgame/' + game.id)}>Edit game</Button.Success>
+              </Column>
+            </CardRow>
+          ))}
+          </div>
+     </div>
+     </>
+   )
+  }
+  mounted(){
+    gameservice.getAll()
+    .then((games) => { this.games = games; } )
+    .catch((error) => Alert.danger('You got an error: ' + error.message));
   }
 }
 
+/* 
+<div className="d-flex justify-content-start">
+      <div className="p-2 col-example text-left">Flex item 1</div>
+      <div className="p-2 col-example text-left">Flex item 2</div>
+      <div className="p-2 col-example text-left">Flex item 3</div>
+
+*/
 
 
 // Definerer stiene til de ulike sidevisningene
@@ -47,9 +97,9 @@ ReactDOM.render(
         <Menu />
         <Route exact path="/" component={FrontPage} />
         <Route path="/gamesearch" />
-        <Route path="/gamedetails" component={GameDetails} />
-        <Route path="/gamereview" component={GameReview} />
-        <Route path="/newgame" />
+        <Route path="/gamedetails/:id(\d+)" component={GameDetails} />
+        <Route path="/gamereview/:gId(\d+)" component={GameReview} />
+        <Route path="/newgame" component={NewGame}/>
       </div>
     </HashRouter>,
     document.getElementById('root')

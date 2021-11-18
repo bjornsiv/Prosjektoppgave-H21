@@ -14,7 +14,7 @@ class Menu extends Component {
   render() {
       return (
           <NavBar brand="Menu">
-            <NavBar.Link to="/">Home (logo?)</NavBar.Link>
+            <NavBar.Link to="/">Home</NavBar.Link>
             <NavBar.Link to="/gamereview">Reviews</NavBar.Link> 
             <NavBar.Link to="/"></NavBar.Link>
           </NavBar>

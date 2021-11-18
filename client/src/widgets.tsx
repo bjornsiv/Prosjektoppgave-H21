@@ -121,9 +121,10 @@ export class NavBarLink extends Component<{ to: string }> {
 export class NavBar extends Component<{ brand: ReactNode }> {
   static Link = NavBarLink;
 
+
   render() {
     return (
-      <nav className="navbar navbar-expand-sm navbar-light bg-light">
+      <nav className="styling-navbar navbar navbar-expand-sm navbar-light bg-light">
         <div className="container-fluid justify-content-start">
           <NavLink className="navbar-brand" activeClassName="active" exact to="/">
             {this.props.brand}

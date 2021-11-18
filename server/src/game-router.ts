@@ -18,20 +18,28 @@ router.get('/:id', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
-router.post('/', (request, response) => {
+router.get('/newgame/', (_request, response) => {
+  gameService
+    .getEnum()
+    .then((data) => (data ? response.send(data) : response.status(404).send('Genre not found')))
+    .catch((error) => response.status(500).send(error));
+})
+
+router.post('/newgame/', (request, response) => {
   const data = request.body;
   if (! data)  {
     response.status(500).send('Missing data');
     return;
-  } else if (data.title.length == 0) {
+  } else if (data.game.title.length == 0) {
     response.status(500).send('Missing title');
     return;
-  } else if (data.description.length == 0) {
+  } else if (data.game.description.length == 0) {
     response.status(500).send('Missing description');
     return;
   }
+
   gameService
-    .create(data)
+    .create(data.game)
     .then((id) => response.send({ id: id }))
     .catch((error) => response.status(500).send(error));
 });

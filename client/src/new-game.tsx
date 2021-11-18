@@ -1,14 +1,23 @@
 import * as React from 'react';
-import { KeyboardEvent } from 'react';
 import { Component } from 'react-simplified';
-import { Card, Row, Column, Button, NavBarLink, NavBar, Form, Alert } from './widgets';
-import { NavLink, HashRouter, Route } from 'react-router-dom';
+import { Card, Row, Column, Button, Form, Alert } from './widgets';
 import { createHashHistory } from 'history';
 import { Game, gameservice } from './services';
+/*
+import DatePicker from 'sassy-datepicker';
 
+{visible ? (
+    <DatePicker 
+        onChange={this.handleChange}
+        minDate={new Date(1980, 10, 16)} 
+    />
+    ): null}
+
+
+const [visible, setVisible] = React.useState(false);
+const [date, setDate] = React.useState(new Date());
+*/
 const history = createHashHistory();
-
-
 /* 
 
 FORSLAG/IDÉER
@@ -19,12 +28,12 @@ FORSLAG/IDÉER
 
 */
 
-
-export class NewGame extends Component<{ match: { params: { id: number } } }> {
+class NewGame extends Component {
 
     game: Game = {id: 0, title: '', description: '', release_date: new Date(), genre: '', platform: ''};
-    title: String = this.game.title;
-   
+    currentDateValue: string = '';
+    newId: Number = 0;
+    AvaliableGenra: string[] = []
 
     render() {
         return (
@@ -47,10 +56,13 @@ export class NewGame extends Component<{ match: { params: { id: number } } }> {
                         <Form.Label>Released:</Form.Label>
                     </Column>
                     <Column width={4}>
-                        <Form.Input 
-                            type="date"
-                            value="1950-01-01"
-                            onChange={(event) => (this.game.release_date = event.currentTarget.value)}/>
+                        <Form.Date
+                            onChange={(event) => (this.currentDateValue = event.currentTarget.value)}
+                            value = {this.currentDateValue}
+                            placeholder = 'Release Date'
+                        >
+
+                        </Form.Date>
                     </Column>
                 </Row>
                 <Row>
@@ -58,10 +70,11 @@ export class NewGame extends Component<{ match: { params: { id: number } } }> {
                         <Form.Label>Genre:</Form.Label>
                     </Column>
                     <Column width={4}>
-                        <Form.Input 
-                            type="text"
+                        <Form.Genra 
+                            valueList = {this.AvaliableGenra}
                             value={this.game.genre}
-                            onChange={(event) => (this.game.genre = event.currentTarget.value)}/>
+                            onChange={(event) => (this.game.genre = event.currentTarget.value)}
+                        />
                     </Column>
                 </Row>
                 <Row>
@@ -88,14 +101,18 @@ export class NewGame extends Component<{ match: { params: { id: number } } }> {
             <Row>
                 <Column>
                     <Button.Light 
-                        onClick={() =>
+                        onClick={() => {
+                            this.game.release_date = new Date(this.currentDateValue);
+                            console.log(this.game)
+
                             gameservice
                             .create(this.game)
-                            .then(() => {
-                                NewGame.instance()?.mounted();
-                                history.push('/gamedetails/' + this.game.id);
-                            })
+                            .then((game) => {
+                                this.newId = game;
+                                history.push('/gamedetails/' + this.newId);
+                            }).catch((error) => Alert.danger('Error ' + error.message))
                         }
+                    }
                         >
                     Add game
                     </Button.Light>
@@ -105,10 +122,11 @@ export class NewGame extends Component<{ match: { params: { id: number } } }> {
             </>
         );
     }
-
-    mounted() {
-        gameservice.get(this.props.match.params.id)
-            .then((game) => (this.game = game))
-            .catch((error) => Alert.danger('Error' + error.message));
+    mounted(){
+        gameservice.getEnum()
+          .then((data) => (this.AvaliableGenra = data))
+          .catch((error) => Alert.danger('Error getting genre: ' + error.message));
     }
 }
+
+export default NewGame;

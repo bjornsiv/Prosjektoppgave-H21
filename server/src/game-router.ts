@@ -26,6 +26,13 @@ router.get('/newgame/genre/', (_request, response) => {
     .catch((error) => response.status(500).send(error.message));
 })
 
+router.get('/newgame/platt/', (_request, response) => {
+  gameService
+    .getPlatt()
+    .then((data) => (data ? response.send(data) : response.status(404).send('Platform not found')))
+    .catch((error) => response.status(500).send(error.message));
+})
+
 router.post('/newgame/', (request, response) => {
   const data = request.body;
   if (! data)  {
@@ -38,6 +45,8 @@ router.post('/newgame/', (request, response) => {
     response.status(500).send('Missing description');
     return;
   }
+
+  data.game.release_date = new Date(data.game.release_date);
 
   gameService
     .create(data.game)

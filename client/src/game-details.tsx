@@ -59,7 +59,7 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
                       return (
                           <Card title={review.title} key={review.id}>
                             <Row>
-                              <Row>{}</Row>
+                              <Row></Row>
                               <Column>
                                   <StarRating edit={false} value={review.score}/>
 

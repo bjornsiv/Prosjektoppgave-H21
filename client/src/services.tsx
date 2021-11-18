@@ -70,6 +70,9 @@ class GameService {
     getEnum() {
         return axios.get<string[]>('/games/newgame/genre/').then((response) => response.data);
     }
+    getPlatt() {
+        return axios.get<string[]>('/games/newgame/platt/').then((response) => response.data);
+    }
 } 
 
 

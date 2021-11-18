@@ -34,6 +34,7 @@ class NewGame extends Component {
     currentDateValue: string = '';
     newId: Number = 0;
     AvaliableGenra: string[] = []
+    AvaliablePlattform: string[] = []
 
     render() {
         return (
@@ -70,11 +71,13 @@ class NewGame extends Component {
                         <Form.Label>Genre:</Form.Label>
                     </Column>
                     <Column width={4}>
-                        <Form.Genra 
-                            valueList = {this.AvaliableGenra}
-                            value={this.game.genre}
-                            onChange={(event) => (this.game.genre = event.currentTarget.value)}
-                        />
+                        <form>
+                            <Form.Genra 
+                                valueList = {this.AvaliableGenra}
+                                value={this.game.genre}
+                                onChange={(event) => (this.game.genre = event.currentTarget.value)}
+                            />
+                        </form>
                     </Column>
                 </Row>
                 <Row>
@@ -82,10 +85,16 @@ class NewGame extends Component {
                         <Form.Label>Platform:</Form.Label>
                     </Column>
                     <Column width={4}>
-                        <Form.Input 
-                            type="text"
-                            value={this.game.platform}
-                            onChange={(event) => (this.game.platform = event.currentTarget.value)}/>
+                        {this.AvaliablePlattform.map((platt) => {
+                            <Form.Checkbox 
+                                checked={false}
+                                value={platt} 
+                                onChange={(event) => (
+                                    this.game.platform = event.currentTarget.value
+                                )
+                                }
+                            />
+                        })}
                     </Column>
                 </Row>
                 <Row>
@@ -120,12 +129,14 @@ class NewGame extends Component {
             </Row>
             </Card>
             </>
-        );
-    }
+        );}
     mounted(){
         gameservice.getEnum()
           .then((data) => (this.AvaliableGenra = data))
           .catch((error) => Alert.danger('Error getting genre: ' + error.message));
+        gameservice.getPlatt()
+        .then((data) => (this.AvaliablePlattform = data))
+        .catch((error) => Alert.danger('Error getting plattform: ' + error.message));
     }
 }
 

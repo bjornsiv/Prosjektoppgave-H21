@@ -291,12 +291,12 @@ class FormSelectDropdown extends Component<{
     return (
       <div>
         <select 
-          className="dropdown-menu" 
+          className="form-select" 
           value={value} 
           onChange={onChange}
           {...rest}>
-          {valueList.map((valueList, i)=> {
-            return <option key={i} className="dropdown-item" value={valueList}>{valueList}</option>
+          {valueList.map((option, i)=> {
+            return <option key={i} className="dropdown-item" value={option}>{option}</option>
           }
           
           )}
@@ -505,11 +505,12 @@ export class StarRating extends Component<
         {
           element: element, 
           rateCallback: this.props.onChange ? this.onChange : undefined,
-          readOnly: !this.props.edit
+          readOnly: !this.props.edit,
+          step: 0.1
         }
       );
 
-      this.rating.setRating(this.props.value);
+      this.rating.setRating(Math.round((this.props.value * 10) / 10));
     }
   }
 

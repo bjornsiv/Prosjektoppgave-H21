@@ -32,8 +32,19 @@ class GameService {
         "SELECT column_type FROM information_schema.COLUMNS WHERE TABLE_NAME = 'games' AND COLUMN_NAME = 'genre';",
         (error, results) => {
           if(error) return reject(error);
-
-          resolve(results);
+          
+          resolve(results[0].column_type.match(/'([^\']*)'/g).map((s: String) => s.replace(/'/g, "")));
+        })
+    })
+  }
+  getPlatt(){
+    return new Promise<string[]>((resolve, reject) => {
+      pool.query(
+        "SELECT column_type FROM information_schema.COLUMNS WHERE TABLE_NAME = 'games' AND COLUMN_NAME = 'platform';",
+        (error, results) => {
+          if(error) return reject(error);
+          
+          resolve(results[0].column_type.match(/'([^\']*)'/g).map((s: String) => s.replace(/'/g, "")));
         })
     })
   }
@@ -63,8 +74,8 @@ class GameService {
   create(game: Game) {
     return new Promise<number>((resolve, reject) => {
       pool.query(
-        'INSERT INTO games SET title=?, genre, description=?, platform=?, release_date=?',
-        [game.title, game.genre, game.description, game.platform, game.release_date],
+        'INSERT INTO games SET title=?, genre=?, description=?, platform=?, release_date=?',
+        [game.title, game.genre, game.description, game.platform, `${game.release_date.getFullYear()}-${game.release_date.getMonth()}-${game.release_date.getDate()}`],
         (error, results) => {
           if (error) return reject(error);
 

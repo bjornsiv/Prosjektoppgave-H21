@@ -42,63 +42,101 @@ export type User = {
   created_at: Date;
 };
 
-export class GameService {
+class GameService {
   get(id: number) {
-    return axios.get<Game>('/gamedetails/' + id).then((response) => response.data);
+    return axios.get<Game>('/games/' + id).then((response) => response.data);
   }
   getAll() {
-    return axios.get<Game>('/').then((response) => response.data);
+    return axios.get<Game[]>('/games/').then((response) => response.data);
   }
   search(title: string) {
     return axios.get<Game>('/gamesearch/' + title).then((response) => response.data);
   }
   create(game: Game) {
     return axios
-      .post<Game>('/newgame', {
+      .post<Game>('/games/newgame/', {
         game: game,
       })
       .then((response) => response.data.id);
   }
   delete(id: number) {
-    return axios.delete<Game>('/gamedetails/' + id);
+    return axios.delete<Game>('/games/' + id);
   }
   update(game: Game) {
     return axios
-      .put<Game>('/gamedetails/', {
+      .put<Game>('/games/', {
         game: game,
+      })
+      .then((response) => response.data);
+  }
+  getEnum() {
+    return axios.get<string[]>('/games/newgame/').then((response) => response.data);
+  }
+}
+
+class ReviewService {
+  get(id: number) {
+    return axios.get<Review>('/reviews/' + id).then((response) => response.data);
+  }
+  getAll(gId: number) {
+    return axios.get<Review[]>('/reviews/gamereviews/' + gId).then((response) => response.data);
+  }
+  search() {
+    return axios.get<Review>('/reviews/gamesearch').then((response) => response.data);
+  }
+  create(review: Review) {
+    return axios
+      .post<Review>('/reviews/', {
+        review: review,
+      })
+      .then((response) => response.data.id);
+  }
+  delete(id: number) {
+    return axios.delete<Game>('/reviews/' + id);
+  }
+  update(review: Review) {
+    return axios
+      .put<Review>('/reviews', {
+        review: review,
       })
       .then((response) => response.data);
   }
 }
 
-export class ReviewService {
+//NOT YET IMPLEMENTED
+class ReviewEvalService {
   get(id: number) {
-    return axios.get<Review>('/gamereviews/' + id).then((response) => response.data);
+    return axios.get<Review>('/reviews/' + id).then((response) => response.data);
   }
-  getAll() {
-    return axios.get<Review>('/gamereviews').then((response) => response.data);
+  getAll(gId: number) {
+    return axios.get<Review[]>('/reviews/gamereviews/' + gId).then((response) => response.data);
   }
   search() {
-    return axios.get<Review>('/gamesearch').then((response) => response.data);
+    return axios.get<Review>('/reviews/gamesearch').then((response) => response.data);
   }
   create(review: Review) {
     return axios
-      .post<Review>('/gamereviews/new', {
+      .post<Review>('/reviews/', {
         review: review,
       })
       .then((response) => response.data.id);
   }
   delete(id: number) {
-    return axios.delete<Game>('/gamereviews/' + id);
+    return axios.delete<Game>('/reviews/' + id);
   }
   update(review: Review) {
     return axios
-      .put<Review>('/gamereviews', {
+      .put<Review>('/reviews', {
         review: review,
       })
       .then((response) => response.data);
   }
 }
+
+const reviewEvalService = new ReviewEvalService();
+const gameservice = new GameService();
+const reviewservice = new ReviewService();
+export { reviewservice, gameservice, reviewEvalService };
 
 /*
 

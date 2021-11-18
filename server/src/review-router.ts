@@ -3,14 +3,15 @@ import reviewService from './review-service';
 
 const router = express.Router();
 
-router.get('/gamereviews', (_request, response) => {
+router.get('/gamereviews/:gId', (request, response) => {
+  const gId = Number(request.params.gId)
   reviewService
-    .getAll()
+    .getAll(gId)
     .then((rows) => response.send(rows))
     .catch((error) => response.status(500).send(error));
 });
 
-router.get('/gamereviews/:id', (request, response) => {
+router.get('/:id', (request, response) => {
   const id = Number(request.params.id);
   reviewService
     .get(id)
@@ -18,7 +19,7 @@ router.get('/gamereviews/:id', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
-router.post('/gamereviews/new/:gId', (request, response) => {
+router.post('/:gId', (request, response) => {
   const data = request.body;
   const id = Number(request.params.gId);
   if (! data)  {
@@ -40,7 +41,7 @@ router.post('/gamereviews/new/:gId', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
-router.put('/gamereviews', (request, response) => {
+router.put('/', (request, response) => {
   reviewService
     .update(
       request.body
@@ -49,7 +50,7 @@ router.put('/gamereviews', (request, response) => {
     .catch((error) => response.status(400).send(error));
 });
 
-router.delete('/gamereviews/:id', (request, response) => {
+router.delete('/:id', (request, response) => {
   reviewService
     .delete(Number(request.params.id))
     .then((_result) => response.send())

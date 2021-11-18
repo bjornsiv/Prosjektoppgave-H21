@@ -5,19 +5,16 @@ body {
 
   h1 {
     color: white;
-    text-align: center;
     font-size: 45px;
   }
 
   p {
     color: white;
-    text-align: center;
     font-size: 30px;
   }
 
   .card {
     color: white;
-    text-align: center;
     font-size: 30px;
     font-family: Tahoma, sans-serif;
   }

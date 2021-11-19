@@ -219,19 +219,17 @@ class FormTextarea extends React.Component<{
 
 // Form checkbox
 class FormCheckbox extends Component<{
-  checked: boolean;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   [prop: string]: any;
 }> {
   render() {
-    const { checked, onChange, value, ...rest } = this.props;
+    const { onChange, value, ...rest } = this.props;
     return (
       <input
         {...rest}
         value={value}
-        className="form-check-input"
+        className="form-check-input form-item"
         type="checkbox"
-        checked={checked}
         onChange={onChange}
       />
     );

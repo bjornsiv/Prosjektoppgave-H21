@@ -3,20 +3,7 @@ import { Component } from 'react-simplified';
 import { Card, Row, Column, Button, Form, Alert } from './widgets';
 import { createHashHistory } from 'history';
 import { Game, gameservice } from './services';
-/*
-import DatePicker from 'sassy-datepicker';
 
-{visible ? (
-    <DatePicker 
-        onChange={this.handleChange}
-        minDate={new Date(1980, 10, 16)} 
-    />
-    ): null}
-
-
-const [visible, setVisible] = React.useState(false);
-const [date, setDate] = React.useState(new Date());
-*/
 const history = createHashHistory();
 /* 
 
@@ -28,12 +15,21 @@ FORSLAG/IDÉER
 
 */
 
-class NewGame extends Component {
+//const checked = React.useState(true);
+//const setChecked = React.useState(true);
+//  
+//const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+//    setChecked(event.target.checked);
+//};
 
-    game: Game = {id: 0, title: '', description: '', release_date: new Date(), genre: '', platform: new Map<string, boolean>()};
+
+class NewGame extends Component {
+    game: Game = {id: 0, title: '', description: '', release_date: new Date(), genre: 'Real-Time Strategy', platform: ''};
     currentDateValue: string = '';
     newId: Number = 0;
     AvaliableGenres: string[] = [];
+    AvaliablePlatform: string[] = []
+    result: string = ''
 
     render() {
         return (
@@ -74,7 +70,11 @@ class NewGame extends Component {
                             <Form.Genra 
                                 valueList = {this.AvaliableGenres}
                                 value={this.game.genre}
-                                onChange={(event) => (this.game.genre = event.currentTarget.value)}
+                                onChange={(event) => {
+                                    this.game.genre = event.currentTarget.value
+                                    console.log('Value: ' + event.currentTarget.value, 'Game Value: ' + this.game.genre);
+                                }
+                            }
                             />
                         </form>
                     </Column>
@@ -84,21 +84,29 @@ class NewGame extends Component {
                         <Form.Label>Platform:</Form.Label>
                     </Column>
                     <Column width={4}>
-                        <form>
+                        <form className="form-group">
                             
                             {
-                                Array.from( this.game.platform ).map(([platform, value]) => {
+                                this.AvaliablePlatform.map((platt, value) => {
                                 return (
                                 <>
-                                    <Form.Label>{platform}</Form.Label>
+                                    <Form.Label key={platt}>{platt}</Form.Label>
                                     <Form.Checkbox
-                                        checked={value}
-                                        key={platform}
+                                        key={value}
+                                        value={platt}
+                                        name={platt}
                                         onChange={(event) => {
-                                            this.game.platform.set(platform, event.currentTarget.value == "true");
+                                            if(this.game.platform == ''){
+                                                this.game.platform += event.currentTarget.value;
+                                            }else{
+                                                this.game.platform += ',' + event.currentTarget.value;
+                                            }
+                                            
+                                            console.log('Value: ' + event.currentTarget.value, ', Checked: ' + event.currentTarget.checked, 'Game Value: ' + this.game.platform);
                                         }
-                                        }
+                                    }
                                     />
+                                <br/>
                                 </>
                                 );
                             })}
@@ -120,7 +128,8 @@ class NewGame extends Component {
                     <Button.Light 
                         onClick={() => {
                             this.game.release_date = new Date(this.currentDateValue);
-                            console.log(this.game)
+                            this.game.platform.substring(0, this.game.platform.length - 2);
+                            console.log(this.game.platform.length)
 
                             gameservice
                             .create(this.game)
@@ -140,8 +149,9 @@ class NewGame extends Component {
         );}
     mounted(){
         gameservice.getPlatt()
-            .then((data) => (data.map((name) => this.game.platform.set(name, false))))
+            .then((data) => this.AvaliablePlatform = data)
             .catch((error) => Alert.danger('Error getting plattform: ' + error.message));
+            console.log(this.AvaliablePlatform)
         gameservice.getEnum()
             .then((data) => (this.AvaliableGenres = data))
             .catch((error) => Alert.danger('Error getting genre: ' + error.message));

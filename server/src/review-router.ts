@@ -1,5 +1,6 @@
 import express from 'express';
 import reviewService from './review-service';
+import { Review } from './db-types';
 
 const router = express.Router();
 
@@ -7,47 +8,36 @@ router.get('/:gId', (request, response) => {
   const gId = Number(request.params.gId)
   reviewService
     .getAll(gId)
-    .then((rows) => response.send(rows))
+    .then((reviews) => (reviews.length > 0 ? response.send(reviews) : response.status(404).send('Reviews not found')))
     .catch((error) => response.status(500).send(error));
 });
 
-router.get('/:id', (request, response) => {
-  const id = Number(request.params.id);
-  reviewService
-    .get(id)
-    .then((review) => (review ? response.send(review) : response.status(404).send('Review not found')))
-    .catch((error) => response.status(500).send(error));
-});
-
-router.post('/:gId', (request, response) => {
+router.post('/', (request, response) => {
   const data = request.body;
-  const id = Number(request.params.gId);
-  if (! data)  {
-    response.status(500).send('Missing data');
-    return;
-  } else if (data.name.length == 0) {
-    response.status(500).send('Missing Name');
+  if (data.title.length == 0) {
+    response.status(400).send({message:'Missing Title'});
     return;
   } else if (data.description.length == 0) {
-    response.status(500).send('Missing description');
+    response.status(400).send({message:'Missing description'});
     return;
   } else if (data.score > 5 || data.score < 0) {
-    response.status(500).send('Illegal score');
+    response.status(400).send({message:'Illegal score'});
+    return;
+  } else if (data.created_at == null) {
+    response.status(400).send({message:'Undefined creation date'});
     return;
   }
   reviewService
-    .create(data, id)
+    .create(new Review(data))
     .then((id) => response.send({ id: id }))
     .catch((error) => response.status(500).send(error));
 });
 
 router.put('/', (request, response) => {
   reviewService
-    .update(
-      request.body
-    )
+    .update(new Review(request.body))
     .then((_result) => response.send())
-    .catch((error) => response.status(400).send(error));
+    .catch((error) => response.status(500).send(error));
 });
 
 router.delete('/:id', (request, response) => {

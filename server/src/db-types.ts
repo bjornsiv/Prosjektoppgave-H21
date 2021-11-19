@@ -1,18 +1,26 @@
 //Satt opp Game og Review som ligger i databasen. 
 // Har også satt opp for mine (Aida) forslag. Kommer nok til å trenge dem videre. 
 
-export type Game = {
+export class Game {
   id: number;
   title: string;
   description: string;
   release_date: Date;
-  genre: string;         // Should be enum i data base fordi kan lag drop down i front end. Begrenser valg for brukeren! 
-                        // Databasen er satt opp slik at kun er en sjanger pr.spill. 
-  platform: string;      // Should be enum i data base fordi kan lag drop down i front end. Begrenser valg for brukeren! 
-                        // I tillegg burde det være et array for å kunne lagre FLERE platformer for et spill. SQL Z i databasen. 
+  genre: string;
+  platform: string;
+
+  constructor(source: any)
+  {
+    this.id = source.id;
+    this.title = source.title;
+    this.description = source.description;
+    this.release_date = new Date(source.release_date);
+    this.genre = source.genre;
+    this.platform = source.platform;
+  }
 }
 
-export type Review = {
+export class Review {
   id: number;
   game_id: number;
   user_id: number;
@@ -20,6 +28,17 @@ export type Review = {
   description: string;
   score: number;
   created_at: Date;
+
+  constructor(source: any)
+  {
+    this.id = source.id;
+    this.game_id = source.game_id;
+    this.user_id = source.user_id;
+    this.title = source.title;
+    this.description = source.description;
+    this.score = source.score;
+    this.created_at = new Date(source.created_at);
+  }
 }
 
 export type ReviewEvaluation = {
@@ -35,9 +54,16 @@ export type Release = {
   date: Date;
 } 
 
-export type User = {
+export class User {
   id: number;
   nickname: string;
   created_at: Date;
+
+  constructor(source: any)
+  {
+    this.id = source.id;
+    this.nickname = source.nickname;
+    this.created_at = new Date(source.release_date);
+  }
 }
 

@@ -1,5 +1,6 @@
 import express from 'express';
 import gameService from './game-service';
+import {Game} from './db-types';
 
 const router = express.Router();
 
@@ -20,18 +21,18 @@ router.get('/:id', (request, response) => {
 
 router.post('/', (request, response) => {
   const data = request.body;
-  if (! data)  {
-    response.status(500).send('Missing data');
-    return;
-  } else if (data.title.length == 0) {
-    response.status(500).send('Missing title');
+  if (data.title.length == 0) {
+    response.status(400).send({message:'Missing title'});
     return;
   } else if (data.description.length == 0) {
-    response.status(500).send('Missing description');
+    response.status(400).send({message:'Missing description'});
+    return;
+  } else if (data.release_date == null) {
+    response.status(400).send({message:'Undefined release date'});
     return;
   }
   gameService
-    .create(data)
+    .create(new Game(data))
     .then((id) => response.send({ id: id }))
     .catch((error) => response.status(500).send(error));
 });
@@ -39,7 +40,7 @@ router.post('/', (request, response) => {
 router.put('/', (request, response) => {
   gameService
     .update(
-      request.body
+      new Game(request.body)
     )
     .then((_result) => response.send())
     .catch((error) => response.status(400).send(error));

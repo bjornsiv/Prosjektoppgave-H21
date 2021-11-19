@@ -1,5 +1,6 @@
 import pool from './mysql-pool';
 import {Game} from './db-types';
+import { stringLiteral } from '@babel/types';
 
 /*
   Definer klasser for tabeller i database (spill og review) - Done
@@ -14,15 +15,17 @@ import {Game} from './db-types';
   før man representerer for de forksjellige APIene. 
 */
 
-
 class GameService {
-
   get(id: number) {
     return new Promise<Game| undefined>((resolve, reject) => {
       pool.query('SELECT * FROM games WHERE id = ?', [id], (error, results) => {
         if (error) return reject(error);
+        if (results[0] == undefined)
+        {
+          return resolve(undefined);
+        }
 
-        resolve(results[0]);
+        resolve(new Game(results[0]));
       });
     });
   }
@@ -32,7 +35,7 @@ class GameService {
       pool.query('SELECT * FROM games', (error, results) => {
         if (error) return reject(error);
 
-        resolve(results);
+        resolve(results.map((game: any) => { return new Game(game) }));
       });
     });
 
@@ -46,7 +49,6 @@ class GameService {
         resolve(results);
       });
     });
-
   }
 
   create(game: Game) {
@@ -66,7 +68,7 @@ class GameService {
   update(game: Game) {
     return new Promise<void>((resolve, reject) => {
       pool.query(
-        'UPDATE review SET title=?, genre=?, description=?, platform=?, release_date=? WHERE id=?',
+        'UPDATE games SET title=?, genre=?, description=?, platform=?, release_date=? WHERE id=?',
         [game.title, game.genre, game.description, game.platform, game.release_date, game.id],
         (error, results) => {
           if (error) return reject(error);
@@ -87,9 +89,6 @@ class GameService {
       });
     });
   }
-
-
-
 }
 
 

@@ -54,6 +54,13 @@ router.post('/newgame/', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
+router.post('/gamesearch/:query', (request, response) => {
+  gameService
+    .search(request.body.query)
+    .then((rows) => response.send( rows ))
+    .catch((error) => response.status(500).send(error));
+});
+
 router.put('/editgame/', (request, response) => {
   const data = request.body;
   if (! data)  {

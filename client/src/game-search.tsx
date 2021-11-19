@@ -1,14 +1,13 @@
 // Komponenter for siden 'GameSearch'
 
 import * as React from 'react';
-import { KeyboardEvent } from 'react';
 import { Component } from 'react-simplified';
-import { Card, Row, Column, Button, NavBar, Form, Alert, SearchBar, SignIn } from './widgets';
-import { GameService } from './services';
-import { NavLink, HashRouter, Route } from 'react-router-dom';
+import { Card, Row, Column, Button, Alert, CardRow} from './widgets';
+import { gameservice, Game } from './services';
 import { createHashHistory } from 'history';
-import { pool } from '.mysql.pool';
 
+
+const history = createHashHistory();
 // class GameSearch extends Component {
 //   games = [];
 //
@@ -17,49 +16,45 @@ import { pool } from '.mysql.pool';
 //   }
 // }
 
-class GameSearch extends Component {
-  get_search_results(query) {
-    //API-kall
-    return [];
-  }
+class GameSearch extends Component <{ match: { params: { query: string } } }>{
+  games: Game[] = [];
   render() {
-    search_results = this.get_search_results('');
     return (
-      //html-komponenter puttes her, bytt ut p.
+      <>
       <div>
-        {' '}
-        {search.results.map((result) => (
-          <p>{results}</p>
-        ))}
+      <div>
+            <Card title="Search Reaults">
+            <br></br>
+            <Row>
+              <Column>Game title</Column>
+              <Column>Description</Column>
+              <Column>Genre</Column>
+              <Column>Platform</Column> 
+              <Column width={3} right= {true}></Column>
+            </Row>
+            </Card>
+          {this.games.map((game) => (
+            <CardRow key={game.id}>
+              <Column>{game.title}</Column>
+              <Column>{game.description}</Column>
+              <Column>{game.genre}</Column>
+              <Column>{game.platform}</Column>
+              <Column width={3} right= {true}>
+                <Button.Dark onClick={() => history.push('/gamedetails/' + game.id)}>See Reviews</Button.Dark>
+                <Button.Dark onClick={() => history.push('/editgame/' + game.id)}>Edit game</Button.Dark>
+              </Column>
+            </CardRow>
+          ))}
+          </div>
       </div>
+      </>
     );
+  }
+  mounted(){
+    gameservice.search(this.props.match.params.query)
+          .then((game) => { this.games = game; } )
+          .catch((error) => Alert.danger('Error getting game: ' + error.message));
   }
 }
 
-//
-// class TaskService {
-//   /**
-//    * Get task with given id.
-//    */
-//   get(id: number) {
-//     return new Promise<Task | undefined>((resolve, reject) => {
-//       pool.query('SELECT * FROM Tasks WHERE id = ?', [id], (error, results) => {
-//         if (error) return reject(error);
-//
-//         resolve(results[0]);
-//       });
-//     });
-//   }
-
-<>
-  <InputGroup className="mb-3">
-    <FormControl
-      placeholder="Search for games, genres, platforms and more"
-      aria-label="Searchbar"
-      aria-describedby="basic-addon2"
-    />
-    <Button variant="outline-secondary" id="button-addon2">
-      Button
-    </Button>
-  </InputGroup>
-</>;
+export default GameSearch;

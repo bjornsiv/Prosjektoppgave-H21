@@ -49,17 +49,11 @@ body {
   }
 
   .navbar-brand {
-    display: flex;
+    display: inline-block;
   }
 
   .button-darker {
     background-color: #383636;
-  }
-
-  .search-style {
-    padding-right: 0%;
-    justify-content: flex-end;
-    display: flex;
   }
 
   .form-check {
@@ -75,3 +69,18 @@ body {
     width: 100px;
     height: 100px;
   }
+
+  .search-div{
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .NavBar-header {
+    background-image: url('Games-Banner.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 90vw;
+    height: 20vh;
+    display: inline-block;
+}

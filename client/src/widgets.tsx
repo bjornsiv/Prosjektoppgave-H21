@@ -157,7 +157,7 @@ export class NavBar extends Component<{ brand: ReactNode }> {
 
   render() {
     return (
-      <nav className="navbar navbar-expand-sm navbar-dark navbar-style">
+      <nav className="navbar navbar-expand-sm navbar-dark navbar-style NavBar-header">
         <div className="container-fluid justify-content-start">
           <NavLink className="navbar-brand" activeClassName="active" exact to="/">
             {this.props.brand}
@@ -440,11 +440,11 @@ export class SearchBar extends Component <{
   render() {
     const { value, onChange, onClick, ...rest } = this.props;
     return (
-        <form className="form-inline form-display">
+        <form className="form-inline search-div">
           <input
-            className="form-control mr-sm-2 form-display"
+            className="form-control mr-sm-2 search-div"
             type="search"
-            placeholder=""
+            placeholder="Search for games"
             aria-label="Search"
             value={value}
             onChange={onChange}

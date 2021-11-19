@@ -11,26 +11,20 @@ import NewGame from './new-game';
 import EditGame from './edit-game';
 import GameReview from './game-review';
 import GameDetails  from './game-details';
+import GameSearch from './game-search';
 
 const history = createHashHistory();
 
 // Meny med link til andre sider - Finn ut hva som skal med her, legg evt. til senere
 class Menu extends Component {
-  searchQuery: string = '';
-
-  manageSearch(){
-    history.push('/gamesearch/' + this.searchQuery);
-  }
+  
   render() {
       return (
-          <NavBar brand="">
-            <NavBar.Link to="/"><img src="https://www.favicon.cc/logo3d/229133.png"></img></NavBar.Link>
-            <NavBar.Link to="/gamereview">REVIEWS</NavBar.Link> 
-            <NavBar.Link to="/gamedetails">GAME DETAILS</NavBar.Link>
-            <NavBar.Link to="/newgame">ADD GAME</NavBar.Link>
-            <NavBar.Link to="/editgame">EDIT GAME</NavBar.Link>
-            <SearchBar value={this.searchQuery} onClick={() => this.manageSearch()} onChange={(event) => this.searchQuery = event.currentTarget.value}></SearchBar>
-          </NavBar>
+          <>
+            <NavBar brand="">
+              <NavBar.Link to="/"><img src="https://www.favicon.cc/logo3d/229133.png"></img></NavBar.Link>
+            </NavBar>
+          </>
                  /*<SearchBar placeholder="">Search for games</SearchBar>*/
       );
   }
@@ -41,13 +35,18 @@ class Menu extends Component {
 // Forside - den første siden man kommer inn på 
 class FrontPage extends Component {
   games:Game[] = [];
-  
+  searchQuery: string = '';
+
+  manageSearch(){
+    history.push('/gamesearch/' + this.searchQuery);
+  }
+
   render() {
       console.log(this.games);
       return (
         <>
         <div>
-          <Card title="GameRatings"><br></br>Rate new and trending games - or your all time favorites!</Card> 
+          <Card title="GameRatings"><Column right={true} width={100}><SearchBar value={this.searchQuery} onClick={() => this.manageSearch()} onChange={(event) => this.searchQuery = event.currentTarget.value}></SearchBar><NavBar.Link to="/newgame">ADD GAME</NavBar.Link></Column><br></br>Rate new and trending games - or your all time favorites!</Card> 
           <br></br>
           <br></br>
           <br></br>
@@ -107,7 +106,7 @@ ReactDOM.render(
         <Alert />
         <Menu />
         <Route exact path="/" component={FrontPage} />
-        <Route path="/gamesearch/:query(\n+)" />
+        <Route path="/gamesearch/:query(\n+)" component={GameSearch}/>
         <Route path="/gamedetails/:id(\d+)" component={GameDetails} />
         <Route path="/new-review/:id(\d+)" component={GameReview} />
         <Route path="/newgame" component={NewGame}/>

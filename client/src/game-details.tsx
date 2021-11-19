@@ -50,7 +50,7 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
                   </Column>
 
                   <Column>
-                  <Button.Secondary onClick={() => history.push('/game-review/' + this.game.id)}>Add review</Button.Secondary>
+                  <Button.Dark onClick={() => history.push('/game-review/' + this.game.id)}>Add review</Button.Dark>
                   </Column>
                 </Card>
 

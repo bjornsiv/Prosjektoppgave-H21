@@ -1,31 +1,57 @@
 body {
     font-family: Tahoma, sans-serif;
-    background:#252525; 
-  }
-
-  h1 {
-    color: white;
-    font-size: 45px;
+    background:#151515; 
+    background-image: linear-gradient( #151515, #252525);
+    padding: 50px;
+    margin: auto 10px;
+    width: auto;
+    height: 2000px;
   }
 
   p {
     color: white;
     font-size: 30px;
+    letter-spacing: 0.8px;
+    font-weight: bold;
   }
+
+  .card-text {
+    color:white;
+    font-size: 15px;
+    letter-spacing: 0.8px;
+    font-family: Tahoma, sans-serif;
+    border: 0ch;
+
+  }
+
 
   .card {
-    color: white;
-    font-size: 30px;
-    font-family: Tahoma, sans-serif;
-  }
-  
-  .styling-navbar {
-    color: white;
-    font-family: Tahoma, sans-serif;
+    background: #202020;
+    display: flex;
+    padding: 30px;
   }
 
-   .nav-link {
-    color: white;
-    font-family: Tahoma, sans-serif;
-    background: blue;
+
+  /*
+  .form-input {
+    background-color: #151515;
   }
+  */
+
+  .navbar-style {
+    background-color: #151515;
+    display: flex;
+    font-family: Tahoma, sans-serif;
+    letter-spacing: 0.8px;
+    font-size: 15px;
+    padding: 15px;
+  }
+
+  .navbar-brand {
+    display: flex;
+  }
+
+  .button-darker {
+    background-color: #383636;
+  }
+

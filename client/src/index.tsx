@@ -8,7 +8,8 @@ import axios from 'axios';
 
 import { gameservice, Game } from './services';
 import { createHashHistory } from 'history';
-import NewGame from './new-game'
+import NewGame from './new-game';
+import EditGame from './edit-game';
 
 import GameReview from './game-review';
 import GameDetails  from './game-details';
@@ -24,6 +25,7 @@ class Menu extends Component {
             <NavBar.Link to="/gamereview">REVIEWS</NavBar.Link> 
             <NavBar.Link to="/gamedetails">GAME DETAILS</NavBar.Link>
             <NavBar.Link to="/newgame">ADD GAME</NavBar.Link>
+            <NavBar.Link to="/editgame">ADD GAME</NavBar.Link>
           </NavBar>
                  /*<SearchBar placeholder="">Search for games</SearchBar>*/
       );
@@ -105,6 +107,7 @@ ReactDOM.render(
         <Route path="/gamedetails/:id(\d+)" component={GameDetails} />
         <Route path="/new-review/:id(\d+)" component={GameReview} />
         <Route path="/newgame" component={NewGame}/>
+        <Route path="/editgame/:id(\d+)" component={EditGame}/>
       </div>
     </HashRouter>,
     document.getElementById('root')

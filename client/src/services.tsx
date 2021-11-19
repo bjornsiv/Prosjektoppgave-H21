@@ -61,10 +61,10 @@ class GameService {
         return axios.delete<Game>('/games/' + id);
     }
     update(game: Game){
-        return axios.put<Game>('/games/', {
+        return axios.put<Game>('/games/editgame/', {
             game: game,
         })
-        .then((response) => response.data);
+        .then((response) => response.data.id);
     }
     getEnum() {
         return axios.get<string[]>('/games/newgame/genre/').then((response) => response.data);

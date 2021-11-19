@@ -14,7 +14,7 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
   average: number = 0;
   game: Game = {id: 0, title: '', description: '', release_date: new Date(500000000000), genre: '', platform: ''};
   title: String = this.game.title;
-
+  stringDate: string = '';
     render() {
         if (!this.game) return null;
 
@@ -27,7 +27,7 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
                   </Row>
                   <Row>
                     <Column width={2}>Release date:</Column>
-                    <Column>{this.game.release_date?.toString()}</Column>
+                    <Column>{this.stringDate}</Column>
                   </Row>
                   <Row>
                     <Column width={2}>Genre:</Column>
@@ -82,7 +82,7 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
       gameservice.get(this.props.match.params.id)
           .then((game) => (this.game = game))
           .catch((error) => Alert.danger('Error getting game: ' + error.message));
-
+          this.stringDate = this.game.release_date.getDay() + '.' + this.game.release_date.getMonth() + '.' + this.game.release_date.getFullYear();
       reviewservice.getAll(this.props.match.params.id)
           .then((reviews) => {
               this.reviews = reviews;

@@ -54,10 +54,24 @@ router.post('/newgame/', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
-router.put('/', (request, response) => {
+router.put('/editgame/', (request, response) => {
+  const data = request.body;
+  if (! data)  {
+    response.status(500).send('Missing data');
+    return;
+  } else if (data.game.title.length == 0) {
+    response.status(500).send('Missing title');
+    return;
+  } else if (data.game.description.length == 0) {
+    response.status(500).send('Missing description');
+    return;
+  }
+
+  data.game.release_date = new Date(data.game.release_date);
+  
   gameService
     .update(
-      request.body
+      data.game
     )
     .then((_result) => response.send())
     .catch((error) => response.status(400).send(error));

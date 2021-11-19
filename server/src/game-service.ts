@@ -88,7 +88,7 @@ class GameService {
   update(game: Game) {
     return new Promise<void>((resolve, reject) => {
       pool.query(
-        'UPDATE review SET title=?, genre=?, description=?, platform=?, release_date=? WHERE id=?',
+        'UPDATE games SET title=?, genre=?, description=?, platform=?, release_date=? WHERE id=?',
         [game.title, game.genre, game.description, game.platform, game.release_date, game.id],
         (error, results) => {
           if (error) return reject(error);

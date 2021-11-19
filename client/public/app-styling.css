@@ -6,6 +6,7 @@ body {
     margin: auto 10px;
     width: auto;
     height: 2000px;
+    color: white;
   }
 
   p {
@@ -55,3 +56,22 @@ body {
     background-color: #383636;
   }
 
+  .search-style {
+    padding-right: 0%;
+    justify-content: flex-end;
+    display: flex;
+  }
+
+  .form-check {
+    display:inline-block;
+    margin-right:10px;
+  }
+
+  .form-display {
+    display:inline-block;
+  }
+
+  img{
+    width: 100px;
+    height: 100px;
+  }

@@ -2642,6 +2642,221 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./src/edit-game.tsx":
+/*!***************************!*\
+  !*** ./src/edit-game.tsx ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_simplified__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-simplified */ "./node_modules/react-simplified/lib/index.js");
+/* harmony import */ var _widgets__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./widgets */ "./src/widgets.tsx");
+/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! history */ "./node_modules/history/esm/history.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./services */ "./src/services.tsx");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+var history = (0,history__WEBPACK_IMPORTED_MODULE_4__.createHashHistory)();
+/* 
+
+FORSLAG/IDÉER
+- Genre: Endre fra Form.Input til at man kan velge fra en liste med besteme genres og platforms?
+- Legge til sjekk slik at man ikke kan legge til spill som allerede eksisterer?
+
+- FIKS FEIL MED Release date: onChange={(event) => (this.game.release_date...)
+
+*/
+//const checked = React.useState(true);
+//const setChecked = React.useState(true);
+//  
+//const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+//    setChecked(event.target.checked);
+//};
+
+var EditGame = /*#__PURE__*/function (_Component) {
+  _inherits(EditGame, _Component);
+
+  var _super = _createSuper(EditGame);
+
+  function EditGame() {
+    var _this;
+
+    _classCallCheck(this, EditGame);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _super.call.apply(_super, [this].concat(args));
+
+    _defineProperty(_assertThisInitialized(_this), "game", {
+      id: 0,
+      title: '',
+      description: '',
+      release_date: new Date(),
+      genre: 'Real-Time Strategy',
+      platform: ''
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "currentDateValue", '');
+
+    _defineProperty(_assertThisInitialized(_this), "AvaliableGenres", []);
+
+    _defineProperty(_assertThisInitialized(_this), "AvaliablePlatform", []);
+
+    return _this;
+  }
+
+  _createClass(EditGame, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Card, {
+        title: "Edit exsisting game: "
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
+        width: 2
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Label, null, "Game title:")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
+        width: 4
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Input, {
+        type: "text",
+        placeholder: "Add title",
+        value: this.game.title,
+        onChange: function onChange(event) {
+          return _this2.game.title = event.currentTarget.value;
+        }
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
+        width: 2
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Label, null, "Release date:")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
+        width: 4
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Date, {
+        onChange: function onChange(event) {
+          return _this2.currentDateValue = event.currentTarget.value;
+        },
+        value: this.currentDateValue,
+        placeholder: "Release Date"
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
+        width: 2
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Label, null, "Genre:")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
+        width: 4
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Genra, {
+        valueList: this.AvaliableGenres,
+        value: this.game.genre,
+        onChange: function onChange(event) {
+          _this2.game.genre = event.currentTarget.value;
+          console.log('Value: ' + event.currentTarget.value, 'Game Value: ' + _this2.game.genre);
+        }
+      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
+        width: 2
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Label, null, "Platform:")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
+        width: 4
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
+        className: "form-group"
+      }, this.AvaliablePlatform.map(function (platt, value) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Checkbox, {
+          key: value,
+          value: platt,
+          name: platt,
+          onChange: function onChange(event) {
+            if (_this2.game.platform == '') {
+              _this2.game.platform += event.currentTarget.value;
+            } else {
+              _this2.game.platform += ',' + event.currentTarget.value;
+            }
+
+            console.log('Value: ' + event.currentTarget.value, ', Checked: ' + event.currentTarget.checked, 'Game Value: ' + _this2.game.platform);
+          }
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Label, {
+          key: platt
+        }, platt), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null));
+      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
+        width: 2
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Label, null, "Description:")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
+        width: 4
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Textarea, {
+        placeholder: "Describe the game",
+        value: this.game.description,
+        onChange: function onChange(event) {
+          return _this2.game.description = event.currentTarget.value;
+        }
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Button.Dark, {
+        onClick: function onClick() {
+          _this2.game.release_date = new Date(_this2.currentDateValue);
+
+          _this2.game.platform.substring(0, _this2.game.platform.length - 2);
+
+          console.log(_this2.game.platform.length);
+          _services__WEBPACK_IMPORTED_MODULE_3__.gameservice.update(_this2.game).then(function () {
+            history.push('/gamedetails/' + _this2.game.id);
+          })["catch"](function (error) {
+            return _widgets__WEBPACK_IMPORTED_MODULE_2__.Alert.danger('Error ' + error.message);
+          });
+        }
+      }, "Add game")))));
+    }
+  }, {
+    key: "mounted",
+    value: function mounted() {
+      var _this3 = this;
+
+      _services__WEBPACK_IMPORTED_MODULE_3__.gameservice.get(this.props.match.params.id).then(function (game) {
+        return _this3.game = game;
+      })["catch"](function (error) {
+        return _widgets__WEBPACK_IMPORTED_MODULE_2__.Alert.danger('Error getting game: ' + error.message);
+      });
+      this.currentDateValue = this.game.release_date.toString();
+      _services__WEBPACK_IMPORTED_MODULE_3__.gameservice.getPlatt().then(function (data) {
+        return _this3.AvaliablePlatform = data;
+      })["catch"](function (error) {
+        return _widgets__WEBPACK_IMPORTED_MODULE_2__.Alert.danger('Error getting plattform: ' + error.message);
+      });
+      console.log(this.AvaliablePlatform);
+      _services__WEBPACK_IMPORTED_MODULE_3__.gameservice.getEnum().then(function (data) {
+        return _this3.AvaliableGenres = data;
+      })["catch"](function (error) {
+        return _widgets__WEBPACK_IMPORTED_MODULE_2__.Alert.danger('Error getting genre: ' + error.message);
+      });
+    }
+  }]);
+
+  return EditGame;
+}(react_simplified__WEBPACK_IMPORTED_MODULE_1__.Component);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EditGame);
+
+/***/ }),
+
 /***/ "./src/game-details.tsx":
 /*!******************************!*\
   !*** ./src/game-details.tsx ***!
@@ -2722,14 +2937,15 @@ var GameDetails = /*#__PURE__*/function (_Component) {
 
     _defineProperty(_assertThisInitialized(_this), "title", _this.game.title);
 
+    _defineProperty(_assertThisInitialized(_this), "stringDate", '');
+
     return _this;
   }
 
   _createClass(GameDetails, [{
     key: "render",
     value: function render() {
-      var _this$game$release_da,
-          _this2 = this;
+      var _this2 = this;
 
       if (!this.game) return null;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Card, {
@@ -2738,7 +2954,7 @@ var GameDetails = /*#__PURE__*/function (_Component) {
         width: 2
       }, "Game title:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, null, this.game.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
         width: 2
-      }, "Release date:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, null, (_this$game$release_da = this.game.release_date) === null || _this$game$release_da === void 0 ? void 0 : _this$game$release_da.toString())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
+      }, "Release date:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, null, this.stringDate)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
         width: 2
       }, "Genre:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, null, this.game.genre)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
         width: 2
@@ -2748,10 +2964,11 @@ var GameDetails = /*#__PURE__*/function (_Component) {
         title: "Average rating:"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.StarRating, {
         value: this.average,
-        edit: false
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Button.Secondary, {
+        edit: false,
+        size: 26
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Button.Dark, {
         onClick: function onClick() {
-          return history.push('/game-review/' + _this2.game.id);
+          return history.push('/new-review/' + _this2.game.id);
         }
       }, "Add review"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Card, {
         title: "Game reviews"
@@ -2761,7 +2978,8 @@ var GameDetails = /*#__PURE__*/function (_Component) {
           key: review.id
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.StarRating, {
           edit: false,
-          value: review.score
+          value: review.score,
+          size: 16
         }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null, review.description));
       })));
     }
@@ -2775,6 +2993,7 @@ var GameDetails = /*#__PURE__*/function (_Component) {
       })["catch"](function (error) {
         return _widgets__WEBPACK_IMPORTED_MODULE_2__.Alert.danger('Error getting game: ' + error.message);
       });
+      this.stringDate = this.game.release_date.getDay() + '.' + this.game.release_date.getMonth() + '.' + this.game.release_date.getFullYear();
       _services__WEBPACK_IMPORTED_MODULE_3__.reviewservice.getAll(this.props.match.params.id).then(function (reviews) {
         _this3.reviews = reviews;
         _this3.average = _this3.reviews.reduce(function (previous, current) {
@@ -2875,7 +3094,9 @@ var GameReview = /*#__PURE__*/function (_Component) {
       platform: ''
     });
 
-    _defineProperty(_assertThisInitialized(_this), "title", _this.game.title);
+    _defineProperty(_assertThisInitialized(_this), "title", "Add a new review for ");
+
+    _defineProperty(_assertThisInitialized(_this), "currentStarRating", 0);
 
     return _this;
   }
@@ -2886,7 +3107,7 @@ var GameReview = /*#__PURE__*/function (_Component) {
       var _this2 = this;
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Card, {
-        title: "Add a new review"
+        title: this.title + this.game.title
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
         width: 2
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Label, null, "Title:")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Input, {
@@ -2905,9 +3126,14 @@ var GameReview = /*#__PURE__*/function (_Component) {
         rows: 10
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
         width: 2
-      }, "score:"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Button.Secondary, {
+      }, "score:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.StarRating, {
+        value: Number(this.review.score),
+        edit: true,
+        size: 48
+      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Button.Dark, {
         onClick: function onClick() {
-          return _services__WEBPACK_IMPORTED_MODULE_3__.reviewservice.create(_this2.review).then(function () {
+          _this2.review.user_id = 1;
+          _services__WEBPACK_IMPORTED_MODULE_3__.reviewservice.create(_this2.review, _this2.game.id).then(function () {
             history.push('/gamedetails/' + _this2.game.id);
           });
         }
@@ -2923,6 +3149,8 @@ var GameReview = /*#__PURE__*/function (_Component) {
       })["catch"](function (error) {
         return _widgets__WEBPACK_IMPORTED_MODULE_2__.Alert.danger('Error getting game: ' + error.message);
       });
+      this.review.game_id = this.props.match.params.id;
+      console.log(this.props.match.params.id);
     }
   }]);
 
@@ -2930,16 +3158,6 @@ var GameReview = /*#__PURE__*/function (_Component) {
 }(react_simplified__WEBPACK_IMPORTED_MODULE_1__.Component);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (GameReview);
-/*
-
-<Column>
-                  <Form.NumberInput
-                    value={this.review.score}
-                    //onChange={(event) => (this.review.score = event.currentTarget.value)}
-                  />
-                </Column>
-
-*/
 
 /***/ }),
 
@@ -2988,21 +3206,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-/*
-import DatePicker from 'sassy-datepicker';
-
-{visible ? (
-    <DatePicker 
-        onChange={this.handleChange}
-        minDate={new Date(1980, 10, 16)} 
-    />
-    ): null}
-
-
-const [visible, setVisible] = React.useState(false);
-const [date, setDate] = React.useState(new Date());
-*/
-
 var history = (0,history__WEBPACK_IMPORTED_MODULE_4__.createHashHistory)();
 /* 
 
@@ -3013,6 +3216,12 @@ FORSLAG/IDÉER
 - FIKS FEIL MED Release date: onChange={(event) => (this.game.release_date...)
 
 */
+//const checked = React.useState(true);
+//const setChecked = React.useState(true);
+//  
+//const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+//    setChecked(event.target.checked);
+//};
 
 var NewGame = /*#__PURE__*/function (_Component) {
   _inherits(NewGame, _Component);
@@ -3035,7 +3244,7 @@ var NewGame = /*#__PURE__*/function (_Component) {
       title: '',
       description: '',
       release_date: new Date(),
-      genre: '',
+      genre: 'Real-Time Strategy',
       platform: ''
     });
 
@@ -3043,7 +3252,11 @@ var NewGame = /*#__PURE__*/function (_Component) {
 
     _defineProperty(_assertThisInitialized(_this), "newId", 0);
 
-    _defineProperty(_assertThisInitialized(_this), "AvaliableGenra", []);
+    _defineProperty(_assertThisInitialized(_this), "AvaliableGenres", []);
+
+    _defineProperty(_assertThisInitialized(_this), "AvaliablePlatform", []);
+
+    _defineProperty(_assertThisInitialized(_this), "result", '');
 
     return _this;
   }
@@ -3055,19 +3268,20 @@ var NewGame = /*#__PURE__*/function (_Component) {
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Card, {
         title: "Add new game"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
-        width: 1
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Label, null, "Title:")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
+        width: 2
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Label, null, "Game title:")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
         width: 4
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Input, {
         type: "text",
+        placeholder: "Add title",
         value: this.game.title,
         onChange: function onChange(event) {
           return _this2.game.title = event.currentTarget.value;
         }
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
-        width: 1
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Label, null, "Released:")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
+        width: 2
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Label, null, "Release date:")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
         width: 4
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Date, {
         onChange: function onChange(event) {
@@ -3076,38 +3290,56 @@ var NewGame = /*#__PURE__*/function (_Component) {
         value: this.currentDateValue,
         placeholder: "Release Date"
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
-        width: 1
+        width: 2
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Label, null, "Genre:")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
         width: 4
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Genra, {
-        valueList: this.AvaliableGenra,
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Genra, {
+        valueList: this.AvaliableGenres,
         value: this.game.genre,
         onChange: function onChange(event) {
-          return _this2.game.genre = event.currentTarget.value;
+          _this2.game.genre = event.currentTarget.value;
+          console.log('Value: ' + event.currentTarget.value, 'Game Value: ' + _this2.game.genre);
         }
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
-        width: 1
+      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
+        width: 2
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Label, null, "Platform:")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
         width: 4
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Input, {
-        type: "text",
-        value: this.game.platform,
-        onChange: function onChange(event) {
-          return _this2.game.platform = event.currentTarget.value;
-        }
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
-        width: 1
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
+        className: "form-group"
+      }, this.AvaliablePlatform.map(function (platt, value) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Checkbox, {
+          key: value,
+          value: platt,
+          name: platt,
+          onChange: function onChange(event) {
+            if (_this2.game.platform == '') {
+              _this2.game.platform += event.currentTarget.value;
+            } else {
+              _this2.game.platform += ',' + event.currentTarget.value;
+            }
+
+            console.log('Value: ' + event.currentTarget.value, ', Checked: ' + event.currentTarget.checked, 'Game Value: ' + _this2.game.platform);
+          }
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Label, {
+          key: platt
+        }, platt), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null));
+      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
+        width: 2
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Label, null, "Description:")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, {
         width: 4
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Form.Textarea, {
+        placeholder: "Describe the game",
         value: this.game.description,
         onChange: function onChange(event) {
           return _this2.game.description = event.currentTarget.value;
         }
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Button.Secondary, {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Column, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_2__.Button.Dark, {
         onClick: function onClick() {
           _this2.game.release_date = new Date(_this2.currentDateValue);
-          console.log(_this2.game);
+
+          _this2.game.platform.substring(0, _this2.game.platform.length - 2);
+
+          console.log(_this2.game.platform.length);
           _services__WEBPACK_IMPORTED_MODULE_3__.gameservice.create(_this2.game).then(function (game) {
             _this2.newId = game;
             history.push('/gamedetails/' + _this2.newId);
@@ -3122,8 +3354,14 @@ var NewGame = /*#__PURE__*/function (_Component) {
     value: function mounted() {
       var _this3 = this;
 
+      _services__WEBPACK_IMPORTED_MODULE_3__.gameservice.getPlatt().then(function (data) {
+        return _this3.AvaliablePlatform = data;
+      })["catch"](function (error) {
+        return _widgets__WEBPACK_IMPORTED_MODULE_2__.Alert.danger('Error getting plattform: ' + error.message);
+      });
+      console.log(this.AvaliablePlatform);
       _services__WEBPACK_IMPORTED_MODULE_3__.gameservice.getEnum().then(function (data) {
-        return _this3.AvaliableGenra = data;
+        return _this3.AvaliableGenres = data;
       })["catch"](function (error) {
         return _widgets__WEBPACK_IMPORTED_MODULE_2__.Alert.danger('Error getting genre: ' + error.message);
       });
@@ -3179,14 +3417,10 @@ var GameService = /*#__PURE__*/function () {
       return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/games/').then(function (response) {
         return response.data;
       });
-    }
-  }, {
-    key: "search",
-    value: function search(title) {
-      return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/gamesearch/' + title).then(function (response) {
-        return response.data;
-      });
-    }
+    } //search(id:number) {
+    //    return axios.get<Game>('/games').then((response) => response.data);
+    //}
+
   }, {
     key: "create",
     value: function create(game) {
@@ -3204,16 +3438,23 @@ var GameService = /*#__PURE__*/function () {
   }, {
     key: "update",
     value: function update(game) {
-      return axios__WEBPACK_IMPORTED_MODULE_0___default().put('/games/', {
+      return axios__WEBPACK_IMPORTED_MODULE_0___default().put('/games/editgame/', {
         game: game
       }).then(function (response) {
-        return response.data;
+        return response.data.id;
       });
     }
   }, {
     key: "getEnum",
     value: function getEnum() {
-      return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/games/newgame/').then(function (response) {
+      return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/games/newgame/genre/').then(function (response) {
+        return response.data;
+      });
+    }
+  }, {
+    key: "getPlatt",
+    value: function getPlatt() {
+      return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/games/newgame/platt/').then(function (response) {
         return response.data;
       });
     }
@@ -3250,8 +3491,8 @@ var ReviewService = /*#__PURE__*/function () {
     }
   }, {
     key: "create",
-    value: function create(review) {
-      return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/reviews/', {
+    value: function create(review, id) {
+      return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/reviews/new-review/' + id, {
         review: review
       }).then(function (response) {
         return response.data.id;
@@ -3380,10 +3621,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 var _excluded = ["type", "value", "onChange"],
     _excluded2 = ["value", "onChange"],
     _excluded3 = ["value", "onChange"],
-    _excluded4 = ["checked", "onChange"],
-    _excluded5 = ["value", "onChange", "children"],
+    _excluded4 = ["onChange", "value"],
+    _excluded5 = ["key", "value", "onChange", "children"],
     _excluded6 = ["placeholder", "value", "onChange"],
-    _excluded7 = ["value", "valueList", "onChange"];
+    _excluded7 = ["value", "valueList", "onChange"],
+    _excluded8 = ["value", "onChange", "onClick"];
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
@@ -3436,7 +3678,7 @@ var Card = /*#__PURE__*/function (_Component) {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        className: "card"
+        className: "card rounded"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "card-body"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
@@ -3490,7 +3732,7 @@ var CardRow = /*#__PURE__*/function (_Component3) {
         className: "card"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "row"
-      }, this.props.children), ");");
+      }, this.props.children));
     }
   }]);
 
@@ -3546,18 +3788,44 @@ var Column = /*#__PURE__*/function (_Component5) {
   }]);
 
   return Column;
+}(react_simplified__WEBPACK_IMPORTED_MODULE_1__.Component);
+
+var ButtonDark = /*#__PURE__*/function (_Component6) {
+  _inherits(ButtonDark, _Component6);
+
+  var _super6 = _createSuper(ButtonDark);
+
+  function ButtonDark() {
+    _classCallCheck(this, ButtonDark);
+
+    return _super6.apply(this, arguments);
+  }
+
+  _createClass(ButtonDark, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        type: "button",
+        className: "btn btn-dark button-darker",
+        onClick: this.props.onClick
+      }, this.props.children);
+    }
+  }]);
+
+  return ButtonDark;
 }(react_simplified__WEBPACK_IMPORTED_MODULE_1__.Component); // Button Success - opprette spill, anmeldelse, rating
 // properties: onClick
 
-var ButtonSuccess = /*#__PURE__*/function (_Component6) {
-  _inherits(ButtonSuccess, _Component6);
 
-  var _super6 = _createSuper(ButtonSuccess);
+var ButtonSuccess = /*#__PURE__*/function (_Component7) {
+  _inherits(ButtonSuccess, _Component7);
+
+  var _super7 = _createSuper(ButtonSuccess);
 
   function ButtonSuccess() {
     _classCallCheck(this, ButtonSuccess);
 
-    return _super6.apply(this, arguments);
+    return _super7.apply(this, arguments);
   }
 
   _createClass(ButtonSuccess, [{
@@ -3576,15 +3844,15 @@ var ButtonSuccess = /*#__PURE__*/function (_Component6) {
 // properties: onClick
 
 
-var ButtonDanger = /*#__PURE__*/function (_Component7) {
-  _inherits(ButtonDanger, _Component7);
+var ButtonDanger = /*#__PURE__*/function (_Component8) {
+  _inherits(ButtonDanger, _Component8);
 
-  var _super7 = _createSuper(ButtonDanger);
+  var _super8 = _createSuper(ButtonDanger);
 
   function ButtonDanger() {
     _classCallCheck(this, ButtonDanger);
 
-    return _super7.apply(this, arguments);
+    return _super8.apply(this, arguments);
   }
 
   _createClass(ButtonDanger, [{
@@ -3603,15 +3871,15 @@ var ButtonDanger = /*#__PURE__*/function (_Component7) {
 // properties: onClick
 
 
-var ButtonLight = /*#__PURE__*/function (_Component8) {
-  _inherits(ButtonLight, _Component8);
+var ButtonLight = /*#__PURE__*/function (_Component9) {
+  _inherits(ButtonLight, _Component9);
 
-  var _super8 = _createSuper(ButtonLight);
+  var _super9 = _createSuper(ButtonLight);
 
   function ButtonLight() {
     _classCallCheck(this, ButtonLight);
 
-    return _super8.apply(this, arguments);
+    return _super9.apply(this, arguments);
   }
 
   _createClass(ButtonLight, [{
@@ -3628,15 +3896,15 @@ var ButtonLight = /*#__PURE__*/function (_Component8) {
   return ButtonLight;
 }(react_simplified__WEBPACK_IMPORTED_MODULE_1__.Component);
 
-var ButtonInfo = /*#__PURE__*/function (_Component9) {
-  _inherits(ButtonInfo, _Component9);
+var ButtonInfo = /*#__PURE__*/function (_Component10) {
+  _inherits(ButtonInfo, _Component10);
 
-  var _super9 = _createSuper(ButtonInfo);
+  var _super10 = _createSuper(ButtonInfo);
 
   function ButtonInfo() {
     _classCallCheck(this, ButtonInfo);
 
-    return _super9.apply(this, arguments);
+    return _super10.apply(this, arguments);
   }
 
   _createClass(ButtonInfo, [{
@@ -3654,15 +3922,15 @@ var ButtonInfo = /*#__PURE__*/function (_Component9) {
 }(react_simplified__WEBPACK_IMPORTED_MODULE_1__.Component); // Denne passer godt inn med bakgrunnsfargene - vil bli mest brukt
 
 
-var ButtonSecondary = /*#__PURE__*/function (_Component10) {
-  _inherits(ButtonSecondary, _Component10);
+var ButtonSecondary = /*#__PURE__*/function (_Component11) {
+  _inherits(ButtonSecondary, _Component11);
 
-  var _super10 = _createSuper(ButtonSecondary);
+  var _super11 = _createSuper(ButtonSecondary);
 
   function ButtonSecondary() {
     _classCallCheck(this, ButtonSecondary);
 
-    return _super10.apply(this, arguments);
+    return _super11.apply(this, arguments);
   }
 
   _createClass(ButtonSecondary, [{
@@ -3683,6 +3951,8 @@ var Button = function Button() {
   _classCallCheck(this, Button);
 }; // Navigation bar link (properties: to)
 
+_defineProperty(Button, "Dark", ButtonDark);
+
 _defineProperty(Button, "Success", ButtonSuccess);
 
 _defineProperty(Button, "Danger", ButtonDanger);
@@ -3693,15 +3963,15 @@ _defineProperty(Button, "Info", ButtonInfo);
 
 _defineProperty(Button, "Secondary", ButtonSecondary);
 
-var NavBarLink = /*#__PURE__*/function (_Component11) {
-  _inherits(NavBarLink, _Component11);
+var NavBarLink = /*#__PURE__*/function (_Component12) {
+  _inherits(NavBarLink, _Component12);
 
-  var _super11 = _createSuper(NavBarLink);
+  var _super12 = _createSuper(NavBarLink);
 
   function NavBarLink() {
     _classCallCheck(this, NavBarLink);
 
-    return _super11.apply(this, arguments);
+    return _super12.apply(this, arguments);
   }
 
   _createClass(NavBarLink, [{
@@ -3718,22 +3988,22 @@ var NavBarLink = /*#__PURE__*/function (_Component11) {
   return NavBarLink;
 }(react_simplified__WEBPACK_IMPORTED_MODULE_1__.Component); // Navigation bar (properties: brand)
 
-var NavBar = /*#__PURE__*/function (_Component12) {
-  _inherits(NavBar, _Component12);
+var NavBar = /*#__PURE__*/function (_Component13) {
+  _inherits(NavBar, _Component13);
 
-  var _super12 = _createSuper(NavBar);
+  var _super13 = _createSuper(NavBar);
 
   function NavBar() {
     _classCallCheck(this, NavBar);
 
-    return _super12.apply(this, arguments);
+    return _super13.apply(this, arguments);
   }
 
   _createClass(NavBar, [{
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("nav", {
-        className: "styling-navbar navbar navbar-expand-sm navbar-light bg-light"
+        className: "navbar navbar-expand-sm navbar-dark navbar-style"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "container-fluid justify-content-start"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.NavLink, {
@@ -3752,23 +4022,23 @@ var NavBar = /*#__PURE__*/function (_Component12) {
 
 _defineProperty(NavBar, "Link", NavBarLink);
 
-var FormLabel = /*#__PURE__*/function (_Component13) {
-  _inherits(FormLabel, _Component13);
+var FormLabel = /*#__PURE__*/function (_Component14) {
+  _inherits(FormLabel, _Component14);
 
-  var _super13 = _createSuper(FormLabel);
+  var _super14 = _createSuper(FormLabel);
 
   function FormLabel() {
     _classCallCheck(this, FormLabel);
 
-    return _super13.apply(this, arguments);
+    return _super14.apply(this, arguments);
   }
 
   _createClass(FormLabel, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
-        className: "col-form-label"
-      }, this.props.children);
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
+        className: "form col-form-label form-display"
+      }, this.props.children));
     }
   }]);
 
@@ -3776,15 +4046,15 @@ var FormLabel = /*#__PURE__*/function (_Component13) {
 }(react_simplified__WEBPACK_IMPORTED_MODULE_1__.Component); // Form input - legge til spill
 
 
-var FormInput = /*#__PURE__*/function (_Component14) {
-  _inherits(FormInput, _Component14);
+var FormInput = /*#__PURE__*/function (_Component15) {
+  _inherits(FormInput, _Component15);
 
-  var _super14 = _createSuper(FormInput);
+  var _super15 = _createSuper(FormInput);
 
   function FormInput() {
     _classCallCheck(this, FormInput);
 
-    return _super14.apply(this, arguments);
+    return _super15.apply(this, arguments);
   }
 
   _createClass(FormInput, [{
@@ -3799,7 +4069,7 @@ var FormInput = /*#__PURE__*/function (_Component14) {
           rest = _objectWithoutProperties(_this$props, _excluded);
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", _extends({}, rest, {
-        className: "form-control",
+        className: "form-input form form-control",
         type: this.props.type,
         value: this.props.value,
         onChange: this.props.onChange
@@ -3810,15 +4080,15 @@ var FormInput = /*#__PURE__*/function (_Component14) {
   return FormInput;
 }(react_simplified__WEBPACK_IMPORTED_MODULE_1__.Component);
 
-var FormNumberInput = /*#__PURE__*/function (_Component15) {
-  _inherits(FormNumberInput, _Component15);
+var FormNumberInput = /*#__PURE__*/function (_Component16) {
+  _inherits(FormNumberInput, _Component16);
 
-  var _super15 = _createSuper(FormNumberInput);
+  var _super16 = _createSuper(FormNumberInput);
 
   function FormNumberInput() {
     _classCallCheck(this, FormNumberInput);
 
-    return _super15.apply(this, arguments);
+    return _super16.apply(this, arguments);
   }
 
   _createClass(FormNumberInput, [{
@@ -3847,12 +4117,12 @@ var FormNumberInput = /*#__PURE__*/function (_Component15) {
 var FormTextarea = /*#__PURE__*/function (_React$Component) {
   _inherits(FormTextarea, _React$Component);
 
-  var _super16 = _createSuper(FormTextarea);
+  var _super17 = _createSuper(FormTextarea);
 
   function FormTextarea() {
     _classCallCheck(this, FormTextarea);
 
-    return _super16.apply(this, arguments);
+    return _super17.apply(this, arguments);
   }
 
   _createClass(FormTextarea, [{
@@ -3877,31 +4147,29 @@ var FormTextarea = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component); // Form checkbox
 
 
-var FormCheckbox = /*#__PURE__*/function (_Component16) {
-  _inherits(FormCheckbox, _Component16);
+var FormCheckbox = /*#__PURE__*/function (_Component17) {
+  _inherits(FormCheckbox, _Component17);
 
-  var _super17 = _createSuper(FormCheckbox);
+  var _super18 = _createSuper(FormCheckbox);
 
   function FormCheckbox() {
     _classCallCheck(this, FormCheckbox);
 
-    return _super17.apply(this, arguments);
+    return _super18.apply(this, arguments);
   }
 
   _createClass(FormCheckbox, [{
     key: "render",
     value: function render() {
-      // ...rest will contain extra passed attributes such as disabled, required, width, height, pattern
-      // For further information, see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
       var _this$props4 = this.props,
-          checked = _this$props4.checked,
           onChange = _this$props4.onChange,
+          value = _this$props4.value,
           rest = _objectWithoutProperties(_this$props4, _excluded4);
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", _extends({}, rest, {
-        className: "form-check-input",
+        value: value,
+        className: "form-check-input form-item form-check",
         type: "checkbox",
-        checked: checked,
         onChange: onChange
       }));
     }
@@ -3911,23 +4179,22 @@ var FormCheckbox = /*#__PURE__*/function (_Component16) {
 }(react_simplified__WEBPACK_IMPORTED_MODULE_1__.Component); // Form select
 
 
-var FormSelect = /*#__PURE__*/function (_Component17) {
-  _inherits(FormSelect, _Component17);
+var FormSelect = /*#__PURE__*/function (_Component18) {
+  _inherits(FormSelect, _Component18);
 
-  var _super18 = _createSuper(FormSelect);
+  var _super19 = _createSuper(FormSelect);
 
   function FormSelect() {
     _classCallCheck(this, FormSelect);
 
-    return _super18.apply(this, arguments);
+    return _super19.apply(this, arguments);
   }
 
   _createClass(FormSelect, [{
     key: "render",
     value: function render() {
-      // ...rest will contain extra passed attributes such as disabled, required, size.
-      // For further information, see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
       var _this$props5 = this.props,
+          key = _this$props5.key,
           value = _this$props5.value,
           onChange = _this$props5.onChange,
           children = _this$props5.children,
@@ -3936,6 +4203,7 @@ var FormSelect = /*#__PURE__*/function (_Component17) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", _extends({}, rest, {
         className: "custom-select",
         value: value,
+        key: key,
         onChange: onChange
       }), children);
     }
@@ -3944,15 +4212,15 @@ var FormSelect = /*#__PURE__*/function (_Component17) {
   return FormSelect;
 }(react_simplified__WEBPACK_IMPORTED_MODULE_1__.Component);
 
-var FormDate = /*#__PURE__*/function (_Component18) {
-  _inherits(FormDate, _Component18);
+var FormDate = /*#__PURE__*/function (_Component19) {
+  _inherits(FormDate, _Component19);
 
-  var _super19 = _createSuper(FormDate);
+  var _super20 = _createSuper(FormDate);
 
   function FormDate() {
     _classCallCheck(this, FormDate);
 
-    return _super19.apply(this, arguments);
+    return _super20.apply(this, arguments);
   }
 
   _createClass(FormDate, [{
@@ -3965,7 +4233,7 @@ var FormDate = /*#__PURE__*/function (_Component18) {
           rest = _objectWithoutProperties(_this$props6, _excluded6);
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", _extends({
-        className: "form-control",
+        className: "form-input form-control",
         type: "date",
         placeholder: placeholder,
         onChange: onChange,
@@ -3977,15 +4245,15 @@ var FormDate = /*#__PURE__*/function (_Component18) {
   return FormDate;
 }(react_simplified__WEBPACK_IMPORTED_MODULE_1__.Component);
 
-var FormSelectDropdown = /*#__PURE__*/function (_Component19) {
-  _inherits(FormSelectDropdown, _Component19);
+var FormSelectDropdown = /*#__PURE__*/function (_Component20) {
+  _inherits(FormSelectDropdown, _Component20);
 
-  var _super20 = _createSuper(FormSelectDropdown);
+  var _super21 = _createSuper(FormSelectDropdown);
 
   function FormSelectDropdown() {
     _classCallCheck(this, FormSelectDropdown);
 
-    return _super20.apply(this, arguments);
+    return _super21.apply(this, arguments);
   }
 
   _createClass(FormSelectDropdown, [{
@@ -3998,15 +4266,15 @@ var FormSelectDropdown = /*#__PURE__*/function (_Component19) {
           rest = _objectWithoutProperties(_this$props7, _excluded7);
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", _extends({
-        className: "dropdown-menu",
+        className: "form-select",
         value: value,
         onChange: onChange
-      }, rest), valueList.map(function (valueList, i) {
+      }, rest), valueList.map(function (option) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
-          key: i,
+          key: option,
           className: "dropdown-item",
-          value: valueList
-        }, valueList);
+          value: option
+        }, option);
       })));
     }
   }]);
@@ -4034,10 +4302,10 @@ _defineProperty(Form, "Date", FormDate);
 
 _defineProperty(Form, "Genra", FormSelectDropdown);
 
-var Alert = /*#__PURE__*/function (_Component20) {
-  _inherits(Alert, _Component20);
+var Alert = /*#__PURE__*/function (_Component21) {
+  _inherits(Alert, _Component21);
 
-  var _super21 = _createSuper(Alert);
+  var _super22 = _createSuper(Alert);
 
   function Alert() {
     var _this;
@@ -4048,7 +4316,7 @@ var Alert = /*#__PURE__*/function (_Component20) {
       args[_key] = arguments[_key];
     }
 
-    _this = _super21.call.apply(_super21, [this].concat(args));
+    _this = _super22.call.apply(_super22, [this].concat(args));
 
     _defineProperty(_assertThisInitialized(_this), "alerts", []);
 
@@ -4173,33 +4441,40 @@ export class List {
 // Søkefelt. Hentet fra (Forms) https://getbootstrap.com/docs/4.0/components/navbar/#forms
 // Har endret fra success til secondary button
 
-var SearchBar = /*#__PURE__*/function (_Component21) {
-  _inherits(SearchBar, _Component21);
+var SearchBar = /*#__PURE__*/function (_Component22) {
+  _inherits(SearchBar, _Component22);
 
-  var _super22 = _createSuper(SearchBar);
+  var _super23 = _createSuper(SearchBar);
 
   function SearchBar() {
     _classCallCheck(this, SearchBar);
 
-    return _super22.apply(this, arguments);
+    return _super23.apply(this, arguments);
   }
 
   _createClass(SearchBar, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("nav", {
-        className: "navbar navbar-light bg-light"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
-        className: "form-inline"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
-        className: "form-control mr-sm-2",
+      var _this$props8 = this.props,
+          value = _this$props8.value,
+          onChange = _this$props8.onChange,
+          onClick = _this$props8.onClick,
+          rest = _objectWithoutProperties(_this$props8, _excluded8);
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
+        className: "form-inline form-display"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", _extends({
+        className: "form-control mr-sm-2 form-display",
         type: "search",
-        placeholder: "Search",
-        "aria-label": "Search"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        placeholder: "",
+        "aria-label": "Search",
+        value: value,
+        onChange: onChange
+      }, rest)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         className: "btn btn-secondary my-2 my-sm-0",
-        type: "submit"
-      }, "Search")));
+        type: "submit",
+        onClick: onClick
+      }, "Search"));
     }
   }]);
 
@@ -4208,15 +4483,15 @@ var SearchBar = /*#__PURE__*/function (_Component21) {
 // Mulig vi ikke kommer til å bruke denne hvis vi har innlogging via fb e.l.
 // Bytte ut
 
-var SignIn = /*#__PURE__*/function (_Component22) {
-  _inherits(SignIn, _Component22);
+var SignIn = /*#__PURE__*/function (_Component23) {
+  _inherits(SignIn, _Component23);
 
-  var _super23 = _createSuper(SignIn);
+  var _super24 = _createSuper(SignIn);
 
   function SignIn() {
     _classCallCheck(this, SignIn);
 
-    return _super23.apply(this, arguments);
+    return _super24.apply(this, arguments);
   }
 
   _createClass(SignIn, [{
@@ -4271,10 +4546,10 @@ var SignIn = /*#__PURE__*/function (_Component22) {
   return SignIn;
 }(react_simplified__WEBPACK_IMPORTED_MODULE_1__.Component); // Rating stjerner 1-5 med rater-js: https://www.npmjs.com/package/rater-js
 
-var StarRating = /*#__PURE__*/function (_Component23) {
-  _inherits(StarRating, _Component23);
+var StarRating = /*#__PURE__*/function (_Component24) {
+  _inherits(StarRating, _Component24);
 
-  var _super24 = _createSuper(StarRating);
+  var _super25 = _createSuper(StarRating);
 
   function StarRating() {
     var _this3;
@@ -4285,7 +4560,7 @@ var StarRating = /*#__PURE__*/function (_Component23) {
       args[_key2] = arguments[_key2];
     }
 
-    _this3 = _super24.call.apply(_super24, [this].concat(args));
+    _this3 = _super25.call.apply(_super25, [this].concat(args));
 
     _defineProperty(_assertThisInitialized(_this3), "rating", null);
 
@@ -4302,6 +4577,8 @@ var StarRating = /*#__PURE__*/function (_Component23) {
       if (done) {
         done();
       }
+
+      console.log(value);
     }
   }, {
     key: "mounted",
@@ -4312,9 +4589,11 @@ var StarRating = /*#__PURE__*/function (_Component23) {
         this.rating = rater_js__WEBPACK_IMPORTED_MODULE_2___default()({
           element: element,
           rateCallback: this.props.onChange ? this.onChange : undefined,
-          readOnly: !this.props.edit
+          readOnly: !this.props.edit,
+          step: 0.1,
+          starSize: this.props.size
         });
-        this.rating.setRating(this.props.value);
+        this.rating.setRating(Math.round(this.props.value * 10 / 10));
       }
     }
   }, {
@@ -5313,7 +5592,7 @@ function createMemoryHistory(props) {
 "use strict";
 
 
-var reactIs = __webpack_require__(/*! react-is */ "./node_modules/hoist-non-react-statics/node_modules/react-is/index.js");
+var reactIs = __webpack_require__(/*! react-is */ "./node_modules/react-is/index.js");
 
 /**
  * Copyright 2015, Yahoo! Inc.
@@ -5414,214 +5693,6 @@ function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
 }
 
 module.exports = hoistNonReactStatics;
-
-
-/***/ }),
-
-/***/ "./node_modules/hoist-non-react-statics/node_modules/react-is/cjs/react-is.development.js":
-/*!************************************************************************************************!*\
-  !*** ./node_modules/hoist-non-react-statics/node_modules/react-is/cjs/react-is.development.js ***!
-  \************************************************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-/** @license React v16.13.1
- * react-is.development.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-
-
-
-
-if (true) {
-  (function() {
-'use strict';
-
-// The Symbol used to tag the ReactElement-like types. If there is no native Symbol
-// nor polyfill, then a plain number is used for performance.
-var hasSymbol = typeof Symbol === 'function' && Symbol.for;
-var REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for('react.element') : 0xeac7;
-var REACT_PORTAL_TYPE = hasSymbol ? Symbol.for('react.portal') : 0xeaca;
-var REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for('react.fragment') : 0xeacb;
-var REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for('react.strict_mode') : 0xeacc;
-var REACT_PROFILER_TYPE = hasSymbol ? Symbol.for('react.profiler') : 0xead2;
-var REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for('react.provider') : 0xeacd;
-var REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for('react.context') : 0xeace; // TODO: We don't use AsyncMode or ConcurrentMode anymore. They were temporary
-// (unstable) APIs that have been removed. Can we remove the symbols?
-
-var REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol.for('react.async_mode') : 0xeacf;
-var REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for('react.concurrent_mode') : 0xeacf;
-var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for('react.forward_ref') : 0xead0;
-var REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for('react.suspense') : 0xead1;
-var REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for('react.suspense_list') : 0xead8;
-var REACT_MEMO_TYPE = hasSymbol ? Symbol.for('react.memo') : 0xead3;
-var REACT_LAZY_TYPE = hasSymbol ? Symbol.for('react.lazy') : 0xead4;
-var REACT_BLOCK_TYPE = hasSymbol ? Symbol.for('react.block') : 0xead9;
-var REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol.for('react.fundamental') : 0xead5;
-var REACT_RESPONDER_TYPE = hasSymbol ? Symbol.for('react.responder') : 0xead6;
-var REACT_SCOPE_TYPE = hasSymbol ? Symbol.for('react.scope') : 0xead7;
-
-function isValidElementType(type) {
-  return typeof type === 'string' || typeof type === 'function' || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
-  type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || typeof type === 'object' && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE || type.$$typeof === REACT_BLOCK_TYPE);
-}
-
-function typeOf(object) {
-  if (typeof object === 'object' && object !== null) {
-    var $$typeof = object.$$typeof;
-
-    switch ($$typeof) {
-      case REACT_ELEMENT_TYPE:
-        var type = object.type;
-
-        switch (type) {
-          case REACT_ASYNC_MODE_TYPE:
-          case REACT_CONCURRENT_MODE_TYPE:
-          case REACT_FRAGMENT_TYPE:
-          case REACT_PROFILER_TYPE:
-          case REACT_STRICT_MODE_TYPE:
-          case REACT_SUSPENSE_TYPE:
-            return type;
-
-          default:
-            var $$typeofType = type && type.$$typeof;
-
-            switch ($$typeofType) {
-              case REACT_CONTEXT_TYPE:
-              case REACT_FORWARD_REF_TYPE:
-              case REACT_LAZY_TYPE:
-              case REACT_MEMO_TYPE:
-              case REACT_PROVIDER_TYPE:
-                return $$typeofType;
-
-              default:
-                return $$typeof;
-            }
-
-        }
-
-      case REACT_PORTAL_TYPE:
-        return $$typeof;
-    }
-  }
-
-  return undefined;
-} // AsyncMode is deprecated along with isAsyncMode
-
-var AsyncMode = REACT_ASYNC_MODE_TYPE;
-var ConcurrentMode = REACT_CONCURRENT_MODE_TYPE;
-var ContextConsumer = REACT_CONTEXT_TYPE;
-var ContextProvider = REACT_PROVIDER_TYPE;
-var Element = REACT_ELEMENT_TYPE;
-var ForwardRef = REACT_FORWARD_REF_TYPE;
-var Fragment = REACT_FRAGMENT_TYPE;
-var Lazy = REACT_LAZY_TYPE;
-var Memo = REACT_MEMO_TYPE;
-var Portal = REACT_PORTAL_TYPE;
-var Profiler = REACT_PROFILER_TYPE;
-var StrictMode = REACT_STRICT_MODE_TYPE;
-var Suspense = REACT_SUSPENSE_TYPE;
-var hasWarnedAboutDeprecatedIsAsyncMode = false; // AsyncMode should be deprecated
-
-function isAsyncMode(object) {
-  {
-    if (!hasWarnedAboutDeprecatedIsAsyncMode) {
-      hasWarnedAboutDeprecatedIsAsyncMode = true; // Using console['warn'] to evade Babel and ESLint
-
-      console['warn']('The ReactIs.isAsyncMode() alias has been deprecated, ' + 'and will be removed in React 17+. Update your code to use ' + 'ReactIs.isConcurrentMode() instead. It has the exact same API.');
-    }
-  }
-
-  return isConcurrentMode(object) || typeOf(object) === REACT_ASYNC_MODE_TYPE;
-}
-function isConcurrentMode(object) {
-  return typeOf(object) === REACT_CONCURRENT_MODE_TYPE;
-}
-function isContextConsumer(object) {
-  return typeOf(object) === REACT_CONTEXT_TYPE;
-}
-function isContextProvider(object) {
-  return typeOf(object) === REACT_PROVIDER_TYPE;
-}
-function isElement(object) {
-  return typeof object === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
-}
-function isForwardRef(object) {
-  return typeOf(object) === REACT_FORWARD_REF_TYPE;
-}
-function isFragment(object) {
-  return typeOf(object) === REACT_FRAGMENT_TYPE;
-}
-function isLazy(object) {
-  return typeOf(object) === REACT_LAZY_TYPE;
-}
-function isMemo(object) {
-  return typeOf(object) === REACT_MEMO_TYPE;
-}
-function isPortal(object) {
-  return typeOf(object) === REACT_PORTAL_TYPE;
-}
-function isProfiler(object) {
-  return typeOf(object) === REACT_PROFILER_TYPE;
-}
-function isStrictMode(object) {
-  return typeOf(object) === REACT_STRICT_MODE_TYPE;
-}
-function isSuspense(object) {
-  return typeOf(object) === REACT_SUSPENSE_TYPE;
-}
-
-exports.AsyncMode = AsyncMode;
-exports.ConcurrentMode = ConcurrentMode;
-exports.ContextConsumer = ContextConsumer;
-exports.ContextProvider = ContextProvider;
-exports.Element = Element;
-exports.ForwardRef = ForwardRef;
-exports.Fragment = Fragment;
-exports.Lazy = Lazy;
-exports.Memo = Memo;
-exports.Portal = Portal;
-exports.Profiler = Profiler;
-exports.StrictMode = StrictMode;
-exports.Suspense = Suspense;
-exports.isAsyncMode = isAsyncMode;
-exports.isConcurrentMode = isConcurrentMode;
-exports.isContextConsumer = isContextConsumer;
-exports.isContextProvider = isContextProvider;
-exports.isElement = isElement;
-exports.isForwardRef = isForwardRef;
-exports.isFragment = isFragment;
-exports.isLazy = isLazy;
-exports.isMemo = isMemo;
-exports.isPortal = isPortal;
-exports.isProfiler = isProfiler;
-exports.isStrictMode = isStrictMode;
-exports.isSuspense = isSuspense;
-exports.isValidElementType = isValidElementType;
-exports.typeOf = typeOf;
-  })();
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/hoist-non-react-statics/node_modules/react-is/index.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/hoist-non-react-statics/node_modules/react-is/index.js ***!
-  \*****************************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-
-if (false) {} else {
-  module.exports = __webpack_require__(/*! ./cjs/react-is.development.js */ "./node_modules/hoist-non-react-statics/node_modules/react-is/cjs/react-is.development.js");
-}
 
 
 /***/ }),
@@ -6501,7 +6572,7 @@ module.exports = checkPropTypes;
 
 
 
-var ReactIs = __webpack_require__(/*! react-is */ "./node_modules/prop-types/node_modules/react-is/index.js");
+var ReactIs = __webpack_require__(/*! react-is */ "./node_modules/react-is/index.js");
 var assign = __webpack_require__(/*! object-assign */ "./node_modules/object-assign/index.js");
 
 var ReactPropTypesSecret = __webpack_require__(/*! ./lib/ReactPropTypesSecret */ "./node_modules/prop-types/lib/ReactPropTypesSecret.js");
@@ -7101,7 +7172,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
  */
 
 if (true) {
-  var ReactIs = __webpack_require__(/*! react-is */ "./node_modules/prop-types/node_modules/react-is/index.js");
+  var ReactIs = __webpack_require__(/*! react-is */ "./node_modules/react-is/index.js");
 
   // By explicitly using `prop-types` you are opting into new development behavior.
   // http://fb.me/prop-types-in-prod
@@ -7131,214 +7202,6 @@ if (true) {
 var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 
 module.exports = ReactPropTypesSecret;
-
-
-/***/ }),
-
-/***/ "./node_modules/prop-types/node_modules/react-is/cjs/react-is.development.js":
-/*!***********************************************************************************!*\
-  !*** ./node_modules/prop-types/node_modules/react-is/cjs/react-is.development.js ***!
-  \***********************************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-/** @license React v16.13.1
- * react-is.development.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-
-
-
-
-if (true) {
-  (function() {
-'use strict';
-
-// The Symbol used to tag the ReactElement-like types. If there is no native Symbol
-// nor polyfill, then a plain number is used for performance.
-var hasSymbol = typeof Symbol === 'function' && Symbol.for;
-var REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for('react.element') : 0xeac7;
-var REACT_PORTAL_TYPE = hasSymbol ? Symbol.for('react.portal') : 0xeaca;
-var REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for('react.fragment') : 0xeacb;
-var REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for('react.strict_mode') : 0xeacc;
-var REACT_PROFILER_TYPE = hasSymbol ? Symbol.for('react.profiler') : 0xead2;
-var REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for('react.provider') : 0xeacd;
-var REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for('react.context') : 0xeace; // TODO: We don't use AsyncMode or ConcurrentMode anymore. They were temporary
-// (unstable) APIs that have been removed. Can we remove the symbols?
-
-var REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol.for('react.async_mode') : 0xeacf;
-var REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for('react.concurrent_mode') : 0xeacf;
-var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for('react.forward_ref') : 0xead0;
-var REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for('react.suspense') : 0xead1;
-var REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for('react.suspense_list') : 0xead8;
-var REACT_MEMO_TYPE = hasSymbol ? Symbol.for('react.memo') : 0xead3;
-var REACT_LAZY_TYPE = hasSymbol ? Symbol.for('react.lazy') : 0xead4;
-var REACT_BLOCK_TYPE = hasSymbol ? Symbol.for('react.block') : 0xead9;
-var REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol.for('react.fundamental') : 0xead5;
-var REACT_RESPONDER_TYPE = hasSymbol ? Symbol.for('react.responder') : 0xead6;
-var REACT_SCOPE_TYPE = hasSymbol ? Symbol.for('react.scope') : 0xead7;
-
-function isValidElementType(type) {
-  return typeof type === 'string' || typeof type === 'function' || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
-  type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || typeof type === 'object' && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE || type.$$typeof === REACT_BLOCK_TYPE);
-}
-
-function typeOf(object) {
-  if (typeof object === 'object' && object !== null) {
-    var $$typeof = object.$$typeof;
-
-    switch ($$typeof) {
-      case REACT_ELEMENT_TYPE:
-        var type = object.type;
-
-        switch (type) {
-          case REACT_ASYNC_MODE_TYPE:
-          case REACT_CONCURRENT_MODE_TYPE:
-          case REACT_FRAGMENT_TYPE:
-          case REACT_PROFILER_TYPE:
-          case REACT_STRICT_MODE_TYPE:
-          case REACT_SUSPENSE_TYPE:
-            return type;
-
-          default:
-            var $$typeofType = type && type.$$typeof;
-
-            switch ($$typeofType) {
-              case REACT_CONTEXT_TYPE:
-              case REACT_FORWARD_REF_TYPE:
-              case REACT_LAZY_TYPE:
-              case REACT_MEMO_TYPE:
-              case REACT_PROVIDER_TYPE:
-                return $$typeofType;
-
-              default:
-                return $$typeof;
-            }
-
-        }
-
-      case REACT_PORTAL_TYPE:
-        return $$typeof;
-    }
-  }
-
-  return undefined;
-} // AsyncMode is deprecated along with isAsyncMode
-
-var AsyncMode = REACT_ASYNC_MODE_TYPE;
-var ConcurrentMode = REACT_CONCURRENT_MODE_TYPE;
-var ContextConsumer = REACT_CONTEXT_TYPE;
-var ContextProvider = REACT_PROVIDER_TYPE;
-var Element = REACT_ELEMENT_TYPE;
-var ForwardRef = REACT_FORWARD_REF_TYPE;
-var Fragment = REACT_FRAGMENT_TYPE;
-var Lazy = REACT_LAZY_TYPE;
-var Memo = REACT_MEMO_TYPE;
-var Portal = REACT_PORTAL_TYPE;
-var Profiler = REACT_PROFILER_TYPE;
-var StrictMode = REACT_STRICT_MODE_TYPE;
-var Suspense = REACT_SUSPENSE_TYPE;
-var hasWarnedAboutDeprecatedIsAsyncMode = false; // AsyncMode should be deprecated
-
-function isAsyncMode(object) {
-  {
-    if (!hasWarnedAboutDeprecatedIsAsyncMode) {
-      hasWarnedAboutDeprecatedIsAsyncMode = true; // Using console['warn'] to evade Babel and ESLint
-
-      console['warn']('The ReactIs.isAsyncMode() alias has been deprecated, ' + 'and will be removed in React 17+. Update your code to use ' + 'ReactIs.isConcurrentMode() instead. It has the exact same API.');
-    }
-  }
-
-  return isConcurrentMode(object) || typeOf(object) === REACT_ASYNC_MODE_TYPE;
-}
-function isConcurrentMode(object) {
-  return typeOf(object) === REACT_CONCURRENT_MODE_TYPE;
-}
-function isContextConsumer(object) {
-  return typeOf(object) === REACT_CONTEXT_TYPE;
-}
-function isContextProvider(object) {
-  return typeOf(object) === REACT_PROVIDER_TYPE;
-}
-function isElement(object) {
-  return typeof object === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
-}
-function isForwardRef(object) {
-  return typeOf(object) === REACT_FORWARD_REF_TYPE;
-}
-function isFragment(object) {
-  return typeOf(object) === REACT_FRAGMENT_TYPE;
-}
-function isLazy(object) {
-  return typeOf(object) === REACT_LAZY_TYPE;
-}
-function isMemo(object) {
-  return typeOf(object) === REACT_MEMO_TYPE;
-}
-function isPortal(object) {
-  return typeOf(object) === REACT_PORTAL_TYPE;
-}
-function isProfiler(object) {
-  return typeOf(object) === REACT_PROFILER_TYPE;
-}
-function isStrictMode(object) {
-  return typeOf(object) === REACT_STRICT_MODE_TYPE;
-}
-function isSuspense(object) {
-  return typeOf(object) === REACT_SUSPENSE_TYPE;
-}
-
-exports.AsyncMode = AsyncMode;
-exports.ConcurrentMode = ConcurrentMode;
-exports.ContextConsumer = ContextConsumer;
-exports.ContextProvider = ContextProvider;
-exports.Element = Element;
-exports.ForwardRef = ForwardRef;
-exports.Fragment = Fragment;
-exports.Lazy = Lazy;
-exports.Memo = Memo;
-exports.Portal = Portal;
-exports.Profiler = Profiler;
-exports.StrictMode = StrictMode;
-exports.Suspense = Suspense;
-exports.isAsyncMode = isAsyncMode;
-exports.isConcurrentMode = isConcurrentMode;
-exports.isContextConsumer = isContextConsumer;
-exports.isContextProvider = isContextProvider;
-exports.isElement = isElement;
-exports.isForwardRef = isForwardRef;
-exports.isFragment = isFragment;
-exports.isLazy = isLazy;
-exports.isMemo = isMemo;
-exports.isPortal = isPortal;
-exports.isProfiler = isProfiler;
-exports.isStrictMode = isStrictMode;
-exports.isSuspense = isSuspense;
-exports.isValidElementType = isValidElementType;
-exports.typeOf = typeOf;
-  })();
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/prop-types/node_modules/react-is/index.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/prop-types/node_modules/react-is/index.js ***!
-  \****************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-
-if (false) {} else {
-  module.exports = __webpack_require__(/*! ./cjs/react-is.development.js */ "./node_modules/prop-types/node_modules/react-is/cjs/react-is.development.js");
-}
 
 
 /***/ }),
@@ -34107,6 +33970,214 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/react-is/cjs/react-is.development.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/react-is/cjs/react-is.development.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+/** @license React v16.13.1
+ * react-is.development.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+
+
+if (true) {
+  (function() {
+'use strict';
+
+// The Symbol used to tag the ReactElement-like types. If there is no native Symbol
+// nor polyfill, then a plain number is used for performance.
+var hasSymbol = typeof Symbol === 'function' && Symbol.for;
+var REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for('react.element') : 0xeac7;
+var REACT_PORTAL_TYPE = hasSymbol ? Symbol.for('react.portal') : 0xeaca;
+var REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for('react.fragment') : 0xeacb;
+var REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for('react.strict_mode') : 0xeacc;
+var REACT_PROFILER_TYPE = hasSymbol ? Symbol.for('react.profiler') : 0xead2;
+var REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for('react.provider') : 0xeacd;
+var REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for('react.context') : 0xeace; // TODO: We don't use AsyncMode or ConcurrentMode anymore. They were temporary
+// (unstable) APIs that have been removed. Can we remove the symbols?
+
+var REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol.for('react.async_mode') : 0xeacf;
+var REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for('react.concurrent_mode') : 0xeacf;
+var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for('react.forward_ref') : 0xead0;
+var REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for('react.suspense') : 0xead1;
+var REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for('react.suspense_list') : 0xead8;
+var REACT_MEMO_TYPE = hasSymbol ? Symbol.for('react.memo') : 0xead3;
+var REACT_LAZY_TYPE = hasSymbol ? Symbol.for('react.lazy') : 0xead4;
+var REACT_BLOCK_TYPE = hasSymbol ? Symbol.for('react.block') : 0xead9;
+var REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol.for('react.fundamental') : 0xead5;
+var REACT_RESPONDER_TYPE = hasSymbol ? Symbol.for('react.responder') : 0xead6;
+var REACT_SCOPE_TYPE = hasSymbol ? Symbol.for('react.scope') : 0xead7;
+
+function isValidElementType(type) {
+  return typeof type === 'string' || typeof type === 'function' || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
+  type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || typeof type === 'object' && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE || type.$$typeof === REACT_BLOCK_TYPE);
+}
+
+function typeOf(object) {
+  if (typeof object === 'object' && object !== null) {
+    var $$typeof = object.$$typeof;
+
+    switch ($$typeof) {
+      case REACT_ELEMENT_TYPE:
+        var type = object.type;
+
+        switch (type) {
+          case REACT_ASYNC_MODE_TYPE:
+          case REACT_CONCURRENT_MODE_TYPE:
+          case REACT_FRAGMENT_TYPE:
+          case REACT_PROFILER_TYPE:
+          case REACT_STRICT_MODE_TYPE:
+          case REACT_SUSPENSE_TYPE:
+            return type;
+
+          default:
+            var $$typeofType = type && type.$$typeof;
+
+            switch ($$typeofType) {
+              case REACT_CONTEXT_TYPE:
+              case REACT_FORWARD_REF_TYPE:
+              case REACT_LAZY_TYPE:
+              case REACT_MEMO_TYPE:
+              case REACT_PROVIDER_TYPE:
+                return $$typeofType;
+
+              default:
+                return $$typeof;
+            }
+
+        }
+
+      case REACT_PORTAL_TYPE:
+        return $$typeof;
+    }
+  }
+
+  return undefined;
+} // AsyncMode is deprecated along with isAsyncMode
+
+var AsyncMode = REACT_ASYNC_MODE_TYPE;
+var ConcurrentMode = REACT_CONCURRENT_MODE_TYPE;
+var ContextConsumer = REACT_CONTEXT_TYPE;
+var ContextProvider = REACT_PROVIDER_TYPE;
+var Element = REACT_ELEMENT_TYPE;
+var ForwardRef = REACT_FORWARD_REF_TYPE;
+var Fragment = REACT_FRAGMENT_TYPE;
+var Lazy = REACT_LAZY_TYPE;
+var Memo = REACT_MEMO_TYPE;
+var Portal = REACT_PORTAL_TYPE;
+var Profiler = REACT_PROFILER_TYPE;
+var StrictMode = REACT_STRICT_MODE_TYPE;
+var Suspense = REACT_SUSPENSE_TYPE;
+var hasWarnedAboutDeprecatedIsAsyncMode = false; // AsyncMode should be deprecated
+
+function isAsyncMode(object) {
+  {
+    if (!hasWarnedAboutDeprecatedIsAsyncMode) {
+      hasWarnedAboutDeprecatedIsAsyncMode = true; // Using console['warn'] to evade Babel and ESLint
+
+      console['warn']('The ReactIs.isAsyncMode() alias has been deprecated, ' + 'and will be removed in React 17+. Update your code to use ' + 'ReactIs.isConcurrentMode() instead. It has the exact same API.');
+    }
+  }
+
+  return isConcurrentMode(object) || typeOf(object) === REACT_ASYNC_MODE_TYPE;
+}
+function isConcurrentMode(object) {
+  return typeOf(object) === REACT_CONCURRENT_MODE_TYPE;
+}
+function isContextConsumer(object) {
+  return typeOf(object) === REACT_CONTEXT_TYPE;
+}
+function isContextProvider(object) {
+  return typeOf(object) === REACT_PROVIDER_TYPE;
+}
+function isElement(object) {
+  return typeof object === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
+}
+function isForwardRef(object) {
+  return typeOf(object) === REACT_FORWARD_REF_TYPE;
+}
+function isFragment(object) {
+  return typeOf(object) === REACT_FRAGMENT_TYPE;
+}
+function isLazy(object) {
+  return typeOf(object) === REACT_LAZY_TYPE;
+}
+function isMemo(object) {
+  return typeOf(object) === REACT_MEMO_TYPE;
+}
+function isPortal(object) {
+  return typeOf(object) === REACT_PORTAL_TYPE;
+}
+function isProfiler(object) {
+  return typeOf(object) === REACT_PROFILER_TYPE;
+}
+function isStrictMode(object) {
+  return typeOf(object) === REACT_STRICT_MODE_TYPE;
+}
+function isSuspense(object) {
+  return typeOf(object) === REACT_SUSPENSE_TYPE;
+}
+
+exports.AsyncMode = AsyncMode;
+exports.ConcurrentMode = ConcurrentMode;
+exports.ContextConsumer = ContextConsumer;
+exports.ContextProvider = ContextProvider;
+exports.Element = Element;
+exports.ForwardRef = ForwardRef;
+exports.Fragment = Fragment;
+exports.Lazy = Lazy;
+exports.Memo = Memo;
+exports.Portal = Portal;
+exports.Profiler = Profiler;
+exports.StrictMode = StrictMode;
+exports.Suspense = Suspense;
+exports.isAsyncMode = isAsyncMode;
+exports.isConcurrentMode = isConcurrentMode;
+exports.isContextConsumer = isContextConsumer;
+exports.isContextProvider = isContextProvider;
+exports.isElement = isElement;
+exports.isForwardRef = isForwardRef;
+exports.isFragment = isFragment;
+exports.isLazy = isLazy;
+exports.isMemo = isMemo;
+exports.isPortal = isPortal;
+exports.isProfiler = isProfiler;
+exports.isStrictMode = isStrictMode;
+exports.isSuspense = isSuspense;
+exports.isValidElementType = isValidElementType;
+exports.typeOf = typeOf;
+  })();
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/react-is/index.js":
+/*!****************************************!*\
+  !*** ./node_modules/react-is/index.js ***!
+  \****************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+if (false) {} else {
+  module.exports = __webpack_require__(/*! ./cjs/react-is.development.js */ "./node_modules/react-is/cjs/react-is.development.js");
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/react-router-dom/esm/react-router-dom.js":
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
@@ -34505,7 +34576,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
 /* harmony import */ var path_to_regexp__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! path-to-regexp */ "./node_modules/path-to-regexp/index.js");
 /* harmony import */ var path_to_regexp__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(path_to_regexp__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var react_is__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-is */ "./node_modules/react-router/node_modules/react-is/index.js");
+/* harmony import */ var react_is__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-is */ "./node_modules/react-is/index.js");
 /* harmony import */ var _babel_runtime_helpers_esm_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutPropertiesLoose */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js");
 /* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! hoist-non-react-statics */ "./node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js");
 /* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_8__);
@@ -35259,214 +35330,6 @@ if (true) {
 
 
 //# sourceMappingURL=react-router.js.map
-
-
-/***/ }),
-
-/***/ "./node_modules/react-router/node_modules/react-is/cjs/react-is.development.js":
-/*!*************************************************************************************!*\
-  !*** ./node_modules/react-router/node_modules/react-is/cjs/react-is.development.js ***!
-  \*************************************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-/** @license React v16.13.1
- * react-is.development.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-
-
-
-
-if (true) {
-  (function() {
-'use strict';
-
-// The Symbol used to tag the ReactElement-like types. If there is no native Symbol
-// nor polyfill, then a plain number is used for performance.
-var hasSymbol = typeof Symbol === 'function' && Symbol.for;
-var REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for('react.element') : 0xeac7;
-var REACT_PORTAL_TYPE = hasSymbol ? Symbol.for('react.portal') : 0xeaca;
-var REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for('react.fragment') : 0xeacb;
-var REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for('react.strict_mode') : 0xeacc;
-var REACT_PROFILER_TYPE = hasSymbol ? Symbol.for('react.profiler') : 0xead2;
-var REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for('react.provider') : 0xeacd;
-var REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for('react.context') : 0xeace; // TODO: We don't use AsyncMode or ConcurrentMode anymore. They were temporary
-// (unstable) APIs that have been removed. Can we remove the symbols?
-
-var REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol.for('react.async_mode') : 0xeacf;
-var REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for('react.concurrent_mode') : 0xeacf;
-var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for('react.forward_ref') : 0xead0;
-var REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for('react.suspense') : 0xead1;
-var REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for('react.suspense_list') : 0xead8;
-var REACT_MEMO_TYPE = hasSymbol ? Symbol.for('react.memo') : 0xead3;
-var REACT_LAZY_TYPE = hasSymbol ? Symbol.for('react.lazy') : 0xead4;
-var REACT_BLOCK_TYPE = hasSymbol ? Symbol.for('react.block') : 0xead9;
-var REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol.for('react.fundamental') : 0xead5;
-var REACT_RESPONDER_TYPE = hasSymbol ? Symbol.for('react.responder') : 0xead6;
-var REACT_SCOPE_TYPE = hasSymbol ? Symbol.for('react.scope') : 0xead7;
-
-function isValidElementType(type) {
-  return typeof type === 'string' || typeof type === 'function' || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
-  type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || typeof type === 'object' && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE || type.$$typeof === REACT_BLOCK_TYPE);
-}
-
-function typeOf(object) {
-  if (typeof object === 'object' && object !== null) {
-    var $$typeof = object.$$typeof;
-
-    switch ($$typeof) {
-      case REACT_ELEMENT_TYPE:
-        var type = object.type;
-
-        switch (type) {
-          case REACT_ASYNC_MODE_TYPE:
-          case REACT_CONCURRENT_MODE_TYPE:
-          case REACT_FRAGMENT_TYPE:
-          case REACT_PROFILER_TYPE:
-          case REACT_STRICT_MODE_TYPE:
-          case REACT_SUSPENSE_TYPE:
-            return type;
-
-          default:
-            var $$typeofType = type && type.$$typeof;
-
-            switch ($$typeofType) {
-              case REACT_CONTEXT_TYPE:
-              case REACT_FORWARD_REF_TYPE:
-              case REACT_LAZY_TYPE:
-              case REACT_MEMO_TYPE:
-              case REACT_PROVIDER_TYPE:
-                return $$typeofType;
-
-              default:
-                return $$typeof;
-            }
-
-        }
-
-      case REACT_PORTAL_TYPE:
-        return $$typeof;
-    }
-  }
-
-  return undefined;
-} // AsyncMode is deprecated along with isAsyncMode
-
-var AsyncMode = REACT_ASYNC_MODE_TYPE;
-var ConcurrentMode = REACT_CONCURRENT_MODE_TYPE;
-var ContextConsumer = REACT_CONTEXT_TYPE;
-var ContextProvider = REACT_PROVIDER_TYPE;
-var Element = REACT_ELEMENT_TYPE;
-var ForwardRef = REACT_FORWARD_REF_TYPE;
-var Fragment = REACT_FRAGMENT_TYPE;
-var Lazy = REACT_LAZY_TYPE;
-var Memo = REACT_MEMO_TYPE;
-var Portal = REACT_PORTAL_TYPE;
-var Profiler = REACT_PROFILER_TYPE;
-var StrictMode = REACT_STRICT_MODE_TYPE;
-var Suspense = REACT_SUSPENSE_TYPE;
-var hasWarnedAboutDeprecatedIsAsyncMode = false; // AsyncMode should be deprecated
-
-function isAsyncMode(object) {
-  {
-    if (!hasWarnedAboutDeprecatedIsAsyncMode) {
-      hasWarnedAboutDeprecatedIsAsyncMode = true; // Using console['warn'] to evade Babel and ESLint
-
-      console['warn']('The ReactIs.isAsyncMode() alias has been deprecated, ' + 'and will be removed in React 17+. Update your code to use ' + 'ReactIs.isConcurrentMode() instead. It has the exact same API.');
-    }
-  }
-
-  return isConcurrentMode(object) || typeOf(object) === REACT_ASYNC_MODE_TYPE;
-}
-function isConcurrentMode(object) {
-  return typeOf(object) === REACT_CONCURRENT_MODE_TYPE;
-}
-function isContextConsumer(object) {
-  return typeOf(object) === REACT_CONTEXT_TYPE;
-}
-function isContextProvider(object) {
-  return typeOf(object) === REACT_PROVIDER_TYPE;
-}
-function isElement(object) {
-  return typeof object === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
-}
-function isForwardRef(object) {
-  return typeOf(object) === REACT_FORWARD_REF_TYPE;
-}
-function isFragment(object) {
-  return typeOf(object) === REACT_FRAGMENT_TYPE;
-}
-function isLazy(object) {
-  return typeOf(object) === REACT_LAZY_TYPE;
-}
-function isMemo(object) {
-  return typeOf(object) === REACT_MEMO_TYPE;
-}
-function isPortal(object) {
-  return typeOf(object) === REACT_PORTAL_TYPE;
-}
-function isProfiler(object) {
-  return typeOf(object) === REACT_PROFILER_TYPE;
-}
-function isStrictMode(object) {
-  return typeOf(object) === REACT_STRICT_MODE_TYPE;
-}
-function isSuspense(object) {
-  return typeOf(object) === REACT_SUSPENSE_TYPE;
-}
-
-exports.AsyncMode = AsyncMode;
-exports.ConcurrentMode = ConcurrentMode;
-exports.ContextConsumer = ContextConsumer;
-exports.ContextProvider = ContextProvider;
-exports.Element = Element;
-exports.ForwardRef = ForwardRef;
-exports.Fragment = Fragment;
-exports.Lazy = Lazy;
-exports.Memo = Memo;
-exports.Portal = Portal;
-exports.Profiler = Profiler;
-exports.StrictMode = StrictMode;
-exports.Suspense = Suspense;
-exports.isAsyncMode = isAsyncMode;
-exports.isConcurrentMode = isConcurrentMode;
-exports.isContextConsumer = isContextConsumer;
-exports.isContextProvider = isContextProvider;
-exports.isElement = isElement;
-exports.isForwardRef = isForwardRef;
-exports.isFragment = isFragment;
-exports.isLazy = isLazy;
-exports.isMemo = isMemo;
-exports.isPortal = isPortal;
-exports.isProfiler = isProfiler;
-exports.isStrictMode = isStrictMode;
-exports.isSuspense = isSuspense;
-exports.isValidElementType = isValidElementType;
-exports.typeOf = typeOf;
-  })();
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/react-router/node_modules/react-is/index.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/react-router/node_modules/react-is/index.js ***!
-  \******************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-
-if (false) {} else {
-  module.exports = __webpack_require__(/*! ./cjs/react-is.development.js */ "./node_modules/react-router/node_modules/react-is/cjs/react-is.development.js");
-}
 
 
 /***/ }),
@@ -39613,17 +39476,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_simplified__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-simplified */ "./node_modules/react-simplified/lib/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _widgets__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./widgets */ "./src/widgets.tsx");
 /* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./services */ "./src/services.tsx");
-/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! history */ "./node_modules/history/esm/history.js");
+/* harmony import */ var history__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! history */ "./node_modules/history/esm/history.js");
 /* harmony import */ var _new_game__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./new-game */ "./src/new-game.tsx");
-/* harmony import */ var _game_review__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./game-review */ "./src/game-review.tsx");
-/* harmony import */ var _game_details__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./game-details */ "./src/game-details.tsx");
+/* harmony import */ var _edit_game__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./edit-game */ "./src/edit-game.tsx");
+/* harmony import */ var _game_review__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./game-review */ "./src/game-review.tsx");
+/* harmony import */ var _game_details__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./game-details */ "./src/game-details.tsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -39645,6 +39507,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 // I denne filen ligger stiene for sidevisning, meny og forside
 
 
@@ -39656,7 +39520,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var history = (0,history__WEBPACK_IMPORTED_MODULE_8__.createHashHistory)(); // Meny med link til andre sider - Finn ut hva som skal med her, legg evt. til senere
+
+var history = (0,history__WEBPACK_IMPORTED_MODULE_9__.createHashHistory)(); // Meny med link til andre sider - Finn ut hva som skal med her, legg evt. til senere
 
 var Menu = /*#__PURE__*/function (_Component) {
   _inherits(Menu, _Component);
@@ -39664,25 +39529,54 @@ var Menu = /*#__PURE__*/function (_Component) {
   var _super = _createSuper(Menu);
 
   function Menu() {
+    var _this;
+
     _classCallCheck(this, Menu);
 
-    return _super.apply(this, arguments);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _super.call.apply(_super, [this].concat(args));
+
+    _defineProperty(_assertThisInitialized(_this), "searchQuery", '');
+
+    return _this;
   }
 
   _createClass(Menu, [{
+    key: "manageSearch",
+    value: function manageSearch() {
+      history.push('/gamesearch/' + this.searchQuery);
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.NavBar, {
-        brand: "Menu"
+        brand: ""
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.NavBar.Link, {
         to: "/"
-      }, "Home/Figur"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.NavBar.Link, {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("img", {
+        src: "https://www.favicon.cc/logo3d/229133.png"
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.NavBar.Link, {
         to: "/gamereview"
-      }, "gamereview"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.NavBar.Link, {
+      }, "REVIEWS"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.NavBar.Link, {
         to: "/gamedetails"
-      }, "gamedetails"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.NavBar.Link, {
+      }, "GAME DETAILS"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.NavBar.Link, {
         to: "/newgame"
-      }, "newgame"))
+      }, "ADD GAME"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.NavBar.Link, {
+        to: "/editgame"
+      }, "EDIT GAME"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.SearchBar, {
+        value: this.searchQuery,
+        onClick: function onClick() {
+          return _this2.manageSearch();
+        },
+        onChange: function onChange(event) {
+          return _this2.searchQuery = event.currentTarget.value;
+        }
+      }))
       /*<SearchBar placeholder="">Search for games</SearchBar>*/
       ;
     }
@@ -39698,19 +39592,19 @@ var FrontPage = /*#__PURE__*/function (_Component2) {
   var _super2 = _createSuper(FrontPage);
 
   function FrontPage() {
-    var _this;
+    var _this3;
 
     _classCallCheck(this, FrontPage);
 
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
+    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      args[_key2] = arguments[_key2];
     }
 
-    _this = _super2.call.apply(_super2, [this].concat(args));
+    _this3 = _super2.call.apply(_super2, [this].concat(args));
 
-    _defineProperty(_assertThisInitialized(_this), "games", []);
+    _defineProperty(_assertThisInitialized(_this3), "games", []);
 
-    return _this;
+    return _this3;
   }
 
   _createClass(FrontPage, [{
@@ -39718,14 +39612,10 @@ var FrontPage = /*#__PURE__*/function (_Component2) {
     value: function render() {
       console.log(this.games);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Card, {
-        title: "GameRatings.com"
-      }, "Rate top games ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Button.Info, {
-        onClick: function onClick() {
-          return history.push('/newgame/');
-        }
-      }, "Add game")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Card, {
-        title: ""
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Column, null, "Title"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Column, null, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Column, null, "Genre"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Column, null, "Platform"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Column, {
+        title: "GameRatings"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), "Rate new and trending games - or your all time favorites!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Card, {
+        title: "Popular games right now"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Row, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Column, null, "Game title"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Column, null, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Column, null, "Genre"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Column, null, "Platform"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Column, {
         width: 3,
         right: true
       }))), this.games.map(function (game) {
@@ -39734,11 +39624,11 @@ var FrontPage = /*#__PURE__*/function (_Component2) {
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Column, null, game.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Column, null, game.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Column, null, game.genre), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Column, null, game.platform), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Column, {
           width: 3,
           right: true
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Button.Success, {
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Button.Dark, {
           onClick: function onClick() {
             return history.push('/gamedetails/' + game.id);
           }
-        }, "See Reviews"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Button.Success, {
+        }, "See Reviews"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Button.Dark, {
           onClick: function onClick() {
             return history.push('/editgame/' + game.id);
           }
@@ -39748,10 +39638,10 @@ var FrontPage = /*#__PURE__*/function (_Component2) {
   }, {
     key: "mounted",
     value: function mounted() {
-      var _this2 = this;
+      var _this4 = this;
 
       _services__WEBPACK_IMPORTED_MODULE_4__.gameservice.getAll().then(function (games) {
-        _this2.games = games;
+        _this4.games = games;
       })["catch"](function (error) {
         return _widgets__WEBPACK_IMPORTED_MODULE_3__.Alert.danger('You got an error: ' + error.message);
       });
@@ -39771,21 +39661,24 @@ var FrontPage = /*#__PURE__*/function (_Component2) {
 
 
 var root = document.getElementById('root');
-if (root) react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.HashRouter, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Alert, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(Menu, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
+if (root) react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.HashRouter, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_widgets__WEBPACK_IMPORTED_MODULE_3__.Alert, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(Menu, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
   exact: true,
   path: "/",
   component: FrontPage
-}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
-  path: "/gamesearch"
-}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
+}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
+  path: "/gamesearch/:query(\\n+)"
+}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
   path: "/gamedetails/:id(\\d+)",
-  component: _game_details__WEBPACK_IMPORTED_MODULE_7__["default"]
-}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
-  path: "/gamereview/:gId(\\d+)",
-  component: _game_review__WEBPACK_IMPORTED_MODULE_6__["default"]
-}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
+  component: _game_details__WEBPACK_IMPORTED_MODULE_8__["default"]
+}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
+  path: "/new-review/:id(\\d+)",
+  component: _game_review__WEBPACK_IMPORTED_MODULE_7__["default"]
+}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
   path: "/newgame",
   component: _new_game__WEBPACK_IMPORTED_MODULE_5__["default"]
+}), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_11__.Route, {
+  path: "/editgame/:id(\\d+)",
+  component: _edit_game__WEBPACK_IMPORTED_MODULE_6__["default"]
 }))), document.getElementById('root'));
 })();
 

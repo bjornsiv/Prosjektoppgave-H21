@@ -4,13 +4,11 @@ import * as React from 'react';
 import { Component } from 'react-simplified';
 import { HashRouter, Route } from 'react-router-dom';
 import { NavBar, Card, Alert, Column, Row, Button, CardRow, SearchBar } from './widgets';
-import axios from 'axios';
 
 import { gameservice, Game } from './services';
 import { createHashHistory } from 'history';
 import NewGame from './new-game';
 import EditGame from './edit-game';
-
 import GameReview from './game-review';
 import GameDetails  from './game-details';
 
@@ -18,14 +16,20 @@ const history = createHashHistory();
 
 // Meny med link til andre sider - Finn ut hva som skal med her, legg evt. til senere
 class Menu extends Component {
+  searchQuery: string = '';
+
+  manageSearch(){
+    history.push('/gamesearch/' + this.searchQuery);
+  }
   render() {
       return (
           <NavBar brand="">
-            <NavBar.Link to="/">(LOGO)</NavBar.Link>
+            <NavBar.Link to="/"><img src="https://www.favicon.cc/logo3d/229133.png"></img></NavBar.Link>
             <NavBar.Link to="/gamereview">REVIEWS</NavBar.Link> 
             <NavBar.Link to="/gamedetails">GAME DETAILS</NavBar.Link>
             <NavBar.Link to="/newgame">ADD GAME</NavBar.Link>
-            <NavBar.Link to="/editgame">ADD GAME</NavBar.Link>
+            <NavBar.Link to="/editgame">EDIT GAME</NavBar.Link>
+            <SearchBar value={this.searchQuery} onClick={() => this.manageSearch()} onChange={(event) => this.searchQuery = event.currentTarget.value}></SearchBar>
           </NavBar>
                  /*<SearchBar placeholder="">Search for games</SearchBar>*/
       );
@@ -57,7 +61,7 @@ class FrontPage extends Component {
               <Column>Description</Column>
               <Column>Genre</Column>
               <Column>Platform</Column> 
-              <Column width={6} right= {true}></Column>
+              <Column width={3} right= {true}></Column>
             </Row>
             </Card>
           {this.games.map((game) => (
@@ -103,7 +107,7 @@ ReactDOM.render(
         <Alert />
         <Menu />
         <Route exact path="/" component={FrontPage} />
-        <Route path="/gamesearch" />
+        <Route path="/gamesearch/:query(\n+)" />
         <Route path="/gamedetails/:id(\d+)" component={GameDetails} />
         <Route path="/new-review/:id(\d+)" component={GameReview} />
         <Route path="/newgame" component={NewGame}/>

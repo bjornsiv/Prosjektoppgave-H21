@@ -92,7 +92,7 @@ class NewGame extends Component {
                                 this.AvaliablePlatform.map((platt, value) => {
                                 return (
                                 <>
-                                    <Form.Label key={platt}>{platt}</Form.Label>
+                                    
                                     <Form.Checkbox
                                         key={value}
                                         value={platt}
@@ -108,6 +108,7 @@ class NewGame extends Component {
                                         }
                                     }
                                     />
+                                    <Form.Label key={platt}>{platt}</Form.Label>
                                 <br/>
                                 </>
                                 );

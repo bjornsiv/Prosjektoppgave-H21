@@ -47,13 +47,6 @@ export type ReviewEvaluation = {
   user_id: number;
 }
 
-export type Release = {
-  id: number;
-  game_id: number;
-  platform_id: number;
-  date: Date;
-} 
-
 export class User {
   id: number;
   nickname: string;

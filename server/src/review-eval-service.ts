@@ -3,19 +3,28 @@ import {Review, ReviewEvaluation, User} from './db-types';
 
 
 class ReviewEvalService {
-  add(review: Review, user: User){
+  create(rId: number, uId: number){
     return new Promise<number>((resolve, reject) => {
-      this.has_evaluated(review, user)
+      if (isNaN(rId)){
+        reject("Review ID is not a number");
+        return;
+      }
+      if (isNaN(uId)){
+        reject("User ID is not a number");
+        return;
+      }
+
+      this.has_evaluated(rId, uId)
         .then(
           (has_evaluted) => {
             if (has_evaluted)
             {
-              reject("User has allready evaluated this review.");
+              reject("User has already evaluated this review.");
             }
 
             pool.query(
-              'INSERT INTO review_evaluations SET user_id=?, review_id=?',
-              [review.id, user.id],
+              'INSERT INTO review_evaluations SET review_id=?, user_id=?',
+              [rId, uId],
               (error, results) => {
                 if (error) return reject(error);
       
@@ -28,10 +37,10 @@ class ReviewEvalService {
     );
   }
 
-  remove(id: number){
+  delete(id: number){
     return new Promise<void>((resolve, reject) => {
       pool.query(
-        'DELTE FROM review_evaluations WHERE id=?',
+        'DELETE FROM review_evaluations WHERE id=?',
         [id],
         (error, results) => {
           if (error) return reject(error);
@@ -42,11 +51,11 @@ class ReviewEvalService {
     });
   }
 
-  get(review: Review){
+  get(reviewId: number){
     return new Promise<ReviewEvaluation[]>((resolve, reject) => {
       pool.query(
         'SELECT * FROM review_evaluations WHERE review_id=?',
-        [review.id],
+        [reviewId],
         (error, results) => {
           if (error) return reject(error);
 
@@ -56,11 +65,11 @@ class ReviewEvalService {
     });
   }
 
-  has_evaluated(review: Review, user: User){
+  has_evaluated(reviewId: number, userId: number){
     return new Promise<boolean>((resolve, reject) => {
       pool.query(
         'SELECT * FROM review_evaluations WHERE review_id=? AND user_id=?',
-        [review.id, user.id],
+        [reviewId, userId],
         (error, results) => {
           if (error) return reject(error);
 

@@ -161,14 +161,14 @@ describe('Update game (PUT)', () => {
       done();
     });
   });
-  test('Update game (500 Internal Server Error)', (done) => {
+  test('Update game (400 Bad Request)', (done) => {
     var game = new Game(testGameSources[3]);
     game.title = "a".repeat(512);
     axios.put('/games', game).then((response) => {
       throw new Error("Expected an error");
     })
     .catch((error) => {
-      expect(error.response.status).toEqual(500);
+      expect(error.response.status).toEqual(400);
       done();
     });
   });

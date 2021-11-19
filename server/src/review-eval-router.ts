@@ -3,62 +3,32 @@ import reviewEvalService from './review-eval-service';
 
 const router = express.Router();
 
-router.get('/:gId', (request, response) => {
-  const gId = Number(request.params.gId)
+router.post('/:rId/:uId/', (request, response) => {
   reviewEvalService
-    .getAll(gId)
-    .then((rows) => response.send(rows))
-    .catch((error) => response.status(500).send(error));
-});
-
-router.get('/:id', (request, response) => {
-  const id = Number(request.params.id);
-  reviewEvalService
-    .get(id)
-    .then((review) => (review ? response.send(review) : response.status(404).send('Review not found')))
-    .catch((error) => response.status(500).send(error));
-});
-
-/* Do we need this? 
-denne var vel fir å poste et nytt spill og den sa at alt dette måtte 
-være inkludert for å sjekke at man fikk riktig input til å opprette nytt spill
-
-router.post('/:gId', (request, response) => {
-  const data = request.body;
-  const id = Number(request.params.gId);
-  if (! data)  {
-    response.status(500).send('Missing data');
-    return;
-  } else if (data.name.length == 0) {
-    response.status(500).send('Missing Name');
-    return;
-  } else if (data.description.length == 0) {
-    response.status(500).send('Missing description');
-    return;
-  } else if (data.score > 5 || data.score < 0) {
-    response.status(500).send('Illegal score');
-    return;
-  }
-  reviewService
-    .create(data, id)
-    .then((id) => response.send({ id: id }))
-    .catch((error) => response.status(500).send(error));
-}); */ 
-
-router.put('/', (request, response) => {
-  reviewEvalService
-    .update(
-      request.body
-    )
-    .then((_result) => response.send())
-    .catch((error) => response.status(400).send(error));
+    .create(Number(request.params.rId), Number(request.params.uId))
+    .then((result) => (response.send({id:result})))
+    .catch((error) => response.status(500).send({message: error}));
 });
 
 router.delete('/:id', (request, response) => {
   reviewEvalService
     .delete(Number(request.params.id))
-    .then((_result) => response.send())
-    .catch((error) => response.status(500).send(error));
+    .then((_result) => (response.send()))
+    .catch((error) => response.status(500).send({message: error}));
+});
+
+router.get('/:rId', (request, response) => {
+  reviewEvalService
+    .get(Number(request.params.rId))
+    .then((evals) => response.send(evals))
+    .catch((error) => response.status(500).send({message: error}));
+});
+
+router.get('/hasEvaluated/:rId/:uId', (request, response) => {
+  reviewEvalService
+    .has_evaluated(Number(request.params.rId), Number(request.params.uId))
+    .then((result) => response.send({result: result}))
+    .catch((error) => response.status(500).send({message: error}));
 });
 
 export default router;

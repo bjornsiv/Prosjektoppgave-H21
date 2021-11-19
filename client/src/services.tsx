@@ -79,7 +79,7 @@ class ReviewService {
         return axios.get<Review[]>('/reviews/' + gId).then((response) => response.data);
     }
     search() {
-        return axios.get<Review>('/gamesearch').then((response) => response.data);
+        return axios.get<Review>('/reviews/gamesearch').then((response) => response.data);
     }
     create(review: Review){
         return axios.post<Review>('/reviews/', {

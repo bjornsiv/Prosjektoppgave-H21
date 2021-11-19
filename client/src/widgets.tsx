@@ -32,7 +32,7 @@ export class CardRow extends Component {
   render() {
     return (
       <div className="card">
-        <div className="row">{this.props.children}</div>);
+        <div className="row">{this.props.children}</div>
       </div>
     );
   }
@@ -170,9 +170,13 @@ export class NavBar extends Component<{ brand: ReactNode }> {
 }
 
 // Form label - etikett
-class FormLabel extends Component {
+class FormLabel extends Component{
   render() {
-    return <label className="form col-form-label">{this.props.children}</label>;
+    return (
+      <span>
+        <label className="form col-form-label form-display">{this.props.children}</label>
+      </span>
+      );
   }
 }
 
@@ -244,7 +248,7 @@ class FormCheckbox extends Component<{
       <input
         {...rest}
         value={value}
-        className="form-check-input form-item"
+        className="form-check-input form-item form-check"
         type="checkbox"
         onChange={onChange}
       />
@@ -424,22 +428,36 @@ export class List {
 
 // Søkefelt. Hentet fra (Forms) https://getbootstrap.com/docs/4.0/components/navbar/#forms
 // Har endret fra success til secondary button
-export class SearchBar extends Component {
+export class SearchBar extends Component <{
+  
+  value: string;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  [prop: string]: any;
+}> {
+
+    
   render() {
+    const { value, onChange, onClick, ...rest } = this.props;
     return (
-      <nav className="navbar navbar-light bg-light">
-        <form className="form-inline">
+        <form className="form-inline form-display">
           <input
-            className="form-control mr-sm-2"
+            className="form-control mr-sm-2 form-display"
             type="search"
             placeholder=""
             aria-label="Search"
+            value={value}
+            onChange={onChange}
+            {...rest}
           />
-          <button className="btn btn-secondary my-2 my-sm-0" type="submit">
+          <button 
+            className="btn btn-secondary my-2 my-sm-0" 
+            type="submit"
+            onClick={onClick}
+          >
             Search 
           </button>
         </form>
-      </nav>
     );
   }
 }

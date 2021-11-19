@@ -91,7 +91,7 @@ class EditGame extends Component <{ match: { params: { id: number } } }>{
                                 this.AvaliablePlatform.map((platt, value) => {
                                 return (
                                 <>
-                                    <Form.Label key={platt}>{platt}</Form.Label>
+                                    
                                     <Form.Checkbox
                                         key={value}
                                         value={platt}
@@ -107,6 +107,7 @@ class EditGame extends Component <{ match: { params: { id: number } } }>{
                                         }
                                     }
                                     />
+                                    <Form.Label key={platt}>{platt}</Form.Label>
                                 <br/>
                                 </>
                                 );

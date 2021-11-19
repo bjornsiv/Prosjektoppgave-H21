@@ -235,20 +235,17 @@ class FormTextarea extends React.Component<{
 
 // Form checkbox
 class FormCheckbox extends Component<{
-  checked: boolean;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   [prop: string]: any;
 }> {
   render() {
-    // ...rest will contain extra passed attributes such as disabled, required, width, height, pattern
-    // For further information, see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
-    const { checked, onChange, ...rest } = this.props;
+    const { onChange, value, ...rest } = this.props;
     return (
       <input
         {...rest}
-        className="form-check-input"
+        value={value}
+        className="form-check-input form-item"
         type="checkbox"
-        checked={checked}
         onChange={onChange}
       />
     );
@@ -257,16 +254,15 @@ class FormCheckbox extends Component<{
 
 // Form select
 class FormSelect extends Component<{
+  key: string | number;
   value: string | number;
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
   [prop: string]: any;
 }> {
   render() {
-    // ...rest will contain extra passed attributes such as disabled, required, size.
-    // For further information, see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
-    const { value, onChange, children, ...rest } = this.props;
+    const { key, value, onChange, children, ...rest } = this.props;
     return (
-      <select {...rest} className="custom-select" value={value} onChange={onChange}>
+      <select {...rest} className="custom-select" value={value} key={key} onChange={onChange}>
         {children}
       </select>
     );
@@ -297,7 +293,7 @@ class FormDate extends Component<{
 
 class FormSelectDropdown extends Component<{
   valueList: string[];
-  value: string;
+  value: string;  
 
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
   [prop: string]: any;
@@ -306,14 +302,16 @@ class FormSelectDropdown extends Component<{
     const { value, valueList, onChange, ...rest } = this.props;
     return (
       <div>
-        <select className="dropdown-menu" value={value} onChange={onChange} {...rest}>
-          {valueList.map((valueList, i) => {
-            return (
-              <option key={i} className="dropdown-item" value={valueList}>
-                {valueList}
-              </option>
-            );
-          })}
+        <select 
+          className="form-select" 
+          value={value} 
+          onChange={onChange}
+          {...rest}>
+          {valueList.map((option)=> {
+            return <option key={option} className="dropdown-item" value={option}>{option}</option>
+          }
+          )}
+
         </select>
       </div>
     );
@@ -516,13 +514,16 @@ export class StarRating extends Component<{
     const element = ReactDOM.findDOMNode(this);
 
     if (element instanceof HTMLElement && !isNaN(this.props.value)) {
-      this.rating = rater({
-        element: element,
-        rateCallback: this.props.onChange ? this.onChange : undefined,
-        readOnly: !this.props.edit,
-      });
+      this.rating = rater(
+        {
+          element: element, 
+          rateCallback: this.props.onChange ? this.onChange : undefined,
+          readOnly: !this.props.edit,
+          step: 0.1
+        }
+      );
 
-      this.rating.setRating(this.props.value);
+      this.rating.setRating(Math.round((this.props.value * 10) / 10));
     }
   }
 

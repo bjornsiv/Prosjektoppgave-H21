@@ -39,21 +39,23 @@ class NewGame extends Component {
         return (
             <>
             <Card title="Add new game">
+                <br></br> <br></br> <br></br>
                 <Row>
-                    <Column width={1}>
-                        <Form.Label>Title:</Form.Label>
+                    <Column width={2}>
+                        <Form.Label>Game title:</Form.Label>
                     </Column>
                     <Column width={4}>
                         <Form.Input 
                             type="text"
+                            placeholder="Add title"
                             value={this.game.title}
                             onChange={(event) => (this.game.title = event.currentTarget.value)}
                         />
                     </Column>
                 </Row>
                 <Row>
-                    <Column width={1}>
-                        <Form.Label>Released:</Form.Label>
+                    <Column width={2}>
+                        <Form.Label>Release date:</Form.Label>
                     </Column>
                     <Column width={4}>
                         <Form.Date
@@ -66,7 +68,7 @@ class NewGame extends Component {
                     </Column>
                 </Row>
                 <Row>
-                    <Column width={1}>
+                    <Column width={2}>
                         <Form.Label>Genre:</Form.Label>
                     </Column>
                     <Column width={4}>
@@ -78,30 +80,33 @@ class NewGame extends Component {
                     </Column>
                 </Row>
                 <Row>
-                    <Column width={1}>
+                    <Column width={2}>
                         <Form.Label>Platform:</Form.Label>
                     </Column>
                     <Column width={4}>
                         <Form.Input 
                             type="text"
+                            placeholder="Available on..."
                             value={this.game.platform}
                             onChange={(event) => (this.game.platform = event.currentTarget.value)}/>
                     </Column>
                 </Row>
                 <Row>
-                    <Column width={1}>
+                    <Column width={2}>
                         <Form.Label>Description:</Form.Label>
                     </Column>
                     <Column width={4}>
                         <Form.Textarea 
+                            placeholder="Describe the game"
                             value={this.game.description}
                             onChange={(event) => (this.game.description = event.currentTarget.value)}/>
+                            <br></br><br></br><br></br>
                     </Column>
                 </Row>
             <Row>
                 <Column>
 
-                    <Button.Secondary 
+                    <Button.Dark 
                         onClick={() => {
                             this.game.release_date = new Date(this.currentDateValue);
                             console.log(this.game)
@@ -116,7 +121,7 @@ class NewGame extends Component {
                     }
                         >
                     Add game
-                    </Button.Secondary >
+                    </Button.Dark >
                 </Column>
             </Row>
             </Card>

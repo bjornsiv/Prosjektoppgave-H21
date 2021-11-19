@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import * as React from 'react';
 import { Component } from 'react-simplified';
 import { HashRouter, Route } from 'react-router-dom';
-import { NavBar, Card, Alert, Column, Row, Button, CardRow } from './widgets';
+import { NavBar, Card, Alert, Column, Row, Button, CardRow, SearchBar } from './widgets';
 import axios from 'axios';
 
 import { gameservice, Game } from './services';
@@ -19,11 +19,11 @@ const history = createHashHistory();
 class Menu extends Component {
   render() {
       return (
-          <NavBar brand="Menu">
-            <NavBar.Link to="/">Home/Figur</NavBar.Link>
-            <NavBar.Link to="/gamereview">gamereview</NavBar.Link> 
-            <NavBar.Link to="/gamedetails">gamedetails</NavBar.Link>
-            <NavBar.Link to="/newgame">newgame</NavBar.Link>
+          <NavBar brand="">
+            <NavBar.Link to="/">(LOGO)</NavBar.Link>
+            <NavBar.Link to="/gamereview">REVIEWS</NavBar.Link> 
+            <NavBar.Link to="/gamedetails">GAME DETAILS</NavBar.Link>
+            <NavBar.Link to="/newgame">ADD GAME</NavBar.Link>
           </NavBar>
                  /*<SearchBar placeholder="">Search for games</SearchBar>*/
       );
@@ -41,16 +41,21 @@ class FrontPage extends Component {
       return (
         <>
         <div>
-          <Card title="GameRatings.com">Rate top games <Button.Info onClick={() => history.push('/newgame/')}>Add game</Button.Info></Card> 
+          <Card title="GameRatings"><br></br>Rate new and trending games - or your all time favorites!</Card> 
+          <br></br>
+          <br></br>
+          <br></br>
+    
             
           <div>
-            <Card title="">
+            <Card title="Popular games right now">
+            <br></br>
             <Row>
-              <Column>Title</Column>
+              <Column>Game title</Column>
               <Column>Description</Column>
               <Column>Genre</Column>
               <Column>Platform</Column> 
-              <Column width={3} right= {true}></Column>
+              <Column width={6} right= {true}></Column>
             </Row>
             </Card>
           {this.games.map((game) => (
@@ -60,8 +65,8 @@ class FrontPage extends Component {
               <Column>{game.genre}</Column>
               <Column>{game.platform}</Column>
               <Column width={3} right= {true}>
-                <Button.Success onClick={() => history.push('/gamedetails/' + game.id)}>See Reviews</Button.Success>
-                <Button.Success onClick={() => history.push('/editgame/' + game.id)}>Edit game</Button.Success>
+                <Button.Dark onClick={() => history.push('/gamedetails/' + game.id)}>See Reviews</Button.Dark>
+                <Button.Dark onClick={() => history.push('/editgame/' + game.id)}>Edit game</Button.Dark>
               </Column>
             </CardRow>
           ))}

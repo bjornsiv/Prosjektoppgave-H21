@@ -11,7 +11,7 @@ import ReactDOM from 'react-dom';
 export class Card extends Component<{ title: ReactNode }> {
   render() {
     return (
-      <div className="card">
+      <div className="card rounded">
         <div className="card-body">
           <p className="card-title">{this.props.title}</p>
           <div className="card-text">{this.props.children}</div>
@@ -58,6 +58,17 @@ export class Column extends Component<{ width?: number; right?: boolean }> {
       <div className={'col' + (this.props.width ? '-' + this.props.width : '')}>
         <div className={'float-' + (this.props.right ? 'end' : 'start')}>{this.props.children}</div>
       </div>
+    );
+  }
+}
+
+
+class ButtonDark extends Component<{ onClick: () => void }> {
+  render() {
+    return (
+      <button type="button" className="btn btn-dark button-darker" onClick={this.props.onClick}>
+        {this.props.children}
+      </button>
     );
   }
 }
@@ -120,6 +131,7 @@ class ButtonSecondary extends Component<{ onClick: () => void }> {
 }
 
 export class Button {
+  static Dark = ButtonDark;
   static Success = ButtonSuccess;
   static Danger = ButtonDanger;
   static Light = ButtonLight;
@@ -145,7 +157,7 @@ export class NavBar extends Component<{ brand: ReactNode }> {
 
   render() {
     return (
-      <nav className="styling-navbar navbar navbar-expand-sm navbar-light bg-light">
+      <nav className="navbar navbar-expand-sm navbar-dark navbar-style">
         <div className="container-fluid justify-content-start">
           <NavLink className="navbar-brand" activeClassName="active" exact to="/">
             {this.props.brand}
@@ -160,7 +172,7 @@ export class NavBar extends Component<{ brand: ReactNode }> {
 // Form label - etikett
 class FormLabel extends Component {
   render() {
-    return <label className="col-form-label">{this.props.children}</label>;
+    return <label className="form col-form-label">{this.props.children}</label>;
   }
 }
 
@@ -177,7 +189,7 @@ class FormInput extends Component<{
     return (
       <input
         {...rest}
-        className="form-control"
+        className="form-input form form-control"
         type={this.props.type}
         value={this.props.value}
         onChange={this.props.onChange}
@@ -271,7 +283,7 @@ class FormDate extends Component<{
     return (
       <div>
         <input
-          className="form-control"
+          className="form-input form-control"
           type="date"
           placeholder={placeholder}
           onChange={onChange}
@@ -422,11 +434,11 @@ export class SearchBar extends Component {
           <input
             className="form-control mr-sm-2"
             type="search"
-            placeholder="Search"
+            placeholder=""
             aria-label="Search"
           />
           <button className="btn btn-secondary my-2 my-sm-0" type="submit">
-            Search
+            Search 
           </button>
         </form>
       </nav>

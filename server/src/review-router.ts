@@ -19,24 +19,27 @@ router.get('/:id', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
-router.post('/:gId', (request, response) => {
+router.post('/new-review/:id', (request, response) => {
   const data = request.body;
-  const id = Number(request.params.gId);
+  const id = Number(request.params.id);
   if (! data)  {
     response.status(500).send('Missing data');
     return;
-  } else if (data.name.length == 0) {
+  } else if (data.review.title.length == 0) {
     response.status(500).send('Missing Name');
     return;
-  } else if (data.description.length == 0) {
+  } else if (data.review.description.length == 0) {
     response.status(500).send('Missing description');
     return;
-  } else if (data.score > 5 || data.score < 0) {
+  } else if (data.review.score > 5 || data.score < 0) {
     response.status(500).send('Illegal score');
     return;
   }
+
+  data.review.created_at = new Date(data.review.created_at);
+
   reviewService
-    .create(data, id)
+    .create(data.review, id)
     .then((id) => response.send({ id: id }))
     .catch((error) => response.status(500).send(error));
 });

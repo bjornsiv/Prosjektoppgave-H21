@@ -85,9 +85,9 @@ class ReviewService {
   search() {
     return axios.get<Review>('/reviews/gamesearch').then((response) => response.data);
   }
-  create(review: Review) {
+  create(review: Review, id: number) {
     return axios
-      .post<Review>('/reviews/', {
+      .post<Review>('/reviews/new-review/' + id, {
         review: review,
       })
       .then((response) => response.data.id);

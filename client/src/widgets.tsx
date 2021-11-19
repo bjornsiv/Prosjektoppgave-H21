@@ -497,10 +497,11 @@ export class SignIn extends Component {
 export class StarRating extends Component<{
   value: number;
   edit: boolean;
+  size: number | undefined;
   onChange?: (element: StarRating, value: number) => void;
 }> {
+  
   rating: Rater | null = null;
-
   onChange(value: number, done?: (() => any) | undefined) {
     if (this.props.onChange) {
       this.props.onChange(this, value);
@@ -508,6 +509,7 @@ export class StarRating extends Component<{
     if (done) {
       done();
     }
+    console.log(value);
   }
 
   mounted() {
@@ -519,7 +521,8 @@ export class StarRating extends Component<{
           element: element, 
           rateCallback: this.props.onChange ? this.onChange : undefined,
           readOnly: !this.props.edit,
-          step: 0.1
+          step: 0.1,
+          starSize: this.props.size
         }
       );
 

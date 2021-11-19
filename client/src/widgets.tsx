@@ -13,7 +13,7 @@ export class Card extends Component<{ title: ReactNode }> {
     return (
       <div className="card">
         <div className="card-body">
-          <h5 className="card-title">{this.props.title}</h5>
+          <p className="card-title">{this.props.title}</p>
           <div className="card-text">{this.props.children}</div>
         </div>
       </div>
@@ -34,7 +34,7 @@ export class CardRow extends Component {
       <div className="card">
         <div className="row">{this.props.children}</div>);
       </div>
-    )
+    );
   }
 }
 
@@ -43,7 +43,9 @@ export class ColumnPadd extends Component<{ width?: number; right?: boolean }> {
     return (
       <div padding-left={5}>
         <div className={'col' + (this.props.width ? '-' + this.props.width : '')}>
-          <div className={'float-' + (this.props.right ? 'end' : 'start')}>{this.props.children}</div>
+          <div className={'float-' + (this.props.right ? 'end' : 'start')}>
+            {this.props.children}
+          </div>
         </div>
       </div>
     );
@@ -72,7 +74,7 @@ class ButtonSuccess extends Component<{ onClick: () => void }> {
   }
 }
 
-// Button Danger - slette spill, anmeldelse, rating
+// Button Danger - slette spill, slette anmeldelse, slette rating
 // properties: onClick
 class ButtonDanger extends Component<{ onClick: () => void }> {
   render() {
@@ -106,6 +108,7 @@ class ButtonInfo extends Component<{ onClick: () => void }> {
   }
 }
 
+// Denne passer godt inn med bakgrunnsfargene - vil bli mest brukt
 class ButtonSecondary extends Component<{ onClick: () => void }> {
   render() {
     return (
@@ -139,9 +142,10 @@ export class NavBarLink extends Component<{ to: string }> {
 export class NavBar extends Component<{ brand: ReactNode }> {
   static Link = NavBarLink;
 
+
   render() {
     return (
-      <nav className="navbar navbar-expand-sm navbar-light bg-light">
+      <nav className="styling-navbar navbar navbar-expand-sm navbar-light bg-light">
         <div className="container-fluid justify-content-start">
           <NavLink className="navbar-brand" activeClassName="active" exact to="/">
             {this.props.brand}
@@ -257,27 +261,28 @@ class FormDate extends Component<{
   placeholder: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   [prop: string]: any;
-}>{
-  render(){
-    const {placeholder, value, onChange, ...rest} = this.props;
-    return(
+}> {
+  render() {
+    const { placeholder, value, onChange, ...rest } = this.props;
+    return (
       <div>
-        <input 
+        <input
           className="form-control"
           type="date"
           placeholder={placeholder}
-          onChange = {onChange}
-          value = {value}
+          onChange={onChange}
+          value={value}
           {...rest}
-          ></input>
+        ></input>
       </div>
-    )
+    );
   }
 }
 
 class FormSelectDropdown extends Component<{
   valueList: string[];
   value: string;  
+
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
   [prop: string]: any;
 }> {
@@ -293,8 +298,8 @@ class FormSelectDropdown extends Component<{
           {valueList.map((option)=> {
             return <option key={option} className="dropdown-item" value={option}>{option}</option>
           }
-          
           )}
+
         </select>
       </div>
     );
@@ -374,6 +379,7 @@ export class Alert extends Component {
   }
 }
 
+/*
 // Messages (Sivert) - ta bort hvis fra chat-app?
 class Messages extends Component<{ from: string; message: string; key: number }> {
   render() {
@@ -402,8 +408,10 @@ export class List {
   static Message = Messages;
   static Send = Send;
 }
+*/
 
 // Søkefelt. Hentet fra (Forms) https://getbootstrap.com/docs/4.0/components/navbar/#forms
+// Har endret fra success til secondary button
 export class SearchBar extends Component {
   render() {
     return (
@@ -415,7 +423,7 @@ export class SearchBar extends Component {
             placeholder="Search"
             aria-label="Search"
           />
-          <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
+          <button className="btn btn-secondary my-2 my-sm-0" type="submit">
             Search
           </button>
         </form>
@@ -474,16 +482,14 @@ export class SignIn extends Component {
 
 // Rating stjerner 1-5 med rater-js: https://www.npmjs.com/package/rater-js
 
-export class StarRating extends Component<
-  { 
-    value: number, 
-    edit: boolean, 
-    onChange?: (element: StarRating, value:number) => void 
-  }> 
-{
+export class StarRating extends Component<{
+  value: number;
+  edit: boolean;
+  onChange?: (element: StarRating, value: number) => void;
+}> {
   rating: Rater | null = null;
 
-  onChange(value: number, done?: (() => any) | undefined){
+  onChange(value: number, done?: (() => any) | undefined) {
     if (this.props.onChange) {
       this.props.onChange(this, value);
     }
@@ -510,13 +516,9 @@ export class StarRating extends Component<
   }
 
   render() {
-    return (
-        <div />
-    );
+    return <div />;
   }
 }
-
-
 
 /* Må legge inn Bootstrap Vue hvis disse skal brukes */
 
@@ -524,7 +526,7 @@ export class StarRating extends Component<
 // Rating 1-5 stjerner (fungerer ikke, må fikses senere)
 class Rating extends Component<{ onClick: () => void, ratingValue: number }> {
   render() {
-    return ( 
+    return (
       <template>
         <div>
           <label htmlFor="rating-inline">Inline rating:</label>

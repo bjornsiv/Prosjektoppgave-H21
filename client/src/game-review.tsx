@@ -55,7 +55,7 @@ class GameReview extends Component<{ match: { params: { id: number } } }> {
             </Card>
             <Row>
               <Column>
-                <Button.Success
+                <Button.Secondary
                   onClick={() =>
                     reviewservice
                       .create(this.review)
@@ -65,7 +65,7 @@ class GameReview extends Component<{ match: { params: { id: number } } }> {
                   }
                 >
                   Save
-                </Button.Success>
+                </Button.Secondary>
               </Column>
             </Row>
           </>

@@ -125,12 +125,13 @@ class NewGame extends Component {
                 </Row>
             <Row>
                 <Column>
-                    <Button.Light 
+
+                    <Button.Secondary 
                         onClick={() => {
                             this.game.release_date = new Date(this.currentDateValue);
                             this.game.platform.substring(0, this.game.platform.length - 2);
                             console.log(this.game.platform.length)
-
+                         
                             gameservice
                             .create(this.game)
                             .then((game) => {
@@ -141,7 +142,7 @@ class NewGame extends Component {
                     }
                         >
                     Add game
-                    </Button.Light>
+                    </Button.Secondary >
                 </Column>
             </Row>
             </Card>

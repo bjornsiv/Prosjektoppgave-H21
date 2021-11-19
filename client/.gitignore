@@ -1,4 +1,10 @@
 /node_modules
 /.git
 /config.ts
-/public
+/public/bootstrap.min.css
+/public/bootstrap.min.css.map
+/public/bootstrap.min.js
+/public/bootstrap.min.js.map
+/public/bundle.js
+/public/bundle.js.LICENSE.txt
+/public/bundle.js.map

@@ -1,7 +1,6 @@
-import axios from 'axios'
+import axios from 'axios';
 
 axios.defaults.baseURL = 'http://localhost:3000/api/v1';
-
 
 export type Game = {
     id: number;
@@ -76,79 +75,75 @@ class GameService {
 } 
 
 
-
 class ReviewService {
-    get(id: number) {
-        return axios.get<Review>('/reviews/' + id).then((response) => response.data);
-    }
-    getAll(gId: number) {
-        return axios.get<Review[]>('/reviews/gamereviews/' + gId).then((response) => response.data);
-    }
-    search() {
-        return axios.get<Review>('/reviews/gamesearch').then((response) => response.data);
-    }
-    create(review: Review){
-        return axios.post<Review>('/reviews/', {
-            review: review,
-        }).then((response) => response.data.id);
-    }
-    delete(id:number) {
-        return axios.delete<Game>('/reviews/' + id);
-    }
-    update(review: Review){
-        return axios.put<Review>('/reviews', {
-            review:review,
-        })
-        .then((response) => response.data);
-    }
-} 
-
-
+  get(id: number) {
+    return axios.get<Review>('/reviews/' + id).then((response) => response.data);
+  }
+  getAll(gId: number) {
+    return axios.get<Review[]>('/reviews/gamereviews/' + gId).then((response) => response.data);
+  }
+  search() {
+    return axios.get<Review>('/reviews/gamesearch').then((response) => response.data);
+  }
+  create(review: Review) {
+    return axios
+      .post<Review>('/reviews/', {
+        review: review,
+      })
+      .then((response) => response.data.id);
+  }
+  delete(id: number) {
+    return axios.delete<Game>('/reviews/' + id);
+  }
+  update(review: Review) {
+    return axios
+      .put<Review>('/reviews', {
+        review: review,
+      })
+      .then((response) => response.data);
+  }
+}
 
 //NOT YET IMPLEMENTED
 class ReviewEvalService {
-    get(id: number) {
-        return axios.get<Review>('/reviews/' + id).then((response) => response.data);
-    }
-    getAll(gId: number) {
-        return axios.get<Review[]>('/reviews/gamereviews/' + gId).then((response) => response.data);
-    }
-    search() {
-        return axios.get<Review>('/reviews/gamesearch').then((response) => response.data);
-    }
-    create(review: Review){
-        return axios.post<Review>('/reviews/', {
-            review: review,
-        }).then((response) => response.data.id);
-    }
-    delete(id:number) {
-        return axios.delete<Game>('/reviews/' + id);
-    }
-    update(review: Review){
-        return axios.put<Review>('/reviews', {
-            review:review,
-        })
-        .then((response) => response.data);
-    }
-} 
-
-
-
-const reviewEvalService = new ReviewEvalService;
-const gameservice = new GameService;
-const reviewservice = new ReviewService;
-export {
-    reviewservice,
-    gameservice,
-    reviewEvalService
+  get(id: number) {
+    return axios.get<Review>('/reviews/' + id).then((response) => response.data);
+  }
+  getAll(gId: number) {
+    return axios.get<Review[]>('/reviews/gamereviews/' + gId).then((response) => response.data);
+  }
+  search() {
+    return axios.get<Review>('/reviews/gamesearch').then((response) => response.data);
+  }
+  create(review: Review) {
+    return axios
+      .post<Review>('/reviews/', {
+        review: review,
+      })
+      .then((response) => response.data.id);
+  }
+  delete(id: number) {
+    return axios.delete<Game>('/reviews/' + id);
+  }
+  update(review: Review) {
+    return axios
+      .put<Review>('/reviews', {
+        review: review,
+      })
+      .then((response) => response.data);
+  }
 }
 
+const reviewEvalService = new ReviewEvalService();
+const gameservice = new GameService();
+const reviewservice = new ReviewService();
+export { reviewservice, gameservice, reviewEvalService };
 
 /*
 
 gamesearch
 newgame
-gamereview 
+gamereview
 gamedetails
 
-*/ 
+*/

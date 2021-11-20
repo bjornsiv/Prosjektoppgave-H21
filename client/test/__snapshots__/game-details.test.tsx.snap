@@ -1,0 +1,190 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Game details component tests GameDetails renders correctly with snapshot 1`] = `
+<div>
+  <div
+    className="card"
+  >
+    <div
+      className="card-body"
+    >
+      <h5
+        className="card-title"
+      >
+        Game details
+      </h5>
+      <div
+        className="card-text"
+      >
+        <div
+          className="row"
+        >
+          <div
+            className="col-2"
+          >
+            <div
+              className="float-start"
+            >
+              Game title:
+            </div>
+          </div>
+          <div
+            className="col"
+          >
+            <div
+              className="float-start"
+            >
+              
+            </div>
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-2"
+          >
+            <div
+              className="float-start"
+            >
+              Release date:
+            </div>
+          </div>
+          <div
+            className="col"
+          >
+            <div
+              className="float-start"
+            >
+              1985-11-05T00:53:20.000Z
+            </div>
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-2"
+          >
+            <div
+              className="float-start"
+            >
+              Genre:
+            </div>
+          </div>
+          <div
+            className="col"
+          >
+            <div
+              className="float-start"
+            >
+              
+            </div>
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-2"
+          >
+            <div
+              className="float-start"
+            >
+              Platforms:
+            </div>
+          </div>
+          <div
+            className="col"
+          >
+            <div
+              className="float-start"
+            >
+              
+            </div>
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-2"
+          >
+            <div
+              className="float-start"
+            >
+              Description:
+            </div>
+          </div>
+          <div
+            className="col"
+          >
+            <div
+              className="float-start"
+            >
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="card"
+  >
+    <div
+      className="card-body"
+    >
+      <h5
+        className="card-title"
+      >
+        Average rating:
+      </h5>
+      <div
+        className="card-text"
+      >
+        <div
+          className="col"
+        >
+          <div
+            className="float-start"
+          >
+            <div />
+          </div>
+        </div>
+        <div
+          className="col"
+        >
+          <div
+            className="float-start"
+          >
+            <button
+              className="btn btn-success"
+              onClick={[Function]}
+              type="button"
+            >
+              Add review
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="card"
+  >
+    <div
+      className="card-body"
+    >
+      <h5
+        className="card-title"
+      >
+        Game reviews
+      </h5>
+      <div
+        className="card-text"
+      />
+    </div>
+  </div>
+</div>
+`;

@@ -18,6 +18,11 @@ module.exports = {
         include: path.resolve(__dirname, 'src'),
         use: ['babel-loader'],
       },
+      {
+        test: /\.ts$/,
+        include: path.resolve(__dirname, 'src'),
+        use: ['babel-loader'],
+      },
     ],
   },
 };

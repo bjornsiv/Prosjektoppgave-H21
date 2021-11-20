@@ -5,11 +5,12 @@ import { Component } from 'react-simplified';
 import { HashRouter, Route } from 'react-router-dom';
 import { NavBar, Card, Alert, Column, Row, Button, CardRow } from './widgets';
 import axios from 'axios';
-import { GameReview } from './game-review';
+import GameReview from './game-review';
 import GameDetails  from './game-details';
 import {NewGame} from './new-game'
-import { gameservice, Game } from './services';
 import { createHashHistory } from 'history';
+import { Game } from './db-types';
+import gameService from './game-service';
 
 const history = createHashHistory();
 
@@ -30,11 +31,10 @@ class Menu extends Component {
 
 
 // Forside - den første siden man kommer inn på 
-class FrontPage extends Component {
+export default class FrontPage extends Component {
   games:Game[] = [];
   
   render() {
-      console.log(this.games);
       return (
         <>
         <div>
@@ -68,7 +68,7 @@ class FrontPage extends Component {
    )
   }
   mounted(){
-    gameservice.getAll()
+    gameService.getAll()
     .then((games) => { this.games = games; } )
     .catch((error) => Alert.danger('You got an error: ' + error.message));
   }

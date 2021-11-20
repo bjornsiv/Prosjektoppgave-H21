@@ -5,7 +5,9 @@ import * as React from 'react';
 import { Component } from 'react-simplified';
 import { Card, Row, Column, Button, NavBarLink, NavBar, Form, Alert, SearchBar, SignIn, StarRating } from './widgets';
 import { createHashHistory } from 'history';
-import { gameservice, reviewservice, Game, Review } from './services';
+import { Review, Game } from './db-types';
+import gameService from './game-service';
+import reviewService from './review-service';
 
 const history = createHashHistory();
 
@@ -81,11 +83,11 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
 
 
   mounted(){
-      gameservice.get(this.props.match.params.id)
+      gameService.get(this.props.match.params.id)
           .then((game) => (this.game = game))
           .catch((error) => Alert.danger('Error getting game: ' + error.message));
 
-      reviewservice.getAll(this.game.id)
+      reviewService.getAll(this.game.id)
           .then((reviews) => {
               this.reviews = reviews;
               this.average = this.reviews.reduce((previous: number, current: Review) => {

@@ -4,7 +4,8 @@ import { Component } from 'react-simplified';
 import { Card, Row, Column, Button, NavBarLink, NavBar, Form, Alert } from './widgets';
 import { NavLink, HashRouter, Route } from 'react-router-dom';
 import { createHashHistory } from 'history';
-import { Game, gameservice } from './services';
+import gameService from './game-service';
+import { Game } from './db-types';
 
 const history = createHashHistory();
 
@@ -20,7 +21,7 @@ FORSLAG/IDÉER
 */
 
 
-export class NewGame extends Component<{ match: { params: { id: number } } }> {
+export class NewGame extends Component {
 
     game: Game = {id: 0, title: '', description: '', release_date: new Date(), genre: '', platform: ''};
     title: String = this.game.title;
@@ -50,7 +51,7 @@ export class NewGame extends Component<{ match: { params: { id: number } } }> {
                         <Form.Input 
                             type="date"
                             value="1950-01-01"
-                            onChange={(event) => (this.game.release_date = event.currentTarget.value)}/>
+                            onChange={(event) => (this.game.release_date = new Date(event.currentTarget.value))}/>
                     </Column>
                 </Row>
                 <Row>
@@ -89,11 +90,10 @@ export class NewGame extends Component<{ match: { params: { id: number } } }> {
                 <Column>
                     <Button.Light 
                         onClick={() =>
-                            gameservice
+                            gameService
                             .create(this.game)
-                            .then(() => {
-                                NewGame.instance()?.mounted();
-                                history.push('/gamedetails/' + this.game.id);
+                            .then((id: number) => {
+                                history.push('/gamedetails/' + id);
                             })
                         }
                         >
@@ -104,11 +104,5 @@ export class NewGame extends Component<{ match: { params: { id: number } } }> {
             </Card>
             </>
         );
-    }
-
-    mounted() {
-        gameservice.get(this.props.match.params.id)
-            .then((game) => (this.game = game))
-            .catch((error) => Alert.danger('Error' + error.message));
     }
 }

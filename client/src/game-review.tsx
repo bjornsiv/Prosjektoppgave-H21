@@ -3,11 +3,13 @@ import { Component } from 'react-simplified';
 import { Card, Row, Column, Button, NavBar, Form, Alert, SearchBar, SignIn } from './widgets';
 import { NavLink, HashRouter, Route } from 'react-router-dom';
 import { createHashHistory } from 'history';
-import { gameservice, reviewservice, Game, Review } from './services';
+import gameService from './game-service';
+import reviewService from './review-service';
+import { Review, Game } from './db-types';
 
 const history = createHashHistory();
 
-export class GameReview extends Component<{ match: { params: { id: number } } }> {
+export default class GameReview extends Component<{ match: { params: { id: number } } }> {
 
     review: Review = {id: 0,
         game_id: 0,
@@ -57,7 +59,7 @@ export class GameReview extends Component<{ match: { params: { id: number } } }>
               <Column>
                 <Button.Success
                   onClick={() =>
-                    reviewservice
+                    reviewService
                       .create(this.review)
                       .then(() => {
                         history.push('/gamedetails/' + this.game.id);
@@ -74,7 +76,7 @@ export class GameReview extends Component<{ match: { params: { id: number } } }>
         );
     }
     mounted(){
-        gameservice.get(this.props.match.params.id)
+        gameService.get(this.props.match.params.id)
             .then((game) => (this.game = game))
             .catch((error) => Alert.danger('Error getting game: ' + error.message));
     }

@@ -428,7 +428,7 @@ export class SignIn extends Component {
 
 // Rating stjerner 1-5 med rater-js: https://www.npmjs.com/package/rater-js
 
-export class StarRating extends Component<{ score: number }>
+export class StarRating extends Component<
   { 
     value: number, 
     edit: boolean, 

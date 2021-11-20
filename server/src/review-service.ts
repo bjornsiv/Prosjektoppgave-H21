@@ -1,5 +1,5 @@
 import pool from './mysql-pool';
-import {Game, Review, ReviewEvaluation, User} from './db-types';
+import {Review} from './db-types';
 
 //Vi må ha med at vi kan markere en anbefaling som relevant etter at den er registrert
 //skal være mulig å redigeere og slette en anmeldelse 
@@ -31,17 +31,6 @@ class ReviewService {
         resolve(results.map((review: any) => { return new Review(review) }));
       });
     });
-  }
-
-  search() {
-   // order by kan sikkert brukes her 
-   return new Promise<Review[]>((resolve, reject) => {
-    pool.query('SELECT * FROM reviews WHERE title LIKE ? AND description LIKE ? AND score LIKE ? AND game_id LIKE ? ORDER BY ?', (error, results) => {
-      if(error) return reject(error);
-
-      resolve(results);
-    });
-  });
   }
 
   create(review: Review) {

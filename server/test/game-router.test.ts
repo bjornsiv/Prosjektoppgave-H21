@@ -145,6 +145,30 @@ describe('Create new game (POST)', () => {
   });
 });
 
+describe('Search for game (GET)', () => {
+  test('Search for game (200 OK)', (done) => {
+   axios.get('/games/search?find=fight&order=genre').then((response) => {
+      expect(response.status).toEqual(200);
+      done();
+    });
+  });
+  test('Search for game (200 OK) - No order', (done) => {
+   axios.get('/games/search?find=fight').then((response) => {
+      expect(response.status).toEqual(200);
+      done();
+    });
+  });
+  test('Search for game (400 Bad Request)', (done) => {
+    axios.get('/games/search').then((response) => {
+      throw new Error("Expected an error");
+    })
+    .catch((error) => {
+      expect(error.response.status).toEqual(400);
+      done();
+    });
+  });
+});
+
 describe('Delete game (DELETE)', () => {
   test('Delete game (200 OK)', (done) => {
    axios.delete('/games/2').then((response) => {

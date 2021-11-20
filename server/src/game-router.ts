@@ -4,6 +4,24 @@ import {Game} from './db-types';
 
 const router = express.Router();
 
+router.get('/search/', (request, response) => {
+  let find: any = request.query.find;
+  let order: any = request.query.order;
+  if (order == null)
+  {
+    order = "title";
+  }
+  if (find == null)
+  {
+    response.status(400).send("Missing search string")
+    return;
+  }
+  gameService
+    .search(find, order)
+    .then((games) => response.send(games))
+    .catch((error) => response.status(500).send(error));
+});
+
 router.get('/', (_request, response) => {
   gameService
     .getAll()

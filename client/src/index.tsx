@@ -13,8 +13,6 @@ import GameDetails  from './game-details';
 import GameSearch from './game-search';
 import FrontPage from './frontpage';
 
-const history = createHashHistory();
-
 // Meny med link til andre sider - Finn ut hva som skal med her, legg evt. til senere
 class Menu extends Component {
   
@@ -49,7 +47,7 @@ ReactDOM.render(
         <Alert />
         <Menu />
         <Route exact path="/" component={FrontPage} />
-        <Route path="/gamesearch/:query(\n+)" component={GameSearch}/>
+        <Route path="/gamesearch/:query" component={GameSearch}/>
         <Route path="/gamedetails/:id(\d+)" component={GameDetails} />
         <Route path="/new-review/:id(\d+)" component={GameReview} />
         <Route path="/newgame" component={NewGame}/>

@@ -55,15 +55,6 @@ router.post('/', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
-//Søker etter relevante spill
-router.post('/gamesearch/:query', (request, response) => {
-  console.log(request.body.query)
-  gameService
-    .search(request.body.query)
-    .then((rows) => response.send( rows ))
-    .catch((error) => response.status(500).send(error));
-});
-
 router.put('/editgame/', (request, response) => {
   const data = request.body;
   if (! data)  {

@@ -54,7 +54,9 @@ router.post('/newgame/', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
+//Søker etter relevante spill
 router.post('/gamesearch/:query', (request, response) => {
+  console.log(request.body.query)
   gameService
     .search(request.body.query)
     .then((rows) => response.send( rows ))

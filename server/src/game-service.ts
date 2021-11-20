@@ -60,11 +60,12 @@ class GameService {
 
   }
 
-  search(query: string){ //order by kan sikert brueks her. "Gratis" søkerfunksjon
+  //order by kan sikert brueks her. "Gratis" søkerfunksjon
+  search(query: string){ 
     return new Promise<Game[]>((resolve, reject) => {
       pool.query(
-        'SELECT * FROM games WHERE title LIKE ? AND genre LIKE ? AND description LIKE ? AND platform LIKE ? AND release_date LIKE ? ORDER BY ?',
-        [query, query, query, query, query, query],
+        'SELECT * FROM games WHERE title LIKE ? AND genre LIKE ? AND description LIKE ? AND platform LIKE ? AND release_date LIKE ?',
+        [query, query, query, query, query],
         (error, results) => {
         if(error) return reject(error);
 

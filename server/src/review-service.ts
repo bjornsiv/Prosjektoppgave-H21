@@ -16,7 +16,7 @@ class ReviewService {
           return resolve(undefined);
         }
 
-        resolve(results.map((review: any) => {new Review(review)}));
+        resolve(new Review(results[0]));
       });
     });
   }

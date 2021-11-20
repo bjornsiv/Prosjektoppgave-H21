@@ -78,7 +78,37 @@ class EditReview extends Component<{ match: { params: { id: number } } }> {
                   />
                 </Column> 
               </Row>
-            </Card>
+              </Card>
+              <Column>
+                    <Button.Dark 
+                        onClick={() => {   
+                          if(this.review.score > 5){
+                            Alert.info('Score must be between 0-5')
+                          }                
+                            reviewService
+                            .update(this.review)
+                            .then(() => {
+                                history.push('/gamedetails/' + this.review.game_id);
+                            }).catch((error) => Alert.danger('Error ' + error.message))
+                        }
+                      }
+                        >
+                    Add changes
+                    </Button.Dark >
+                    <Button.Danger
+                        onClick={() => {
+                            reviewService
+                            .delete(this.props.match.params.id)
+                            .then(() => {
+                                history.push('/gamedetails/' + this.review.game_id);
+                            }).catch((error) => Alert.danger('Error ' + error.message))
+                        }
+                    }
+                    >
+                        Delete review
+                    </Button.Danger>
+                </Column>
+            
           </>
         );
     }

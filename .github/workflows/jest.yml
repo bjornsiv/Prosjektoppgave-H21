@@ -34,8 +34,15 @@ jobs:
         # Configure server/src/mysql-pool.ts
         MYSQL_HOST: localhost
         MYSQL_USER: root # Docker commands are run as root
-        MYSQL_PASSWORD: '' # Default root password is empty string
+        MYSQL_PASSWORD: example # Default root password is empty string
         MYSQL_DATABASE: games_website_test
+        # Container to run SQL service for tests
+    services:
+      postgres:
+        image: mysql
+        env:
+          MYSQL_ROOT_PASSWORD: $MYSQL_PASSWORD
+        command: --default-authentication-plugin=mysql_native_password
 
       strategy:
         matrix:
@@ -51,12 +58,6 @@ jobs:
 
       - name: server-test
         run: |
-          sudo apt-get update
-          sudo apt-get -y upgrade
-          sudo apt-get -y install mysql-server
-          sudo service mysql start
-          # Workaround from https://github.com/mysqljs/mysql/issues/1507#issuecomment-242885003
-          echo "UPDATE user SET authentication_string=password(''), plugin='mysql_native_password' WHERE user='root';" | mysql mysql
           mysqladmin create $MYSQL_DATABASE 
           mysql $MYSQL_DATABASE < .github/workflows/db_structure.sql
           cd server

@@ -55,7 +55,7 @@ export default class GameReview extends Component<{ match: { params: { id: numbe
                 <Column width={2}>score:</Column>
                 <Column>
                   <StarRating
-                    value={Number(this.review.score)}
+                    value={this.review.score}
                     edit={true}
                     size={48}
                   />

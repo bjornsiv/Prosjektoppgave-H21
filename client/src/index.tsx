@@ -11,9 +11,6 @@ import EditGame from './edit-game';
 import GameReview from './game-review';
 import GameDetails  from './game-details';
 import GameSearch from './game-search';
-
-import { Game } from './db-types';
-import gameService from './game-service';
 import FrontPage from './frontpage';
 
 const history = createHashHistory();

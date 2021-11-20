@@ -30,22 +30,44 @@ jobs:
     server-test:
       runs-on: ubuntu-latest
 
+      env: 
+        # Configure server/src/mysql-pool.ts
+        MYSQL_HOST: localhost
+        MYSQL_USER: root
+        MYSQL_PASSWORD: root
+        MYSQL_DATABASE: games_website_test
+      
+      # Container to run SQL service for tests
+      # services:
+      #   mysql:
+      #     image: mysql
+      #     env:
+      #       MYSQL_USER: $MYSQL_USER
+      #       MYSQL_PASSWORD: $MYSQL_PASSWORD
+      #       MYSQL_DATABASE: $MYSQL_DATABASE
+      #     ports:
+      #       - 3306:3306
+
       strategy:
         matrix:
           node-version: [12.x, 14.x, 16.x]
 
       steps:
-      - uses: actions/checkout@v2
+        - uses: actions/checkout@v2
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
+        - name: Use Node.js ${{ matrix.node-version }}
+          uses: actions/setup-node@v1
+          with:
+            node-version: ${{ matrix.node-version }}
 
-      - name: server-test
-        run: |
-          cd server
-          npm install
-          npm run-script test
+        - name: server-test
+          run: |
+            sudo systemctl start mysql
+            echo "UPDATE user SET authentication_string=password('$MYSQL_PASSWORD'), plugin='mysql_native_password' WHERE user='$MYSQL_USER';" | mysql mysql -u$MYSQL_USER -p$MYSQL_PASSWORD
+            mysql $MYSQL_DATABASE < .github/workflows/db_structure.sql
+            cd server
+            touch test/config.ts
+            npm install
+            npm run-script test
           
     

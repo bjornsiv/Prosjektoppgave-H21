@@ -14,19 +14,33 @@ import {Game} from './db-types';
   før man representerer for de forksjellige APIene. 
 */
 
-
 class GameService {
-
   get(id: number) {
     return new Promise<Game| undefined>((resolve, reject) => {
       pool.query('SELECT * FROM games WHERE id = ?', [id], (error, results) => {
         if (error) return reject(error);
+        if (results[0] == undefined)
+        {
+          return resolve(undefined);
+        }
 
-        resolve(results[0]);
+        resolve(new Game(results[0]));
       });
     });
   }
-  getEnum(){
+
+  getAll() {
+    return new Promise<Game[]>((resolve, reject) => {
+      pool.query('SELECT * FROM games', (error, results) => {
+        if (error) return reject(error);
+
+        resolve(results.map((game: any) => { return new Game(game) }));
+      });
+    });
+
+  }
+  
+  getGenres(){
     return new Promise<string[]>((resolve, reject) => {
       pool.query(
         "SELECT column_type FROM information_schema.COLUMNS WHERE TABLE_NAME = 'games' AND COLUMN_NAME = 'genre';",
@@ -37,7 +51,8 @@ class GameService {
         })
     })
   }
-  getPlatt(){
+  
+  getPlatforms(){
     return new Promise<string[]>((resolve, reject) => {
       pool.query(
         "SELECT column_type FROM information_schema.COLUMNS WHERE TABLE_NAME = 'games' AND COLUMN_NAME = 'platform';",
@@ -49,36 +64,21 @@ class GameService {
     })
   }
 
-  getAll() {
+  search(searchString: string, order_by: string){ //order by kan sikert brueks her. "Gratis" søkerfunksjon
     return new Promise<Game[]>((resolve, reject) => {
-      pool.query('SELECT * FROM games', (error, results) => {
-        if (error) return reject(error);
-
-        resolve(results);
-      });
-    });
-
-  }
-
-  search(query: string){ //order by kan sikert brueks her. "Gratis" søkerfunksjon
-    return new Promise<Game[]>((resolve, reject) => {
-      pool.query(
-        'SELECT * FROM games WHERE title LIKE ? AND genre LIKE ? AND description LIKE ? AND platform LIKE ? AND release_date LIKE ? ORDER BY ?',
-        [query, query, query, query, query, query],
-        (error, results) => {
+      pool.query('SELECT * FROM games WHERE title LIKE ? OR description LIKE ? OR platform LIKE ? OR genre LIKE ? ORDER BY ?', [searchString, searchString, searchString, searchString, order_by], (error, results) => {
         if(error) return reject(error);
 
         resolve(results);
       });
     });
-
   }
 
   create(game: Game) {
     return new Promise<number>((resolve, reject) => {
       pool.query(
         'INSERT INTO games SET title=?, genre=?, description=?, platform=?, release_date=?',
-        [game.title, game.genre, game.description, game.platform, `${game.release_date.getFullYear()}-${game.release_date.getMonth()}-${game.release_date.getDate()}`],
+        [game.title, game.genre, game.description, game.platform, game.release_date],
         (error, results) => {
           if (error) return reject(error);
 
@@ -112,9 +112,6 @@ class GameService {
       });
     });
   }
-
-
-
 }
 
 

@@ -2,7 +2,8 @@ import * as React from 'react';
 import { Component } from 'react-simplified';
 import { Card, Row, Column, Button, Form, Alert } from './widgets';
 import { createHashHistory } from 'history';
-import { Game, gameservice } from './services';
+import gameService from './game-service';
+import { Game } from './db-types';
 
 const history = createHashHistory();
 /* 
@@ -22,14 +23,13 @@ FORSLAG/IDÉER
 //    setChecked(event.target.checked);
 //};
 
+export default class NewGame extends Component {
 
-class NewGame extends Component {
-    game: Game = {id: 0, title: '', description: '', release_date: new Date(), genre: 'Real-Time Strategy', platform: ''};
-    currentDateValue: string = '';
-    newId: Number = 0;
+    game: Game = {id: 0, title: '', description: '', release_date: new Date(), genre: '', platform: ''};
+    title: String = this.game.title;
     AvaliableGenres: string[] = [];
     AvaliablePlatform: string[] = []
-    result: string = ''
+   
 
     render() {
         return (
@@ -55,12 +55,10 @@ class NewGame extends Component {
                     </Column>
                     <Column width={4}>
                         <Form.Date
-                            onChange={(event) => (this.currentDateValue = event.currentTarget.value)}
-                            value = {this.currentDateValue}
+                            onChange={(event) => (this.game.release_date = new Date(event.currentTarget.value))}
+                            value = {this.game.release_date}
                             placeholder = 'Release Date'
-                        >
-
-                        </Form.Date>
+                        />
                     </Column>
                 </Row>
                 <Row>
@@ -133,15 +131,10 @@ class NewGame extends Component {
 
                     <Button.Dark 
                         onClick={() => {
-                            this.game.release_date = new Date(this.currentDateValue);
-                            this.game.platform.substring(0, this.game.platform.length - 2);
-                            console.log(this.game.platform.length)
-                         
-                            gameservice
+                            gameService
                             .create(this.game)
-                            .then((game) => {
-                                this.newId = game;
-                                history.push('/gamedetails/' + this.newId);
+                            .then((id: number) => {
+                                history.push('/gamedetails/' + id);
                             }).catch((error) => Alert.danger('Error ' + error.message))
                         }
                     }
@@ -152,16 +145,16 @@ class NewGame extends Component {
             </Row>
             </Card>
             </>
-        );}
+        );
+    }
+    
     mounted(){
-        gameservice.getPlatt()
+        gameService.getPlatforms()
             .then((data) => this.AvaliablePlatform = data)
             .catch((error) => Alert.danger('Error getting plattform: ' + error.message));
             console.log(this.AvaliablePlatform)
-        gameservice.getEnum()
+        gameService.getGenres()
             .then((data) => (this.AvaliableGenres = data))
             .catch((error) => Alert.danger('Error getting genre: ' + error.message));
     }
 }
-
-export default NewGame;

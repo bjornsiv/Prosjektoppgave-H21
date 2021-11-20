@@ -40,8 +40,9 @@ class Menu extends Component {
             <Column right={true}>
               <NavBar.Link to="/">Home</NavBar.Link> 
             </Column>
-            
-            Rate new and trending games - or your all time favorites!
+            <Column>
+              Rate new and trending games - or your all time favorites!
+            </Column>
           </Card>
           </>
                  /*<SearchBar placeholder="">Search for games</SearchBar>*/

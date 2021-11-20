@@ -11,16 +11,15 @@ import reviewService from './review-service';
 
 const history = createHashHistory();
 
-class GameDetails extends Component <{ match: { params: { id: number } }, state: { average: number} }> {
+class GameDetails extends Component <{ match: { params: { id: number } } }> {
   reviews: Review[] = [];
-  averageTemp: number = 0;
+  average: number = 0;
   game: Game = {id: 0, title: '', description: '', release_date: new Date(500000000000), genre: '', platform: ''};
   title: String = this.game.title;
   stringDate: string = '';
   
     render() {
         if (!this.game) return null;
-        this.props.state.average = 0;
         return (
             <div>
                 <Card title="Game details">
@@ -47,7 +46,7 @@ class GameDetails extends Component <{ match: { params: { id: number } }, state:
                 </Card>
                 <Card title="Average rating:">
                   <Column>
-                    <StarRating value={this.props.state.average} edit={false} size={26}/>
+                    <StarRating value={this.average} edit={false} size={26}/>
 
                   </Column>
 
@@ -111,11 +110,9 @@ class GameDetails extends Component <{ match: { params: { id: number } }, state:
       reviewService.search(this.props.match.params.id)
           .then((reviews) => {
               this.reviews = reviews;
-              this.props.state.average = this.reviews.reduce((previous: number, current: Review) => {
+              this.average = this.reviews.reduce((previous: number, current: Review) => {
                 return current.score + previous;
               }, 0) / this.reviews.length;
-              console.log(this.averageTemp, this.reviews.length, (this.averageTemp/this.reviews.length));
-              
           })
           .catch((error) => Alert.danger('Error getting reviews: ' + error.message))
   }

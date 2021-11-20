@@ -62,7 +62,6 @@ export class Column extends Component<{ width?: number; right?: boolean }> {
   }
 }
 
-
 class ButtonDark extends Component<{ onClick: () => void }> {
   render() {
     return (
@@ -154,7 +153,6 @@ export class NavBarLink extends Component<{ to: string }> {
 export class NavBar extends Component<{ brand: ReactNode }> {
   static Link = NavBarLink;
 
-
   render() {
     return (
       <nav className="navbar navbar-expand-sm navbar-dark navbar-style NavBar-header">
@@ -170,13 +168,13 @@ export class NavBar extends Component<{ brand: ReactNode }> {
 }
 
 // Form label - etikett
-class FormLabel extends Component{
+class FormLabel extends Component {
   render() {
     return (
       <span>
         <label className="form col-form-label form-display">{this.props.children}</label>
       </span>
-      );
+    );
   }
 }
 
@@ -301,7 +299,7 @@ class FormDate extends Component<{
 
 class FormSelectDropdown extends Component<{
   valueList: string[];
-  value: string;  
+  value: string;
 
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
   [prop: string]: any;
@@ -310,16 +308,14 @@ class FormSelectDropdown extends Component<{
     const { value, valueList, onChange, ...rest } = this.props;
     return (
       <div>
-        <select 
-          className="form-select" 
-          value={value} 
-          onChange={onChange}
-          {...rest}>
-          {valueList.map((option)=> {
-            return <option key={option} className="dropdown-item" value={option}>{option}</option>
-          }
-          )}
-
+        <select className="form-select" value={value} onChange={onChange} {...rest}>
+          {valueList.map((option) => {
+            return (
+              <option key={option} className="dropdown-item" value={option}>
+                {option}
+              </option>
+            );
+          })}
         </select>
       </div>
     );
@@ -432,15 +428,12 @@ export class List {
 
 // Søkefelt. Hentet fra (Forms) https://getbootstrap.com/docs/4.0/components/navbar/#forms
 // Har endret fra success til secondary button
-export class SearchBar extends Component <{
-  
+export class SearchBar extends Component<{
   value: string;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   [prop: string]: any;
 }> {
-
-    
   render() {
     const { value, onChange, onClick, ...rest } = this.props;
     return (
@@ -455,7 +448,7 @@ export class SearchBar extends Component <{
             {...rest}
           />
           <button 
-            className="btn btn-secondary my-2 my-sm-0" 
+            className="btn btn-dark my-2 my-sm-0" 
             type="submit"
             onClick={onClick}
           >
@@ -516,17 +509,15 @@ export class SignIn extends Component {
 
 // Rating stjerner 1-5 med rater-js: https://www.npmjs.com/package/rater-js
 
-export class StarRating extends Component<
-  { 
-    value: number, 
-    edit: boolean, 
-    size: number | undefined;
-    onChange?: (element: StarRating, value:number) => void 
-  }> 
-{
+export class StarRating extends Component<{
+  value: number;
+  edit: boolean;
+  size: number | undefined;
+  onChange?: (element: StarRating, value: number) => void;
+}> {
   rating: Rater | null = null;
 
-  onChange(value: number, done?: (() => any) | undefined){
+  onChange(value: number, done?: (() => any) | undefined) {
     if (this.props.onChange) {
       this.props.onChange(this, value);
     }
@@ -540,15 +531,13 @@ export class StarRating extends Component<
     const element = ReactDOM.findDOMNode(this);
 
     if (element instanceof HTMLElement && !isNaN(this.props.value)) {
-      this.rating = rater(
-        {
-          element: element, 
-          rateCallback: this.props.onChange ? this.onChange : undefined,
-          readOnly: !this.props.edit,
-          step: 0.1,
-          starSize: this.props.size
-        }
-      );
+      this.rating = rater({
+        element: element,
+        rateCallback: this.props.onChange ? this.onChange : undefined,
+        readOnly: !this.props.edit,
+        step: 0.1,
+        starSize: this.props.size,
+      });
 
       this.rating.setRating(Math.round((this.props.value * 10) / 10));
     }

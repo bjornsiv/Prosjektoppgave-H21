@@ -27,7 +27,7 @@ class FrontPage extends Component {
                 onClick={() => this.manageSearch()}
                 onChange={(event) => {this.searchQuery = event.currentTarget.value}}
               ></SearchBar>
-              <NavBar.Link to="/newgame">ADD GAME</NavBar.Link>
+              <NavBar.Link to="/newgame">Add game</NavBar.Link>
             </Column>
             Rate new and trending games - or your all time favorites!
           </Card>
@@ -51,7 +51,7 @@ class FrontPage extends Component {
                 <Column>{game.platform}</Column>
                 <Column width={3} right={true}>
                   <Button.Dark onClick={() => history.push('/gamedetails/' + game.id)}>
-                    See Reviews
+                    Details
                   </Button.Dark>
                   <Button.Dark onClick={() => history.push('/editgame/' + game.id)}>
                     Edit game

@@ -70,6 +70,23 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
                             <Row>
                               {review.description}
                             </Row>
+                            <Column right={true}>
+                              <Button.Dark
+                                onClick={() => {
+                                  history.push('/edit-review/' + review.id);
+                                }}
+                              >
+                                Edit review
+                              </Button.Dark>
+                              <Button.Danger
+                                onClick={() => {
+                                  reviewService.delete(review.id)
+                                  history.push('/gamereview/' + this.props.match.params.id)
+                                }}
+                              >
+                                Delete Review
+                              </Button.Danger>
+                            </Column>
                           </Card>
                       )
                   })}

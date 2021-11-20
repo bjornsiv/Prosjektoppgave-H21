@@ -125,6 +125,7 @@ if (root)
         <Route path="/new-review/:id(\d+)" component={GameReview} />
         <Route path="/newgame" component={NewGame} />
         <Route path="/editgame/:id(\d+)" component={EditGame} />
+        <Route path="/editreview/:id(\d+)" component={EditGame} />
       </div>
     </HashRouter>,
     document.getElementById('root')

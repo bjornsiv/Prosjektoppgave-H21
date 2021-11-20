@@ -148,6 +148,18 @@ class EditGame extends Component <{ match: { params: { id: number } } }>{
                         >
                     Add game
                     </Button.Dark >
+                    <Button.Danger
+                        onClick={() => {
+                            gameService
+                            .delete(this.props.match.params.id)
+                            .then(() => {
+                                history.push('/');
+                            }).catch((error) => Alert.danger('Error ' + error.message))
+                        }
+                    }
+                    >
+                        Delete game
+                    </Button.Danger>
                 </Column>
             </Row>
             </Card>

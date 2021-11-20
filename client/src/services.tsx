@@ -140,7 +140,7 @@ class ReviewEvalService {
 const reviewEvalService = new ReviewEvalService();
 const gameservice = new GameService();
 const reviewservice = new ReviewService();
-export { reviewservice, gameservice, reviewEvalService };
+//export { reviewservice, gameservice, reviewEvalService };
 
 /*
 

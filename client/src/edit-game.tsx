@@ -2,7 +2,9 @@ import * as React from 'react';
 import { Component } from 'react-simplified';
 import { Card, Row, Column, Button, Form, Alert } from './widgets';
 import { createHashHistory } from 'history';
-import { Game, gameservice } from './services';
+import { Game } from './db-types';
+import gameService from './game-service';
+
 
 const history = createHashHistory();
 /* 
@@ -55,7 +57,7 @@ class EditGame extends Component <{ match: { params: { id: number } } }>{
                     <Column width={4}>
                         <Form.Date
                             onChange={(event) => (this.currentDateValue = event.currentTarget.value)}
-                            value = {this.currentDateValue}
+                            value = {this.game.release_date}
                             placeholder = 'Release Date'
                         >
 
@@ -136,7 +138,7 @@ class EditGame extends Component <{ match: { params: { id: number } } }>{
                             this.game.platform.substring(0, this.game.platform.length - 2);
                             console.log(this.game.platform.length)
                          
-                            gameservice
+                            gameService
                             .update(this.game)
                             .then(() => {
                                 history.push('/gamedetails/' + this.game.id);
@@ -152,15 +154,15 @@ class EditGame extends Component <{ match: { params: { id: number } } }>{
             </>
         );}
     mounted(){
-        gameservice.get(this.props.match.params.id)
+        gameService.get(this.props.match.params.id)
           .then((game) => (this.game = game))
           .catch((error) => Alert.danger('Error getting game: ' + error.message));
           this.currentDateValue = this.game.release_date.toString();
-        gameservice.getPlatt()
+        gameService.getPlatforms()
             .then((data) => this.AvaliablePlatform = data)
             .catch((error) => Alert.danger('Error getting plattform: ' + error.message));
             console.log(this.AvaliablePlatform)
-        gameservice.getEnum()
+        gameService.getGenres()
             .then((data) => (this.AvaliableGenres = data))
             .catch((error) => Alert.danger('Error getting genre: ' + error.message));
     }

@@ -7,11 +7,11 @@ const router = express.Router();
 router.get('/search', (request, response) => {
   let find: any = request.query.find;
   let order: any = request.query.order;
-  if (order == null)
+  if (order == undefined)
   {
     order = "title";
   }
-  if (find == null)
+  if (find == undefined)
   {
     response.status(400).send("Missing search string")
     return;

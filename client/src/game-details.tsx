@@ -105,7 +105,7 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
           })
           .catch((error) => Alert.danger('Error getting game: ' + error.message));
       
-      reviewService.getAll(this.props.match.params.id)
+      reviewService.search(this.props.match.params.id)
           .then((reviews) => {
               this.reviews = reviews;
               this.average = this.reviews.reduce((previous: number, current: Review) => {

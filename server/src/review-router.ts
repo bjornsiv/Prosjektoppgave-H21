@@ -4,7 +4,7 @@ import { Review } from './db-types';
 
 const router = express.Router();
 
-router.get('/:gId', (request, response) => {
+router.get('/search/:gId', (request, response) => {
   const gId = Number(request.params.gId)
   reviewService
     .getAll(gId)
@@ -12,11 +12,11 @@ router.get('/:gId', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
-router.get('/single/:id', (request, response) => {
+router.get('/:id', (request, response) => {
   const id = Number(request.params.id)
   reviewService
     .get(id)
-    .then((reviews) => (response.send(reviews)))
+    .then((review) => (review ? response.send(review) : response.status(404).send('Review not found')))
     .catch((error) => response.status(500).send(error));
 });
 

@@ -8,30 +8,34 @@ import { Review } from './db-types';
 const history = createHashHistory();
 
 class EditReview extends Component<{ match: { params: { id: number } } }> {
-        
-      review: Review = new Review({id: 0,
-        game_id: 0,
-        user_id: 1,
-        title: '',
-        description: '',
-        score: 0,
-        created_at: new Date()});
-      title: String = "Edit a review ";
+   
+    constructor(props: any)
+    {
+      super(props);
+      this.state = {
+        review: new Review({id: 0,
+          game_id: 0,
+          user_id: 1,
+          title: '',
+          description: '',
+          score: 0,
+          created_at: new Date()})
+      };
+    }
   
     render() {
         return (
             <>
-            <Card title={this.title} >
+            <Card title={"Edit a review"} >
               <Row>
                 <Column width={2}>
                   <Form.Label>Title:</Form.Label>
                 </Column>
                 <Column>
                   <Form.Input
-                    default={this.review.title}
                     type="text"
-                    value={this.review.title}
-                    onChange={(event) => (this.review.title = event.currentTarget.value)}
+                    value={this.state.review.title}
+                    onChange={(event) => (this.state.review.title = event.currentTarget.value)}
                   />
                 </Column>
               </Row>
@@ -41,10 +45,9 @@ class EditReview extends Component<{ match: { params: { id: number } } }> {
                 </Column>
                 <Column>
                   <Form.Textarea
-                    default={this.review.description}
-                    value={this.review.description}
+                    value={this.state.review.description}
                     onChange={(event) => {
-                      this.review.description = event.currentTarget.value;
+                      this.state.review.description = event.currentTarget.value;
                     }}
                     rows={10}
                   />
@@ -54,11 +57,11 @@ class EditReview extends Component<{ match: { params: { id: number } } }> {
                 <Column width={2}>score:</Column>
                 <Column>
                   <Form.NumberInput
-                    value={this.review.score}
+                    value={this.state.review.score}
                     min={0}
                     max={5}
                     onChange={(event) => {
-                      this.review.score = Number(event.currentTarget.value);
+                      this.state.review.score = Number(event.currentTarget.value);
                     }}
                   />
                 </Column> 
@@ -68,13 +71,13 @@ class EditReview extends Component<{ match: { params: { id: number } } }> {
               <Column>
                 <Button.Dark
                   onClick={() =>{
-                    if(this.review.score > 5){
+                    if(this.state.review.score > 5){
                       Alert.info('Pick a Score between 0-5')
                     }
                     reviewService
-                      .update(this.review)
+                      .update(this.state.review)
                       .then(() => {
-                        history.push('/gamedetails/' + this.review.game_id);
+                        history.push('/gamedetails/' + this.state.review.game_id);
                       })}
                   }
                 >
@@ -89,7 +92,7 @@ class EditReview extends Component<{ match: { params: { id: number } } }> {
     }
     mounted(){
       reviewService.get(this.props.match.params.id)
-        .then((review) => (this.review = review))
+        .then((review) => this.setState({review: review}))
         .catch((error) => Alert.danger('Error getting review: ' + error.message))
     }
       

@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Component } from 'react-simplified';
 import { NavBar, Button, Alert, Card, CardRow, Column, Row, SearchBar } from './widgets';
 import { createHashHistory } from 'history';
 
@@ -9,7 +10,14 @@ const history = createHashHistory();
 
 // Forside - den første siden man kommer inn på
 export default class FrontPage extends Component {
-  games: Game[] = [];
+    constructor(props: any)
+    {
+        super(props);
+        this.state = {
+            games: []
+        }
+    }
+  
   searchQuery: string = '';
 
   render() {
@@ -40,7 +48,7 @@ export default class FrontPage extends Component {
                 <Column width={3} right={true}></Column>
               </Row>
             </Card>
-            {this.games.map((game) => (
+            {this.state.games.map((game: Game) => (
               <CardRow key={game.id}>
                 <Column>{game.title}</Column>
                 <Column>{game.description}</Column>
@@ -65,7 +73,7 @@ export default class FrontPage extends Component {
     gameService
       .getAll()
       .then((games) => {
-        this.games = games;
+        this.setState({games: games});
       })
       .catch((error) => Alert.danger('You got an error: ' + error.message));
   }

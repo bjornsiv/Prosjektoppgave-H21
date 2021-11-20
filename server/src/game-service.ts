@@ -64,13 +64,17 @@ class GameService {
     })
   }
 
-  search(searchString: string, order_by: string){ //order by kan sikert brueks her. "Gratis" søkerfunksjon
+  search(query: string, order_by: string){ //order by kan sikert brueks her. "Gratis" søkerfunksjon
     return new Promise<Game[]>((resolve, reject) => {
-      pool.query('SELECT * FROM games WHERE title LIKE ? OR description LIKE ? OR platform LIKE ? OR genre LIKE ? ORDER BY ?', [searchString, searchString, searchString, searchString, order_by], (error, results) => {
-        if(error) return reject(error);
+      query = `%${query}%`;
+      pool.query('SELECT * FROM games WHERE title LIKE ? OR description LIKE ? OR platform LIKE ? OR genre LIKE ? ORDER BY ?', 
+        [query, query, query, query, order_by], 
+        (error, results) => {
+          if(error) return reject(error);
 
-        resolve(results);
-      });
+          resolve(results);
+        }
+      );
     });
   }
 

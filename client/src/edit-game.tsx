@@ -28,9 +28,9 @@ FORSLAG/IDÉER
 class EditGame extends Component <{ match: { params: { id: number } } }>{
     game: Game = {id: 0, title: '', description: '', release_date: new Date(), genre: 'Real-Time Strategy', platform: ''};
     
-    currentDateValue: string = '';
     AvaliableGenres: string[] = [];
-    AvaliablePlatform: string[] = []
+    AvaliablePlatform: string[] = [];
+    release_date: string = '';
 
     render() {
         return (
@@ -56,8 +56,11 @@ class EditGame extends Component <{ match: { params: { id: number } } }>{
                     </Column>
                     <Column width={4}>
                         <Form.Date
-                            onChange={(event) => (this.currentDateValue = event.currentTarget.value)}
-                            value = {this.game.release_date}
+                            onChange={(event) => {
+                                this.release_date = event.currentTarget.value
+                                this.game.release_date = new Date(this.release_date)
+                            }}
+                            value = {this.release_date}
                             placeholder = 'Release Date'
                         >
 
@@ -134,10 +137,6 @@ class EditGame extends Component <{ match: { params: { id: number } } }>{
 
                     <Button.Dark 
                         onClick={() => {
-                            this.game.release_date = new Date(this.currentDateValue);
-                            this.game.platform.substring(0, this.game.platform.length - 2);
-                            console.log(this.game.platform.length)
-                         
                             gameService
                             .update(this.game)
                             .then(() => {
@@ -169,7 +168,7 @@ class EditGame extends Component <{ match: { params: { id: number } } }>{
         gameService.get(this.props.match.params.id)
           .then((game) => (this.game = game))
           .catch((error) => Alert.danger('Error getting game: ' + error.message));
-          this.currentDateValue = this.game.release_date.toString();
+          this.game.platform = '';
         gameService.getPlatforms()
             .then((data) => this.AvaliablePlatform = data)
             .catch((error) => Alert.danger('Error getting plattform: ' + error.message));

@@ -76,7 +76,7 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
                                   history.push('/editreview/' + review.id);
                                 }}
                               >
-                                Edit review
+                                Edit
                               </Button.Dark>
                               <Button.Danger
                                 onClick={() => {
@@ -84,7 +84,7 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
                                   history.push('/gamereview/' + review.id)
                                 }}
                               >
-                                Delete Review
+                                Delete
                               </Button.Danger>
                             </Column>
                           </Card>

@@ -38,7 +38,7 @@ class Menu extends Component {
               <NavBar.Link to="/newgame">Add game</NavBar.Link>
             </Column>
             <Column right={true}>
-              <NavBar.Link to="/">Home</NavBar.Link> {/* Må vises på alle sider for å være brukbar*/}
+              <NavBar.Link to="/">Home</NavBar.Link> 
             </Column>
             
             Rate new and trending games - or your all time favorites!

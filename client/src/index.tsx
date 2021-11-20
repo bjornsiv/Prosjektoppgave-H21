@@ -46,7 +46,14 @@ class FrontPage extends Component {
       return (
         <>
         <div>
-          <Card title="GameRatings"><Column right={true} width={100}><SearchBar value={this.searchQuery} onClick={() => this.manageSearch()} onChange={(event) => this.searchQuery = event.currentTarget.value}></SearchBar><NavBar.Link to="/newgame">ADD GAME</NavBar.Link></Column><br></br>Rate new and trending games - or your all time favorites!</Card> 
+          <Card title="GameRatings">
+            <Column right={true} width={100}>
+            <SearchBar value={this.searchQuery} onClick={() => this.manageSearch()} onChange={(event) => this.searchQuery = event.currentTarget.value}></SearchBar>
+            <NavBar.Link to="/newgame">ADD GAME</NavBar.Link>
+            </Column>
+            <br></br>
+            Rate new and trending games - or your all time favorites!
+            </Card> 
           <br></br>
           <br></br>
           <br></br>

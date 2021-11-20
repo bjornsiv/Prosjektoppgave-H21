@@ -8,20 +8,14 @@ import { createHashHistory } from 'history';
 
 
 const history = createHashHistory();
-// class GameSearch extends Component {
-//   games = [];
-//
-//   render() {
-//     return <Card title="Search results:"></Card>;
-//   }
-// }
+
 
 class GameSearch extends Component <{ match: { params: { query: string } } }>{
   games: Game[] = [];
   render() {
     return (
       <>
-      <div>
+
       <div>
             <Card title="Search Reaults">
             <br></br>
@@ -46,7 +40,6 @@ class GameSearch extends Component <{ match: { params: { query: string } } }>{
             </CardRow>
           ))}
           </div>
-      </div>
       </>
     );
   }

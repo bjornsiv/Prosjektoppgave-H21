@@ -62,7 +62,7 @@ class GameService {
     }
     search(query: string) {
       return axios.post<Game[]>('/games/gamesearch/' + query).then((response) => response.data);;
-  }
+    }
     update(game: Game){
         return axios.put<Game>('/games/editgame/', {
             game: game,

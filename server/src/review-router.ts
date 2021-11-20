@@ -12,6 +12,14 @@ router.get('/:gId', (request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
+router.get('/single/:id', (request, response) => {
+  const id = Number(request.params.id)
+  reviewService
+    .get(id)
+    .then((reviews) => (response.send(reviews)))
+    .catch((error) => response.status(500).send(error));
+});
+
 router.post('/', (request, response) => {
   const data = request.body;
   if (data.title.length == 0) {

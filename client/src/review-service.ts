@@ -5,7 +5,7 @@ axios.defaults.baseURL = 'http://localhost:3000/api/v1';
 
 class ReviewService {
     get(id: number) {
-        return axios.get<Review>('/reviews/' + id).then((response) => response.data);
+        return axios.get<Review>('/reviews/single/' + id).then((response) => response.data);
     }
     getAll(gId: number) {
         return axios.get<Review[]>('/reviews/' + gId).then((response) => response.data);
@@ -20,9 +20,7 @@ class ReviewService {
         return axios.delete<Game>('/reviews/' + id);
     }
     update(review: Review){
-        return axios.put<Review>('/reviews', {
-            review:review,
-        })
+        return axios.put<Review>('/reviews/', review)
         .then((response) => response.data);
     }
 } 

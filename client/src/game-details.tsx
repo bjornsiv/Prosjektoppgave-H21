@@ -73,7 +73,7 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
                             <Column right={true}>
                               <Button.Dark
                                 onClick={() => {
-                                  history.push('/edit-review/' + review.id);
+                                  history.push('/editreview/' + review.id);
                                 }}
                               >
                                 Edit review
@@ -81,7 +81,7 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
                               <Button.Danger
                                 onClick={() => {
                                   reviewService.delete(review.id)
-                                  history.push('/gamereview/' + this.props.match.params.id)
+                                  history.push('/gamereview/' + review.id)
                                 }}
                               >
                                 Delete Review

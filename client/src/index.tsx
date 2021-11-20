@@ -11,6 +11,7 @@ import EditGame from './edit-game';
 import GameReview from './game-review';
 import GameDetails from './game-details';
 import GameSearch from './game-search';
+import EditReview from './edit-review';
 // import FrontPage from './frontpage';
 
 import { Game } from './db-types';
@@ -125,7 +126,7 @@ if (root)
         <Route path="/new-review/:id(\d+)" component={GameReview} />
         <Route path="/newgame" component={NewGame} />
         <Route path="/editgame/:id(\d+)" component={EditGame} />
-        <Route path="/editreview/:id(\d+)" component={EditGame} />
+        <Route path="/editreview/:id(\d+)" component={EditReview} />
       </div>
     </HashRouter>,
     document.getElementById('root')

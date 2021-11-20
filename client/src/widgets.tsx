@@ -520,6 +520,7 @@ export class StarRating extends Component<{
 }> {
   rating: Rater | null = null;
 
+  
   onChange(value: number, done?: (() => any) | undefined) {
     if (this.props.onChange) {
       this.props.onChange(this, value);
@@ -527,6 +528,7 @@ export class StarRating extends Component<{
     if (done) {
       done();
     }
+    this.mounted();
     console.log(value);
   }
 

@@ -12,15 +12,13 @@ class EditReview extends Component<{ match: { params: { id: number } } }> {
     constructor(props: any)
     {
       super(props);
-      this.state = {
-        review: new Review({id: 0,
+      this.state = {id: 0,
           game_id: 0,
           user_id: 1,
-          title: '',
-          description: '',
+          title: 'title',
+          description: 'description',
           score: 0,
-          created_at: new Date()})
-      };
+          created_at: new Date()};
     }
   
     render() {
@@ -34,8 +32,8 @@ class EditReview extends Component<{ match: { params: { id: number } } }> {
                 <Column>
                   <Form.Input
                     type="text"
-                    value={this.state.review.title}
-                    onChange={(event) => (this.state.review.title = event.currentTarget.value)}
+                    value={this.state.title}
+                    onChange={(event) => this.setState({title: event.currentTarget.value})}
                   />
                 </Column>
               </Row>
@@ -45,10 +43,8 @@ class EditReview extends Component<{ match: { params: { id: number } } }> {
                 </Column>
                 <Column>
                   <Form.Textarea
-                    value={this.state.review.description}
-                    onChange={(event) => {
-                      this.state.review.description = event.currentTarget.value;
-                    }}
+                    value={this.state.description}
+                    onChange={(event) => this.setState({description: event.currentTarget.value})}
                     rows={10}
                   />
                 </Column>
@@ -57,12 +53,10 @@ class EditReview extends Component<{ match: { params: { id: number } } }> {
                 <Column width={2}>score:</Column>
                 <Column>
                   <Form.NumberInput
-                    value={this.state.review.score}
+                    value={this.state.score}
                     min={0}
                     max={5}
-                    onChange={(event) => {
-                      this.state.review.score = Number(event.currentTarget.value);
-                    }}
+                    onChange={(event) => this.setState({score: event.currentTarget.value})}
                   />
                 </Column> 
               </Row>
@@ -71,13 +65,13 @@ class EditReview extends Component<{ match: { params: { id: number } } }> {
               <Column>
                 <Button.Dark
                   onClick={() =>{
-                    if(this.state.review.score > 5){
+                    if(this.state.score > 5){
                       Alert.info('Pick a Score between 0-5')
                     }
                     reviewService
-                      .update(this.state.review)
+                      .update(new Review(this.state))
                       .then(() => {
-                        history.push('/gamedetails/' + this.state.review.game_id);
+                        history.push('/gamedetails/' + this.state.game_id);
                       })}
                   }
                 >
@@ -92,7 +86,7 @@ class EditReview extends Component<{ match: { params: { id: number } } }> {
     }
     mounted(){
       reviewService.get(this.props.match.params.id)
-        .then((review) => this.setState({review: review}))
+        .then((review) => this.setState(review))
         .catch((error) => Alert.danger('Error getting review: ' + error.message))
     }
       

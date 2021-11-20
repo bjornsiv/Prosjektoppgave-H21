@@ -24,13 +24,18 @@ FORSLAG/IDÉER
 //    setChecked(event.target.checked);
 //};
 
+function date_to_calendar(date: Date)
+{
+    const leading = (value: number, places: number) => String(value).padStart(places, '0');
+    return `${date.getFullYear()}-${leading(date.getMonth(), 2)}-${leading(date.getDay(), 2)}`;
+}
 
 class EditGame extends Component <{ match: { params: { id: number } } }>{
     game: Game = {id: 0, title: '', description: '', release_date: new Date(), genre: 'Real-Time Strategy', platform: ''};
     
-    currentDateValue: string = '';
+    release_date: string = '';
     AvaliableGenres: string[] = [];
-    AvaliablePlatform: string[] = []
+    platforms: Map<string, boolean> = new Map<string, boolean>();
 
     render() {
         return (
@@ -56,12 +61,15 @@ class EditGame extends Component <{ match: { params: { id: number } } }>{
                     </Column>
                     <Column width={4}>
                         <Form.Date
-                            onChange={(event) => (this.currentDateValue = event.currentTarget.value)}
-                            value = {this.game.release_date}
+                            onChange={
+                                (event) => {
+                                    this.release_date = event.currentTarget.value
+                                    this.game.release_date = new Date(this.release_date);
+                                }
+                            }
+                            value = {this.release_date}
                             placeholder = 'Release Date'
-                        >
-
-                        </Form.Date>
+                        />
                     </Column>
                 </Row>
                 <Row>
@@ -73,11 +81,7 @@ class EditGame extends Component <{ match: { params: { id: number } } }>{
                             <Form.Genra 
                                 valueList = {this.AvaliableGenres}
                                 value={this.game.genre}
-                                onChange={(event) => {
-                                    this.game.genre = event.currentTarget.value
-                                    console.log('Value: ' + event.currentTarget.value, 'Game Value: ' + this.game.genre);
-                                }
-                            }
+                                onChange={(event) => {this.game.genre = event.currentTarget.value}}
                             />
                         </form>
                     </Column>
@@ -88,32 +92,33 @@ class EditGame extends Component <{ match: { params: { id: number } } }>{
                     </Column>
                     <Column width={4}>
                         <form className="form-group">
-                            
                             {
-                                this.AvaliablePlatform.map((platt, value) => {
-                                return (
-                                <>
-                                    
-                                    <Form.Checkbox
-                                        key={value}
-                                        value={platt}
-                                        name={platt}
-                                        onChange={(event) => {
-                                            if(this.game.platform == ''){
-                                                this.game.platform += event.currentTarget.value;
-                                            }else{
-                                                this.game.platform += ',' + event.currentTarget.value;
+                                Array.from(this.platforms).map(
+                                    ([key, value]) => 
+                                    (
+                                        <>
+                                            <Form.Checkbox
+                                                key={key}
+                                                value={value}
+                                                name={key}
+                                                onChange={(event) => {
+                                                    value = event.currentTarget.checked;
+                                                    this.platforms.set(key, value);
+                                                    this.game.platform = Array.from(this.platforms)
+                                                        .filter(([_key, state]) => state)
+                                                        .map(([key, _value]) => key)
+                                                        .join(",");
+                                                    
+                                                    console.log('Value: ' + event.currentTarget.value, ', Checked: ' + event.currentTarget.checked, 'Game Value: ' + this.game.platform);
+                                                }
                                             }
-                                            
-                                            console.log('Value: ' + event.currentTarget.value, ', Checked: ' + event.currentTarget.checked, 'Game Value: ' + this.game.platform);
-                                        }
-                                    }
-                                    />
-                                    <Form.Label key={platt}>{platt}</Form.Label>
-                                <br/>
-                                </>
-                                );
-                            })}
+                                            />
+                                            <Form.Label key={key + "-name"}>{key}</Form.Label>
+                                            <br/>
+                                        </>
+                                    )
+                                )
+                            }
                         </form>
                     </Column>
                 </Row>
@@ -133,11 +138,7 @@ class EditGame extends Component <{ match: { params: { id: number } } }>{
                 <Column>
 
                     <Button.Dark 
-                        onClick={() => {
-                            this.game.release_date = new Date(this.currentDateValue);
-                            this.game.platform.substring(0, this.game.platform.length - 2);
-                            console.log(this.game.platform.length)
-                         
+                        onClick={() => {                         
                             gameService
                             .update(this.game)
                             .then(() => {
@@ -167,13 +168,22 @@ class EditGame extends Component <{ match: { params: { id: number } } }>{
         );}
     mounted(){
         gameService.get(this.props.match.params.id)
-          .then((game) => (this.game = game))
+          .then(
+              (game) => {
+                  this.game = game;
+                  this.release_date = date_to_calendar(this.game.release_date);
+                }
+            )
           .catch((error) => Alert.danger('Error getting game: ' + error.message));
-          this.currentDateValue = this.game.release_date.toString();
+          
         gameService.getPlatforms()
-            .then((data) => this.AvaliablePlatform = data)
+            .then(
+                (data) => {
+                    data.map((platform) => this.platforms.set(platform, this.game.platform.includes(platform))); 
+                    console.log(this.platforms);
+                }
+            )
             .catch((error) => Alert.danger('Error getting plattform: ' + error.message));
-            console.log(this.AvaliablePlatform)
         gameService.getGenres()
             .then((data) => (this.AvaliableGenres = data))
             .catch((error) => Alert.danger('Error getting genre: ' + error.message));

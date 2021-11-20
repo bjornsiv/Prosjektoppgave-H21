@@ -8,13 +8,9 @@ import gameService from './game-service';
 const history = createHashHistory();
 
 // Forside - den første siden man kommer inn på
-class FrontPage extends Component {
+export default class FrontPage extends Component {
   games: Game[] = [];
   searchQuery: string = '';
-
-  manageSearch() {
-    history.push('/gamesearch/' + this.searchQuery);
-  }
 
   render() {
     return (
@@ -24,10 +20,11 @@ class FrontPage extends Component {
             <Column right={true} width={100}>
               <SearchBar
                 value={this.searchQuery}
-                onClick={() => this.manageSearch()}
-                onChange={(event) => {this.searchQuery = event.currentTarget.value}}
-              ></SearchBar>
-              <NavBar.Link to="/newgame">Add game</NavBar.Link>
+                onClick={(_event, value) => history.push('/gamesearch/' + value)}
+              />
+            </Column>
+            <Column right={true}>
+              <NavBar.Link to="/newgame">ADD GAME</NavBar.Link>
             </Column>
             Rate new and trending games - or your all time favorites!
           </Card>
@@ -51,7 +48,7 @@ class FrontPage extends Component {
                 <Column>{game.platform}</Column>
                 <Column width={3} right={true}>
                   <Button.Dark onClick={() => history.push('/gamedetails/' + game.id)}>
-                    Details
+                    See Reviews
                   </Button.Dark>
                   <Button.Dark onClick={() => history.push('/editgame/' + game.id)}>
                     Edit game
@@ -67,11 +64,9 @@ class FrontPage extends Component {
   mounted() {
     gameService
       .getAll()
-      .then((game) => {
-        this.games = game;
+      .then((games) => {
+        this.games = games;
       })
       .catch((error) => Alert.danger('You got an error: ' + error.message));
   }
 }
-
-export default FrontPage;

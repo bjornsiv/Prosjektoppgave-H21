@@ -187,12 +187,23 @@ describe('Update game (PUT)', () => {
   });
   test('Update game (400 Bad Request)', (done) => {
     var game = new Game(testGameSources[3]);
-    game.title = "a".repeat(512);
+    game.title = "";
     axios.put('/games', game).then((response) => {
       throw new Error("Expected an error");
     })
     .catch((error) => {
       expect(error.response.status).toEqual(400);
+      done();
+    });
+  });
+  test('Update game (400 Bad Request)', (done) => {
+    var game = new Game(testGameSources[3]);
+    game.title = "a".repeat(512);
+    axios.put('/games', game).then((response) => {
+      throw new Error("Expected an error");
+    })
+    .catch((error) => {
+      expect(error.response.status).toEqual(500);
       done();
     });
   });

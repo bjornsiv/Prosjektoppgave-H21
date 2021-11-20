@@ -278,6 +278,7 @@ class FormSelect extends Component<{
 class FormDate extends Component<{
   placeholder: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  value: Date;
   [prop: string]: any;
 }> {
   render() {
@@ -289,7 +290,7 @@ class FormDate extends Component<{
           type="date"
           placeholder={placeholder}
           onChange={onChange}
-          value={value}
+          value={value.toISOString()}
           {...rest}
         ></input>
       </div>
@@ -430,12 +431,14 @@ export class List {
 // Har endret fra success til secondary button
 export class SearchBar extends Component<{
   value: string;
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, value: string) => void;
   [prop: string]: any;
-}> {
+}> 
+{
+  fieldValue: string = "";
+
   render() {
-    const { value, onChange, onClick, ...rest } = this.props;
+    const { value, onClick, ...rest } = this.props;
     return (
         <form className="form-inline search-div">
           <input
@@ -443,14 +446,14 @@ export class SearchBar extends Component<{
             type="search"
             placeholder="Search for games"
             aria-label="Search"
-            value={value}
-            onChange={onChange}
+            value={this.fieldValue}
+            onChange={(event) => {this.fieldValue = event.currentTarget.value;}}
             {...rest}
           />
           <button 
             className="btn btn-dark my-2 my-sm-0" 
             type="submit"
-            onClick={onClick}
+            onClick={(event) => onClick(event, this.fieldValue)}
           >
             Search 
           </button>

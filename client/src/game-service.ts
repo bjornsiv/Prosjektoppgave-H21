@@ -11,8 +11,11 @@ class GameService {
     return axios.get<Game[]>('/games/').then((response) => response.data);
   }
 
-  search(query: string) {
-    query = `/games/search/?find=${query}`;
+  search(query: string, orderBy:string|null=null) {
+    query = `/games/search?find=${query}`;
+    if (orderBy != null) {
+      query += `&order=${orderBy}`;
+    }
     return axios.get<Game[]>(query).then((response) => response.data);
   }
   
@@ -27,7 +30,7 @@ class GameService {
 
   update(game: Game) {
     return axios
-      .put<Game>('/games/editgame/', game)
+      .put<Game>('/games/', game)
       .then((response) => response.data);
   }
 
@@ -35,7 +38,7 @@ class GameService {
     return axios.get<string[]>('/games/genres/').then((response) => response.data);
   }
   getPlatforms() {
-    return axios.get<string[]>('/games/platform/').then((response) => response.data);
+    return axios.get<string[]>('/games/platforms/').then((response) => response.data);
   }
 }
 

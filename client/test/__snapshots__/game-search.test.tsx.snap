@@ -1,47 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Game review component tests GameReview renders correctly with snapshot 1`] = `
+exports[`Game search component tests GameReview search correctly with snapshot 1`] = `
 <div>
-  <div
-    className="card"
-  >
-    <div
-      className="card-body"
-    >
-      <h5
-        className="card-title"
-      >
-        GameRatings.com
-      </h5>
-      <div
-        className="card-text"
-      >
-        Rate top games 
-        <button
-          className="btn btn-info"
-          onClick={[Function]}
-          type="button"
-        >
-          Add game
-        </button>
-      </div>
-    </div>
-  </div>
   <div>
     <div
-      className="card"
+      className="card rounded"
     >
       <div
         className="card-body"
       >
-        <h5
+        <p
           className="card-title"
         >
-          
-        </h5>
+          Search Reaults
+        </p>
         <div
           className="card-text"
         >
+          <br />
           <div
             className="row"
           >
@@ -51,7 +27,7 @@ exports[`Game review component tests GameReview renders correctly with snapshot 
               <div
                 className="float-start"
               >
-                Title
+                Game title
               </div>
             </div>
             <div

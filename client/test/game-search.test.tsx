@@ -1,16 +1,16 @@
 import * as React from 'react';
-import GameService from './mock-game-service';
 import renderer from 'react-test-renderer';
 import GameSearch from '../src/game-search';
+import mockGameService from './mock-game-service';
 
-jest.mock('../src/services', () => {
-  return new GameService();
+jest.mock('../src/game-service', () => {
+  return new mockGameService();
 });
 
 describe('Game search component tests', () => {
   test('GameReview search correctly with snapshot', () => {
     const tree = renderer
-      .create(<GameSearch match={{ params: { id: 1 } }} />)
+      .create(<GameSearch match={{ params: { query: "fight" } }} />)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });

@@ -56,6 +56,12 @@ export default class mockGameService {
       });
     });
   }
+  
+  search(_query: string, _orderBy:string|null=null) {
+    return new Promise<Game[]>((resolve, reject) => {
+      this.getAll().then((games) => {resolve(games);});
+    });
+  }  
 
   update(game: Game) {
     return Promise.resolve();

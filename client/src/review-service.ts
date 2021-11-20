@@ -14,9 +14,7 @@ class ReviewService {
         return axios.get<Review>('/reviews/gamesearch').then((response) => response.data);
     }
     create(review: Review){
-        return axios.post<Review>('/reviews/', {
-            review: review,
-        }).then((response) => response.data.id);
+        return axios.post<Review>('/reviews/', review).then((response) => response.data.id);
     }
     delete(id:number) {
         return axios.delete<Game>('/reviews/' + id);

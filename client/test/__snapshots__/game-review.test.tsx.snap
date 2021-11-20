@@ -3,16 +3,16 @@
 exports[`Game review component tests GameReview renders correctly with snapshot 1`] = `
 Array [
   <div
-    className="card"
+    className="card rounded"
   >
     <div
       className="card-body"
     >
-      <h5
+      <p
         className="card-title"
       >
-        Add a new review
-      </h5>
+        Add a new review for 
+      </p>
       <div
         className="card-text"
       >
@@ -25,11 +25,13 @@ Array [
             <div
               className="float-start"
             >
-              <label
-                className="col-form-label"
-              >
-                Title:
-              </label>
+              <span>
+                <label
+                  className="form col-form-label form-display"
+                >
+                  Title:
+                </label>
+              </span>
             </div>
           </div>
           <div
@@ -39,7 +41,7 @@ Array [
               className="float-start"
             >
               <input
-                className="form-control"
+                className="form-input form form-control"
                 onChange={[Function]}
                 type="text"
                 value=""
@@ -56,11 +58,13 @@ Array [
             <div
               className="float-start"
             >
-              <label
-                className="col-form-label"
-              >
-                Description:
-              </label>
+              <span>
+                <label
+                  className="form col-form-label form-display"
+                >
+                  Description:
+                </label>
+              </span>
             </div>
           </div>
           <div
@@ -90,6 +94,15 @@ Array [
               score:
             </div>
           </div>
+          <div
+            className="col"
+          >
+            <div
+              className="float-start"
+            >
+              <div />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -104,7 +117,7 @@ Array [
         className="float-start"
       >
         <button
-          className="btn btn-success"
+          className="btn btn-dark button-darker"
           onClick={[Function]}
           type="button"
         >

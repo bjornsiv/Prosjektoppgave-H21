@@ -10,14 +10,14 @@ const history = createHashHistory();
 
 export default class GameReview extends Component<{ match: { params: { id: number } } }> {
 
-    review: Review = {id: 0,
+    review: Review = new Review({id: 0,
         game_id: 0,
         user_id: 1,
         title: '',
         description: '',
         score: 0,
-        created_at: new Date()};
-    game: Game = {id: 0, title: '', description: '', release_date: new Date(), genre: '', platform: ''};
+        created_at: new Date()});
+    game: Game = new Game({id: 0, title: '', description: '', release_date: new Date(), genre: '', platform: ''});
     title: String = "Add a new review for ";
     currentStarRating: number = 0;
   
@@ -66,8 +66,6 @@ export default class GameReview extends Component<{ match: { params: { id: numbe
               <Column>
                 <Button.Dark
                   onClick={() =>{
-                    this.review.user_id = 1;
-                    this.review.game_id = this.game.id;
                     reviewService
                       .create(this.review)
                       .then(() => {
@@ -88,7 +86,8 @@ export default class GameReview extends Component<{ match: { params: { id: numbe
         gameService.get(this.props.match.params.id)
             .then((game) => (this.game = game))
             .catch((error) => Alert.danger('Error getting game: ' + error.message));
-            this.review.game_id = this.props.match.params.id
+            this.review.game_id = this.props.match.params.id;
+            this.review.user_id = 1;
             console.log(this.props.match.params.id);
     }
 }

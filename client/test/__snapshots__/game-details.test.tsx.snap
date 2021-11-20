@@ -3,16 +3,16 @@
 exports[`Game details component tests GameDetails renders correctly with snapshot 1`] = `
 <div>
   <div
-    className="card"
+    className="card rounded"
   >
     <div
       className="card-body"
     >
-      <h5
+      <p
         className="card-title"
       >
         Game details
-      </h5>
+      </p>
       <div
         className="card-text"
       >
@@ -56,7 +56,7 @@ exports[`Game details component tests GameDetails renders correctly with snapsho
             <div
               className="float-start"
             >
-              1985-11-05T00:53:20.000Z
+              2.10.1985
             </div>
           </div>
         </div>
@@ -130,16 +130,16 @@ exports[`Game details component tests GameDetails renders correctly with snapsho
     </div>
   </div>
   <div
-    className="card"
+    className="card rounded"
   >
     <div
       className="card-body"
     >
-      <h5
+      <p
         className="card-title"
       >
         Average rating:
-      </h5>
+      </p>
       <div
         className="card-text"
       >
@@ -159,7 +159,7 @@ exports[`Game details component tests GameDetails renders correctly with snapsho
             className="float-start"
           >
             <button
-              className="btn btn-success"
+              className="btn btn-dark button-darker"
               onClick={[Function]}
               type="button"
             >
@@ -171,16 +171,16 @@ exports[`Game details component tests GameDetails renders correctly with snapsho
     </div>
   </div>
   <div
-    className="card"
+    className="card rounded"
   >
     <div
       className="card-body"
     >
-      <h5
+      <p
         className="card-title"
       >
         Game reviews
-      </h5>
+      </p>
       <div
         className="card-text"
       />

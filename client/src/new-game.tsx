@@ -55,11 +55,10 @@ export default class NewGame extends Component {
                     </Column>
                     <Column width={4}>
                         <Form.Date
-                            onChange={(event) => (this.game.release_date = new Date(event.currentTarget.value))}/>
+                            onChange={(event) => (this.game.release_date = new Date(event.currentTarget.value))}
                             value = {this.game.release_date}
                             placeholder = 'Release Date'
-                        >
-                        </Form.Date>
+                        />
                     </Column>
                 </Row>
                 <Row>
@@ -132,10 +131,6 @@ export default class NewGame extends Component {
 
                     <Button.Dark 
                         onClick={() => {
-                            this.game.release_date = new Date(this.currentDateValue);
-                            this.game.platform.substring(0, this.game.platform.length - 2);
-                            console.log(this.game.platform.length)
-                         
                             gameService
                             .create(this.game)
                             .then((id: number) => {
@@ -154,11 +149,11 @@ export default class NewGame extends Component {
     }
     
     mounted(){
-        gameservice.getPlatt()
+        gameService.getPlatforms()
             .then((data) => this.AvaliablePlatform = data)
             .catch((error) => Alert.danger('Error getting plattform: ' + error.message));
             console.log(this.AvaliablePlatform)
-        gameservice.getEnum()
+        gameService.getGenres()
             .then((data) => (this.AvaliableGenres = data))
             .catch((error) => Alert.danger('Error getting genre: ' + error.message));
     }

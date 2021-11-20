@@ -204,16 +204,20 @@ class FormInput extends Component<{
 
 class FormNumberInput extends Component<{
   value: number;
+  max: number;
+  min: number;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   [prop: number]: any;
 }> {
   render() {
     // ...rest will contain extra passed attributes such as disabled, required, width, height, pattern
     // For further information, see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
-    const { value, onChange, ...rest } = this.props;
+    const { value, onChange, max, min, ...rest } = this.props;
     return (
       <input
         {...rest}
+        min={this.props.min}
+        max={this.props.max}
         type="number"
         className="form-control"
         value={this.props.value}

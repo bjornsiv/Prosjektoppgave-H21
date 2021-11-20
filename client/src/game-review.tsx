@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
-import { Card, Row, Column, Button, Form, Alert, StarRating } from './widgets';
+import { Card, Row, Column, Button, Form, Alert } from './widgets';
 import { createHashHistory } from 'history';
 import gameService from './game-service';
 import reviewService from './review-service';
@@ -54,10 +54,13 @@ export default class GameReview extends Component<{ match: { params: { id: numbe
               <Row>
                 <Column width={2}>score:</Column>
                 <Column>
-                  <StarRating
+                  <Form.NumberInput
                     value={this.review.score}
-                    edit={true}
-                    size={48}
+                    min={0}
+                    max={5}
+                    onChange={(event) => {
+                      this.review.score = Number(event.currentTarget.value);
+                    }}
                   />
                 </Column> 
               </Row>
@@ -66,6 +69,9 @@ export default class GameReview extends Component<{ match: { params: { id: numbe
               <Column>
                 <Button.Dark
                   onClick={() =>{
+                    if(this.review.score > 5){
+                      Alert.info('Pick a Score between 0-5')
+                    }
                     reviewService
                       .create(this.review)
                       .then(() => {

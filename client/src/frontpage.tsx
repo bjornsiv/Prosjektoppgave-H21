@@ -45,7 +45,7 @@ export default class FrontPage extends Component {
                 <Column>{game.platform}</Column>
                 <Column width={3} right={true}>
                   <Button.Dark onClick={() => history.push('/gamedetails/' + game.id)}>
-                    See Reviews
+                    More info
                   </Button.Dark>
                 </Column>
               </CardRow>

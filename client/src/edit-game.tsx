@@ -40,7 +40,7 @@ class EditGame extends Component <{ match: { params: { id: number } } }>{
     render() {
         return (
             <>
-            <Card title= "Edit exsisting game: ">
+            <Card title= "Edit existing game: ">
                 <br></br> <br></br> <br></br>
                 <Row>
                     <Column width={2}>
@@ -147,7 +147,7 @@ class EditGame extends Component <{ match: { params: { id: number } } }>{
                         }
                     }
                         >
-                    Add game
+                    Add changes
                     </Button.Dark >
                     <Button.Danger
                         onClick={() => {

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
-import { Card, Row, Column, Button, NavBar, Form, Alert, SearchBar, SignIn } from './widgets';
-import { NavLink, HashRouter, Route } from 'react-router-dom';
+import { Card, Row, Column, Button, Form, Alert, StarRating } from './widgets';
 import { createHashHistory } from 'history';
 import gameService from './game-service';
 import reviewService from './review-service';
@@ -19,12 +18,13 @@ export default class GameReview extends Component<{ match: { params: { id: numbe
         score: 0,
         created_at: new Date()};
     game: Game = {id: 0, title: '', description: '', release_date: new Date(), genre: '', platform: ''};
-    title: String = this.game.title;
-
+    title: String = "Add a new review for ";
+    currentStarRating: number = 0;
+  
     render() {
         return (
             <>
-            <Card title="Add a new review">
+            <Card title={this.title + this.game.title} >
               <Row>
                 <Column width={2}>
                   <Form.Label>Title:</Form.Label>
@@ -53,21 +53,30 @@ export default class GameReview extends Component<{ match: { params: { id: numbe
               </Row>
               <Row>
                 <Column width={2}>score:</Column>
+                <Column>
+                  <StarRating
+                    value={Number(this.review.score)}
+                    edit={true}
+                    size={48}
+                  />
+                </Column> 
               </Row>
             </Card>
             <Row>
               <Column>
-                <Button.Success
-                  onClick={() =>
+                <Button.Dark
+                  onClick={() =>{
+                    this.review.user_id = 1;
+                    this.review.game_id = this.game.id;
                     reviewService
                       .create(this.review)
                       .then(() => {
                         history.push('/gamedetails/' + this.game.id);
-                      })
+                      })}
                   }
                 >
                   Save
-                </Button.Success>
+                </Button.Dark>
               </Column>
             </Row>
           </>
@@ -79,17 +88,7 @@ export default class GameReview extends Component<{ match: { params: { id: numbe
         gameService.get(this.props.match.params.id)
             .then((game) => (this.game = game))
             .catch((error) => Alert.danger('Error getting game: ' + error.message));
+            this.review.game_id = this.props.match.params.id
+            console.log(this.props.match.params.id);
     }
 }
-
-
-/*
-
-<Column>
-                  <Form.NumberInput
-                    value={this.review.score}
-                    //onChange={(event) => (this.review.score = event.currentTarget.value)}
-                  />
-                </Column>
-
-*/ 

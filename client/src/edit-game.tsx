@@ -2,8 +2,7 @@ import * as React from 'react';
 import { Component } from 'react-simplified';
 import { Card, Row, Column, Button, Form, Alert } from './widgets';
 import { createHashHistory } from 'history';
-import gameService from './game-service';
-import { Game } from './db-types';
+import { Game, gameservice } from './services';
 
 const history = createHashHistory();
 /* 
@@ -23,18 +22,18 @@ FORSLAG/IDÉER
 //    setChecked(event.target.checked);
 //};
 
-export default class NewGame extends Component {
 
-    game: Game = {id: 0, title: '', description: '', release_date: new Date(), genre: '', platform: ''};
-    title: String = this.game.title;
+class EditGame extends Component <{ match: { params: { id: number } } }>{
+    game: Game = {id: 0, title: '', description: '', release_date: new Date(), genre: 'Real-Time Strategy', platform: ''};
+    
+    currentDateValue: string = '';
     AvaliableGenres: string[] = [];
     AvaliablePlatform: string[] = []
-   
 
     render() {
         return (
             <>
-            <Card title="Add new game">
+            <Card title= "Edit exsisting game: ">
                 <br></br> <br></br> <br></br>
                 <Row>
                     <Column width={2}>
@@ -55,10 +54,11 @@ export default class NewGame extends Component {
                     </Column>
                     <Column width={4}>
                         <Form.Date
-                            onChange={(event) => (this.game.release_date = new Date(event.currentTarget.value))}/>
-                            value = {this.game.release_date}
+                            onChange={(event) => (this.currentDateValue = event.currentTarget.value)}
+                            value = {this.currentDateValue}
                             placeholder = 'Release Date'
                         >
+
                         </Form.Date>
                     </Column>
                 </Row>
@@ -136,10 +136,10 @@ export default class NewGame extends Component {
                             this.game.platform.substring(0, this.game.platform.length - 2);
                             console.log(this.game.platform.length)
                          
-                            gameService
-                            .create(this.game)
-                            .then((id: number) => {
-                                history.push('/gamedetails/' + id);
+                            gameservice
+                            .update(this.game)
+                            .then(() => {
+                                history.push('/gamedetails/' + this.game.id);
                             }).catch((error) => Alert.danger('Error ' + error.message))
                         }
                     }
@@ -150,10 +150,12 @@ export default class NewGame extends Component {
             </Row>
             </Card>
             </>
-        );
-    }
-    
+        );}
     mounted(){
+        gameservice.get(this.props.match.params.id)
+          .then((game) => (this.game = game))
+          .catch((error) => Alert.danger('Error getting game: ' + error.message));
+          this.currentDateValue = this.game.release_date.toString();
         gameservice.getPlatt()
             .then((data) => this.AvaliablePlatform = data)
             .catch((error) => Alert.danger('Error getting plattform: ' + error.message));
@@ -163,3 +165,5 @@ export default class NewGame extends Component {
             .catch((error) => Alert.danger('Error getting genre: ' + error.message));
     }
 }
+
+export default EditGame;

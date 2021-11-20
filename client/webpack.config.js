@@ -23,6 +23,14 @@ module.exports = {
         include: path.resolve(__dirname, 'src'),
         use: ['babel-loader'],
       },
+      {
+        test: /\.(png|jpg|webp)$/,
+        loader: 'url-loader'
+      },
+      {
+        test: /\.(png|jpg|webp)$/,
+        loader: 'file-loader'
+      }
     ],
   },
 };

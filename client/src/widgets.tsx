@@ -11,9 +11,9 @@ import ReactDOM from 'react-dom';
 export class Card extends Component<{ title: ReactNode }> {
   render() {
     return (
-      <div className="card">
+      <div className="card rounded">
         <div className="card-body">
-          <h5 className="card-title">{this.props.title}</h5>
+          <p className="card-title">{this.props.title}</p>
           <div className="card-text">{this.props.children}</div>
         </div>
       </div>
@@ -32,9 +32,9 @@ export class CardRow extends Component {
   render() {
     return (
       <div className="card">
-        <div className="row">{this.props.children}</div>);
+        <div className="row">{this.props.children}</div>
       </div>
-    )
+    );
   }
 }
 
@@ -43,7 +43,9 @@ export class ColumnPadd extends Component<{ width?: number; right?: boolean }> {
     return (
       <div padding-left={5}>
         <div className={'col' + (this.props.width ? '-' + this.props.width : '')}>
-          <div className={'float-' + (this.props.right ? 'end' : 'start')}>{this.props.children}</div>
+          <div className={'float-' + (this.props.right ? 'end' : 'start')}>
+            {this.props.children}
+          </div>
         </div>
       </div>
     );
@@ -60,6 +62,17 @@ export class Column extends Component<{ width?: number; right?: boolean }> {
   }
 }
 
+
+class ButtonDark extends Component<{ onClick: () => void }> {
+  render() {
+    return (
+      <button type="button" className="btn btn-dark button-darker" onClick={this.props.onClick}>
+        {this.props.children}
+      </button>
+    );
+  }
+}
+
 // Button Success - opprette spill, anmeldelse, rating
 // properties: onClick
 class ButtonSuccess extends Component<{ onClick: () => void }> {
@@ -72,7 +85,7 @@ class ButtonSuccess extends Component<{ onClick: () => void }> {
   }
 }
 
-// Button Danger - slette spill, anmeldelse, rating
+// Button Danger - slette spill, slette anmeldelse, slette rating
 // properties: onClick
 class ButtonDanger extends Component<{ onClick: () => void }> {
   render() {
@@ -106,6 +119,7 @@ class ButtonInfo extends Component<{ onClick: () => void }> {
   }
 }
 
+// Denne passer godt inn med bakgrunnsfargene - vil bli mest brukt
 class ButtonSecondary extends Component<{ onClick: () => void }> {
   render() {
     return (
@@ -117,6 +131,7 @@ class ButtonSecondary extends Component<{ onClick: () => void }> {
 }
 
 export class Button {
+  static Dark = ButtonDark;
   static Success = ButtonSuccess;
   static Danger = ButtonDanger;
   static Light = ButtonLight;
@@ -139,9 +154,10 @@ export class NavBarLink extends Component<{ to: string }> {
 export class NavBar extends Component<{ brand: ReactNode }> {
   static Link = NavBarLink;
 
+
   render() {
     return (
-      <nav className="navbar navbar-expand-sm navbar-light bg-light">
+      <nav className="navbar navbar-expand-sm navbar-dark navbar-style NavBar-header">
         <div className="container-fluid justify-content-start">
           <NavLink className="navbar-brand" activeClassName="active" exact to="/">
             {this.props.brand}
@@ -154,9 +170,13 @@ export class NavBar extends Component<{ brand: ReactNode }> {
 }
 
 // Form label - etikett
-class FormLabel extends Component {
+class FormLabel extends Component{
   render() {
-    return <label className="col-form-label">{this.props.children}</label>;
+    return (
+      <span>
+        <label className="form col-form-label form-display">{this.props.children}</label>
+      </span>
+      );
   }
 }
 
@@ -173,7 +193,7 @@ class FormInput extends Component<{
     return (
       <input
         {...rest}
-        className="form-control"
+        className="form-input form form-control"
         type={this.props.type}
         value={this.props.value}
         onChange={this.props.onChange}
@@ -219,20 +239,17 @@ class FormTextarea extends React.Component<{
 
 // Form checkbox
 class FormCheckbox extends Component<{
-  checked: boolean;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   [prop: string]: any;
 }> {
   render() {
-    // ...rest will contain extra passed attributes such as disabled, required, width, height, pattern
-    // For further information, see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
-    const { checked, onChange, ...rest } = this.props;
+    const { onChange, value, ...rest } = this.props;
     return (
       <input
         {...rest}
-        className="form-check-input"
+        value={value}
+        className="form-check-input form-item form-check"
         type="checkbox"
-        checked={checked}
         onChange={onChange}
       />
     );
@@ -241,18 +258,66 @@ class FormCheckbox extends Component<{
 
 // Form select
 class FormSelect extends Component<{
+  key: string | number;
   value: string | number;
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
   [prop: string]: any;
 }> {
   render() {
-    // ...rest will contain extra passed attributes such as disabled, required, size.
-    // For further information, see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
-    const { value, onChange, children, ...rest } = this.props;
+    const { key, value, onChange, children, ...rest } = this.props;
     return (
-      <select {...rest} className="custom-select" value={value} onChange={onChange}>
+      <select {...rest} className="custom-select" value={value} key={key} onChange={onChange}>
         {children}
       </select>
+    );
+  }
+}
+
+class FormDate extends Component<{
+  placeholder: string;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  [prop: string]: any;
+}> {
+  render() {
+    const { placeholder, value, onChange, ...rest } = this.props;
+    return (
+      <div>
+        <input
+          className="form-input form-control"
+          type="date"
+          placeholder={placeholder}
+          onChange={onChange}
+          value={value}
+          {...rest}
+        ></input>
+      </div>
+    );
+  }
+}
+
+class FormSelectDropdown extends Component<{
+  valueList: string[];
+  value: string;  
+
+  onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
+  [prop: string]: any;
+}> {
+  render() {
+    const { value, valueList, onChange, ...rest } = this.props;
+    return (
+      <div>
+        <select 
+          className="form-select" 
+          value={value} 
+          onChange={onChange}
+          {...rest}>
+          {valueList.map((option)=> {
+            return <option key={option} className="dropdown-item" value={option}>{option}</option>
+          }
+          )}
+
+        </select>
+      </div>
     );
   }
 }
@@ -264,6 +329,8 @@ export class Form {
   static Checkbox = FormCheckbox;
   static Select = FormSelect;
   static NumberInput = FormNumberInput;
+  static Date = FormDate;
+  static Genra = FormSelectDropdown;
 }
 
 // Alert messages - beskjeder på nettsiden
@@ -328,6 +395,7 @@ export class Alert extends Component {
   }
 }
 
+/*
 // Messages (Sivert) - ta bort hvis fra chat-app?
 class Messages extends Component<{ from: string; message: string; key: number }> {
   render() {
@@ -356,24 +424,40 @@ export class List {
   static Message = Messages;
   static Send = Send;
 }
+*/
 
 // Søkefelt. Hentet fra (Forms) https://getbootstrap.com/docs/4.0/components/navbar/#forms
-export class SearchBar extends Component {
+// Har endret fra success til secondary button
+export class SearchBar extends Component <{
+  
+  value: string;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  [prop: string]: any;
+}> {
+
+    
   render() {
+    const { value, onChange, onClick, ...rest } = this.props;
     return (
-      <nav className="navbar navbar-light bg-light">
-        <form className="form-inline">
+        <form className="form-inline search-div">
           <input
-            className="form-control mr-sm-2"
+            className="form-control mr-sm-2 search-div"
             type="search"
-            placeholder="Search"
+            placeholder="Search for games"
             aria-label="Search"
+            value={value}
+            onChange={onChange}
+            {...rest}
           />
-          <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
-            Search
+          <button 
+            className="btn btn-secondary my-2 my-sm-0" 
+            type="submit"
+            onClick={onClick}
+          >
+            Search 
           </button>
         </form>
-      </nav>
     );
   }
 }
@@ -432,6 +516,7 @@ export class StarRating extends Component<
   { 
     value: number, 
     edit: boolean, 
+    size: number | undefined;
     onChange?: (element: StarRating, value:number) => void 
   }> 
 {
@@ -444,6 +529,7 @@ export class StarRating extends Component<
     if (done) {
       done();
     }
+    console.log(value);
   }
 
   mounted() {
@@ -454,21 +540,20 @@ export class StarRating extends Component<
         {
           element: element, 
           rateCallback: this.props.onChange ? this.onChange : undefined,
-          readOnly: !this.props.edit
+          readOnly: !this.props.edit,
+          step: 0.1,
+          starSize: this.props.size
         }
       );
 
-      this.rating.setRating(this.props.value);
+      this.rating.setRating(Math.round((this.props.value * 10) / 10));
     }
   }
 
   render() {
-    return (
-        <div />
-    );
+    return <div />;
   }
 }
-
 
 /* Må legge inn Bootstrap Vue hvis disse skal brukes */
 
@@ -476,7 +561,7 @@ export class StarRating extends Component<
 // Rating 1-5 stjerner (fungerer ikke, må fikses senere)
 class Rating extends Component<{ onClick: () => void, ratingValue: number }> {
   render() {
-    return ( 
+    return (
       <template>
         <div>
           <label htmlFor="rating-inline">Inline rating:</label>

@@ -1,0 +1,86 @@
+body {
+    font-family: Tahoma, sans-serif;
+    background:#151515; 
+    background-image: linear-gradient( #151515, #252525);
+    padding: 50px;
+    margin: auto 10px;
+    width: auto;
+    height: 2000px;
+    color: white;
+  }
+
+  p {
+    color: white;
+    font-size: 30px;
+    letter-spacing: 0.8px;
+    font-weight: bold;
+  }
+
+  .card-text {
+    color:white;
+    font-size: 15px;
+    letter-spacing: 0.8px;
+    font-family: Tahoma, sans-serif;
+    border: 0ch;
+
+  }
+
+
+  .card {
+    background: #202020;
+    display: flex;
+    padding: 30px;
+  }
+
+
+  /*
+  .form-input {
+    background-color: #151515;
+  }
+  */
+
+  .navbar-style {
+    background-color: #151515;
+    display: flex;
+    font-family: Tahoma, sans-serif;
+    letter-spacing: 0.8px;
+    font-size: 15px;
+    padding: 15px;
+  }
+
+  .navbar-brand {
+    display: inline-block;
+  }
+
+  .button-darker {
+    background-color: #383636;
+  }
+
+  .form-check {
+    display:inline-block;
+    margin-right:10px;
+  }
+
+  .form-display {
+    display:inline-block;
+  }
+
+  img{
+    width: 100px;
+    height: 100px;
+  }
+
+  .search-div{
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .NavBar-header {
+    background-image: url('Games-Banner.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 90vw;
+    height: 20vh;
+    display: inline-block;
+}

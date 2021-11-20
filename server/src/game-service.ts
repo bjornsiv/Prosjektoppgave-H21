@@ -40,6 +40,30 @@ class GameService {
     });
 
   }
+  
+  getGenres(){
+    return new Promise<string[]>((resolve, reject) => {
+      pool.query(
+        "SELECT column_type FROM information_schema.COLUMNS WHERE TABLE_NAME = 'games' AND COLUMN_NAME = 'genre';",
+        (error, results) => {
+          if(error) return reject(error);
+          
+          resolve(results[0].column_type.match(/'([^\']*)'/g).map((s: String) => s.replace(/'/g, "")));
+        })
+    })
+  }
+  
+  getPlatforms(){
+    return new Promise<string[]>((resolve, reject) => {
+      pool.query(
+        "SELECT column_type FROM information_schema.COLUMNS WHERE TABLE_NAME = 'games' AND COLUMN_NAME = 'platform';",
+        (error, results) => {
+          if(error) return reject(error);
+          
+          resolve(results[0].column_type.match(/'([^\']*)'/g).map((s: String) => s.replace(/'/g, "")));
+        })
+    })
+  }
 
   search(searchString: string, order_by: string){ //order by kan sikert brueks her. "Gratis" søkerfunksjon
     return new Promise<Game[]>((resolve, reject) => {

@@ -299,7 +299,7 @@ class FormDate extends Component<{
 }
 
 class FormSelectDropdown extends Component<{
-  valueList: string[];
+  valueList: { name: string, value: string }[];
   value: string;
 
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
@@ -312,8 +312,8 @@ class FormSelectDropdown extends Component<{
         <select className="form-select" value={value} onChange={onChange} {...rest}>
           {valueList.map((option) => {
             return (
-              <option key={option} className="dropdown-item" value={option}>
-                {option}
+              <option key={option.value} className="dropdown-item" value={option.value}>
+                {option.name}
               </option>
             );
           })}
@@ -331,7 +331,7 @@ export class Form {
   static Select = FormSelect;
   static NumberInput = FormNumberInput;
   static Date = FormDate;
-  static Genra = FormSelectDropdown;
+  static SelectDropDown = FormSelectDropdown;
 }
 
 // Alert messages - beskjeder på nettsiden

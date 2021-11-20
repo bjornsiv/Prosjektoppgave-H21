@@ -72,7 +72,7 @@ export default class NewGame extends Component {
                     </Column>
                     <Column width={4}>
                         <form>
-                            <Form.Genra 
+                            <Form.SelectDropDown 
                                 valueList = {this.AvaliableGenres}
                                 value={this.game.genre}
                                 onChange={(event) => {

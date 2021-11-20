@@ -8,7 +8,7 @@ import gameService from './game-service';
 const history = createHashHistory();
 
 // Forside - den første siden man kommer inn på
-export default class FrontPage extends Component {
+class FrontPage extends Component {
   games: Game[] = [];
   searchQuery: string = '';
 
@@ -29,11 +29,8 @@ export default class FrontPage extends Component {
               ></SearchBar>
               <NavBar.Link to="/newgame">Add game</NavBar.Link>
             </Column>
-            <br></br>Rate new and trending games - or your all time favorites!
+            Rate new and trending games - or your all time favorites!
           </Card>
-          <br></br>
-          <br></br>
-          <br></br>
 
           <div>
             <Card title="Popular games right now">
@@ -70,9 +67,11 @@ export default class FrontPage extends Component {
   mounted() {
     gameService
       .getAll()
-      .then((games) => {
-        this.games = games;
+      .then((game) => {
+        this.games = game;
       })
       .catch((error) => Alert.danger('You got an error: ' + error.message));
   }
 }
+
+export default FrontPage;

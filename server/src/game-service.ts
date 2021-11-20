@@ -27,7 +27,7 @@ class GameService {
         resolve(new Game(results[0]));
       });
     });
-  }
+  } 
 
   getAll() {
     return new Promise<Game[]>((resolve, reject) => {

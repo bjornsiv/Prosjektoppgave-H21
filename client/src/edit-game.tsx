@@ -57,7 +57,7 @@ class EditGame extends Component <{ match: { params: { id: number } } }>{
                     <Column width={4}>
                         <Form.Date
                             onChange={(event) => (this.currentDateValue = event.currentTarget.value)}
-                            value = {this.currentDateValue}
+                            value = {this.game.release_date}
                             placeholder = 'Release Date'
                         >
 

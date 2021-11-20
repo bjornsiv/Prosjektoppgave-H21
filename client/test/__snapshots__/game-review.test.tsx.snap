@@ -100,7 +100,14 @@ Array [
             <div
               className="float-start"
             >
-              <div />
+              <input
+                className="form-control"
+                max={5}
+                min={0}
+                onChange={[Function]}
+                type="number"
+                value={0}
+              />
             </div>
           </div>
         </div>

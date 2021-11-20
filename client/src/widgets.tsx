@@ -276,6 +276,7 @@ class FormSelect extends Component<{
 class FormDate extends Component<{
   placeholder: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  value: Date;
   [prop: string]: any;
 }> {
   render() {
@@ -287,7 +288,7 @@ class FormDate extends Component<{
           type="date"
           placeholder={placeholder}
           onChange={onChange}
-          value={value}
+          value={value.toISOString()}
           {...rest}
         ></input>
       </div>
@@ -512,15 +513,17 @@ export class SignIn extends Component {
 
 // Rating stjerner 1-5 med rater-js: https://www.npmjs.com/package/rater-js
 
-export class StarRating extends Component<{
-  value: number;
-  edit: boolean;
-  size: number | undefined;
-  onChange?: (element: StarRating, value: number) => void;
-}> {
-  
+export class StarRating extends Component<
+  { 
+    value: number, 
+    edit: boolean, 
+    size: number | undefined;
+    onChange?: (element: StarRating, value:number) => void 
+  }> 
+{
   rating: Rater | null = null;
-  onChange(value: number, done?: (() => any) | undefined) {
+
+  onChange(value: number, done?: (() => any) | undefined){
     if (this.props.onChange) {
       this.props.onChange(this, value);
     }

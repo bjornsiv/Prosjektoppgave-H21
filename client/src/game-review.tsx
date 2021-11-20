@@ -2,20 +2,22 @@ import * as React from 'react';
 import { Component } from 'react-simplified';
 import { Card, Row, Column, Button, Form, Alert, StarRating } from './widgets';
 import { createHashHistory } from 'history';
-import { gameservice, reviewservice, Game, Review } from './services';
+import gameService from './game-service';
+import reviewService from './review-service';
+import { Review, Game } from './db-types';
 
 const history = createHashHistory();
 
-class GameReview extends Component<{ match: { params: { id: number } } }> {
+export default class GameReview extends Component<{ match: { params: { id: number } } }> {
 
-    review: Review = {id: 0,
+    review: Review = new Review({id: 0,
         game_id: 0,
         user_id: 1,
         title: '',
         description: '',
         score: 0,
-        created_at: new Date()};
-    game: Game = {id: 0, title: '', description: '', release_date: new Date(), genre: '', platform: ''};
+        created_at: new Date()});
+    game: Game = new Game({id: 0, title: '', description: '', release_date: new Date(), genre: '', platform: ''});
     title: String = "Add a new review for ";
     currentStarRating: number = 0;
   
@@ -64,9 +66,8 @@ class GameReview extends Component<{ match: { params: { id: number } } }> {
               <Column>
                 <Button.Dark
                   onClick={() =>{
-                    this.review.user_id = 1;
-                    reviewservice 
-                      .create(this.review, this.game.id)
+                    reviewService
+                      .create(this.review)
                       .then(() => {
                         history.push('/gamedetails/' + this.game.id);
                       })}
@@ -82,12 +83,11 @@ class GameReview extends Component<{ match: { params: { id: number } } }> {
         );
     }
     mounted(){
-        gameservice.get(this.props.match.params.id)
+        gameService.get(this.props.match.params.id)
             .then((game) => (this.game = game))
             .catch((error) => Alert.danger('Error getting game: ' + error.message));
-            this.review.game_id = this.props.match.params.id
+            this.review.game_id = this.props.match.params.id;
+            this.review.user_id = 1;
             console.log(this.props.match.params.id);
     }
 }
-
-export default GameReview

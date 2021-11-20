@@ -1,65 +1,67 @@
 import axios from 'axios';
 import pool from '../src/mysql-pool';
 import app from '../src/app';
-import taskService, { Task } from '../src/task-service';
+import reviewService from '../src/review-service';
+import { Review } from '../src/db-types';
 
-const testTasks: Task[] = [
-  { id: 1, title: 'Les leksjon', done: false, description: "Les leksjon på blackboard" },
-  { id: 2, title: 'Møt opp på forelesning', done: false, description: "Møt opp og følg med på forelesning på gløshaugen" },
-  { id: 3, title: 'Gjør øving', done: false, description: "Gjør øving og lever på blackboard" },
-];
 
-// Since API is not compatible with v1, API version is increased to v2
-axios.defaults.baseURL = 'http://localhost:3001/api/v2';
+const testReviewsSource: any[] = [
+  {id: 1, game_id: 9, user_id: 7, title: 'Snooze-fest',         description: 'Plipp',                 score: 3, created_at: '11-18-2021'},
+  {id: 2, game_id: 8, user_id: 8, title: 'Badass futurism',     description: 'So many sky scrapers!', score: 4, created_at: '11-18-2021'},
+  {id: 3, game_id: 8, user_id: 9, title: 'Lazer guns go zoop',  description: 'Wow!',                  score: 5, created_at: '11-18-2021'},
+  {id: 4, game_id: 9, user_id: 8, title: 'Amazing',             description: 'Lot\'s of features',    score: 2, created_at: '11-18-2021'}
+]
 
+const testReviews: Review[] = testReviewsSource.map((review) => { return new Review(review);});
+
+axios.defaults.baseURL = 'http://localhost:3002/api/v1';
 
 let webServer: any;
 beforeAll((done) => {
-  // Use separate port for testing
-  webServer = app.listen(3001, () => done());
+  webServer = app.listen(3002, () => done());
 });
 
 beforeEach((done) => {
   // Delete all tasks, and reset id auto-increment start value
-  pool.query('TRUNCATE TABLE Tasks', (error) => {
+  pool.query('TRUNCATE TABLE reviews', (error) => {
     if (error) throw error;
-    
-    // Create testTasks sequentially in order to set correct id, and call done() when finished
-    taskService
-      .create(testTasks[0].title, testTasks[0].description)
-      .then(() => taskService.create(testTasks[1].title, testTasks[1].description)) // Create testTask[1] after testTask[0] has been created
-      .then(() => taskService.create(testTasks[2].title, testTasks[2].description)) // Create testTask[2] after testTask[1] has been created
+
+    // Create testReviews sequentially in order to set correct id, and call done() when finished
+    reviewService
+      .create(testReviews[0])
+      .then(() => reviewService.create(testReviews[1])) // Create testTask[1] after testTask[0] has been created
+      .then(() => reviewService.create(testReviews[2])) // Create testTask[2] after testTask[1] has been created
       .then(() => done()); // Call done() after testTask[2] has been created
   });
 });
 
 // Stop web server and close connection to MySQL server
 afterAll((done) => {
-  if (!webServer) return done.fail(new Error());
+  if (!webServer) throw new Error("Webserver was down unexpectedly");
   webServer.close(() => pool.end(() => done()));
 });
 
-describe('Fetch tasks (GET)', () => {
-  test('Fetch all tasks (200 OK)', (done) => {
-    axios.get('/tasks').then((response) => {
+describe('Fetch review (GET)', () => {
+  test('Fetch reviews (200 OK)', (done) => {
+    var ref1:any = testReviewsSource[1];
+    var ref2:any = testReviewsSource[2];
+
+    delete ref1.created_at;
+    delete ref2.created_at;
+
+    axios.get('/reviews/8').then((response) => {
       expect(response.status).toEqual(200);
-      expect(response.data).toEqual(testTasks);
+      expect(new Review(response.data[0])).toMatchObject(ref1);
+      expect(new Review(response.data[1])).toMatchObject(ref2);
+      expect(response.data.length).toEqual(2);
       done();
     });
   });
 
-  test('Fetch task (200 OK)', (done) => {
-    axios.get('/tasks/1').then((response) => {
-      expect(response.status).toEqual(200);
-      expect(response.data).toEqual(testTasks[0]);
-      done();
-    });
-  });
-
-  test('Fetch task (404 Not Found)', (done) => {
+  test('Fetch review (404 Not Found)', (done) => {
     axios
-      .get('/tasks/4')
-      .then((_response) => done.fail(new Error()))
+      .get('/reviews/4')
+      .then((_response) => {throw new Error(`Expected failure, got ${_response}`)})
       .catch((error) => {
         expect(error.message).toEqual('Request failed with status code 404');
         done();
@@ -67,30 +69,122 @@ describe('Fetch tasks (GET)', () => {
   });
 });
 
-describe('Create new task (POST)', () => {
-  test('Create new task (200 OK)', (done) => {
-    axios.post('/tasks', { title: 'Ny oppgave' }).then((response) => {
+describe('Create new review (POST)', () => {
+  test('Create new review (200 OK)', (done) => {
+    axios.post('/reviews', testReviews[2]).then((response) => {
       expect(response.status).toEqual(200);
       expect(response.data).toEqual({ id: 4 });
       done();
+    })
+  });
+  test('Create new review (500 Internal Error) - Missing data', (done) => {
+    axios.post('/reviews', null).then((response) => {
+      throw new Error("Expected an error");
+    })
+    .catch((error) => {
+      expect(error.response.status).toEqual(500);
+      done();
+    });
+  });
+  test('Create new review (500 Internal Error) - Internal SQL error', (done) => {
+    var review = new Review(testReviewsSource[3]);
+    review.title = "a".repeat(512);
+    axios.post('/reviews', review).then((response) => {
+      throw new Error("Expected an error");
+    })
+    .catch((error) => {
+      expect(error.response.status).toEqual(500);
+      expect(error.response.data.code).toEqual('ER_DATA_TOO_LONG');
+      done();
+    });
+  });
+  test('Create new review (400 Bad Request) - Missing title', (done) => {
+    var review = new Review(testReviewsSource[3]);
+    review.title = "";
+    axios.post('/reviews', review).then((response) => {
+      throw new Error("Expected an error");
+    })
+    .catch((error) => {
+      expect(error.response.status).toEqual(400);
+      expect(error.response.data.message).toEqual('Missing Title');
+      done();
+    });
+  });
+  test('Create new review (400 Bad Request) - Missing description', (done) => {
+    var review = new Review(testReviewsSource[3]);
+    review.description = "";
+    axios.post('/reviews', review).then((response) => {
+      throw new Error("Expected an error");
+    })
+    .catch((error) => {
+      expect(error.response.status).toEqual(400);
+      expect(error.response.data.message).toEqual('Missing description');
+      done();
+    });
+  });
+  test('Create new review (400 Bad Request) - Illegal score - High', (done) => {
+    var review = new Review(testReviewsSource[3]);
+    review.score = 6;
+    axios.post('/reviews', review).then((response) => {
+      throw new Error("Expected an error");
+    })
+    .catch((error) => {
+      expect(error.response.status).toEqual(400);
+      expect(error.response.data.message).toEqual('Illegal score');
+      done();
+    });
+  });
+  test('Create new review (400 Bad Request) - Illegal score - Low', (done) => {
+    var review = new Review(testReviewsSource[3]);
+    review.score = -1;
+    axios.post('/reviews', review).then((response) => {
+      throw new Error("Expected an error");
+    })
+    .catch((error) => {
+      expect(error.response.status).toEqual(400);
+      expect(error.response.data.message).toEqual('Illegal score');
+      done();
+    });
+  });
+  test('Create new review (400 Bad Request) - Undefined creation date', (done) => {
+    var review = new Review(testReviewsSource[3]);
+    review.created_at = new Date("");
+    axios.post('/reviews', review).then((response) => {
+      throw new Error("Expected an error");
+    })
+    .catch((error) => {
+      expect(error.response.status).toEqual(400);
+      expect(error.response.data.message).toEqual('Undefined creation date');
+      done();
     });
   });
 });
 
-describe('Delete task (DELETE)', () => {
-  test('Delete task (200 OK)', (done) => {
-    axios.delete('/tasks/2').then((response) => {
+describe('Delete review (DELETE)', () => {
+  test('Delete review (200 OK)', (done) => {
+    axios.delete('/reviews/2').then((response) => {
       expect(response.status).toEqual(200);
       done();
     });
   });
 });
 
-describe('Update task (POST)', () => {
-  test('Update task (200 OK)', (done) => {
-    var task = testTasks[0];
-    axios.post('/tasks/' + task.id, task).then((response) => {
+describe('Update review (POST)', () => {
+  test('Update review (200 OK)', (done) => {
+    axios.put('/reviews', testReviews[0]).then((response) => {
       expect(response.status).toEqual(200);
+      done();
+    });
+  });
+  test('Update review (500 Internal Error) - Internal SQL error', (done) => {
+    var review = new Review(testReviewsSource[0]);
+    review.title = "a".repeat(512);
+    axios.put('/reviews', review).then((response) => {
+      throw new Error("Expected an error");
+    })
+    .catch((error) => {
+      expect(error.response.status).toEqual(500);
+      expect(error.response.data.code).toEqual('ER_DATA_TOO_LONG');
       done();
     });
   });

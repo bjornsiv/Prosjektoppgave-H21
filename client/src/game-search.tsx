@@ -3,8 +3,9 @@
 import * as React from 'react';
 import { Component } from 'react-simplified';
 import { Card, Row, Column, Button, Alert, CardRow} from './widgets';
-import { gameservice, Game } from './services';
 import { createHashHistory } from 'history';
+import { Game } from './db-types';
+import gameService from './game-service';
 
 
 const history = createHashHistory();
@@ -44,7 +45,7 @@ class GameSearch extends Component <{ match: { params: { query: string } } }>{
     );
   }
   mounted(){
-    gameservice.search(this.props.match.params.query)
+    gameService.search(this.props.match.params.query)
           .then((game) => { this.games = game; } )
           .catch((error) => Alert.danger('Error getting game: ' + error.message));
   }

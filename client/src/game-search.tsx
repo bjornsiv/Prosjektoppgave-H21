@@ -46,7 +46,7 @@ class GameSearch extends Component <{ match: { params: { query: string } } }>{
   }
   mounted(){
     gameService.search(this.props.match.params.query)
-          .then((game) => { this.games = game; } )
+          .then((games) => { this.games = games; } )
           .catch((error) => Alert.danger('Error getting game: ' + error.message));
   }
 }

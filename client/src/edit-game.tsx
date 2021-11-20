@@ -57,7 +57,7 @@ class EditGame extends Component <{ match: { params: { id: number } } }>{
                     <Column width={4}>
                         <Form.Date
                             onChange={(event) => (this.currentDateValue = event.currentTarget.value)}
-                            value = {this.currentDateValue}
+                            value = {this.game.release_date}
                             placeholder = 'Release Date'
                         >
 
@@ -148,6 +148,18 @@ class EditGame extends Component <{ match: { params: { id: number } } }>{
                         >
                     Add game
                     </Button.Dark >
+                    <Button.Danger
+                        onClick={() => {
+                            gameService
+                            .delete(this.props.match.params.id)
+                            .then(() => {
+                                history.push('/');
+                            }).catch((error) => Alert.danger('Error ' + error.message))
+                        }
+                    }
+                    >
+                        Delete game
+                    </Button.Danger>
                 </Column>
             </Row>
             </Card>

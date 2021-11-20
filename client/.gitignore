@@ -1,6 +1,7 @@
 /node_modules
 /.git
 /config.ts
+/test/config.ts
 /public/bootstrap.min.css
 /public/bootstrap.min.css.map
 /public/bootstrap.min.js

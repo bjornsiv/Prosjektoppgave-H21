@@ -34,13 +34,21 @@ exports[`Game review component tests GameReview renders correctly with snapshot 
                 value=""
               />
               <button
-                className="btn btn-secondary my-2 my-sm-0"
+                className="btn btn-dark my-2 my-sm-0"
                 onClick={[Function]}
                 type="submit"
               >
                 Search
               </button>
             </form>
+          </div>
+        </div>
+        <div
+          className="col"
+        >
+          <div
+            className="float-end"
+          >
             <a
               aria-current={null}
               className="nav-link"
@@ -51,14 +59,10 @@ exports[`Game review component tests GameReview renders correctly with snapshot 
             </a>
           </div>
         </div>
-        <br />
         Rate new and trending games - or your all time favorites!
       </div>
     </div>
   </div>
-  <br />
-  <br />
-  <br />
   <div>
     <div
       className="card rounded"

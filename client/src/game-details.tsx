@@ -70,6 +70,23 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
                             <Row>
                               {review.description}
                             </Row>
+                            <Column right={true}>
+                              <Button.Dark
+                                onClick={() => {
+                                  history.push('/editreview/' + review.id);
+                                }}
+                              >
+                                Edit review
+                              </Button.Dark>
+                              <Button.Danger
+                                onClick={() => {
+                                  reviewService.delete(review.id)
+                                  history.push('/gamereview/' + review.id)
+                                }}
+                              >
+                                Delete Review
+                              </Button.Danger>
+                            </Column>
                           </Card>
                       )
                   })}
@@ -82,10 +99,13 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
 
   mounted(){
       gameService.get(this.props.match.params.id)
-          .then((game) => (this.game = game))
+          .then((game) => {
+            this.game = game
+            this.stringDate = this.game.release_date.getDay() + '.' + this.game.release_date.getMonth() + '.' + this.game.release_date.getFullYear();
+          })
           .catch((error) => Alert.danger('Error getting game: ' + error.message));
-          this.stringDate = this.game.release_date.getDay() + '.' + this.game.release_date.getMonth() + '.' + this.game.release_date.getFullYear();
-      reviewService.getAll(this.props.match.params.id)
+      
+      reviewService.search(this.props.match.params.id)
           .then((reviews) => {
               this.reviews = reviews;
               this.average = this.reviews.reduce((previous: number, current: Review) => {

@@ -5,9 +5,7 @@ import {Review} from './db-types';
 //skal være mulig å redigeere og slette en anmeldelse 
 
 class ReviewService {
-
-  /*
-  UNUSED, couldn't think of any use-case for this API.
+  //UNUSED, couldn't think of any use-case for this API.
   
   get(id: number) {
     return new Promise<Review | undefined>((resolve, reject) => {
@@ -21,7 +19,7 @@ class ReviewService {
         resolve(results.map((review: any) => {new Review(review)}));
       });
     });
-  }*/
+  }
 
   getAll(gId: number) {
     return new Promise<Review[]>((resolve, reject) => {

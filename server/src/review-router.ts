@@ -4,11 +4,19 @@ import { Review } from './db-types';
 
 const router = express.Router();
 
-router.get('/:gId', (request, response) => {
+router.get('/search/:gId', (request, response) => {
   const gId = Number(request.params.gId)
   reviewService
     .getAll(gId)
-    .then((reviews) => (reviews.length > 0 ? response.send(reviews) : response.status(404).send('Reviews not found')))
+    .then((reviews) => response.send(reviews))
+    .catch((error) => response.status(500).send(error));
+});
+
+router.get('/:id', (request, response) => {
+  const id = Number(request.params.id)
+  reviewService
+    .get(id)
+    .then((review) => (review ? response.send(review) : response.status(404).send('Review not found')))
     .catch((error) => response.status(500).send(error));
 });
 

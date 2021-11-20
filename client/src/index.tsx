@@ -4,106 +4,52 @@ import * as React from 'react';
 import { Component } from 'react-simplified';
 import { HashRouter, Route } from 'react-router-dom';
 import { NavBar, Card, Alert, Column, Row, Button, CardRow, SearchBar } from './widgets';
-
 import { createHashHistory } from 'history';
+
 import NewGame from './new-game';
 import EditGame from './edit-game';
 import GameReview from './game-review';
-import GameDetails from './game-details';
+import GameDetails  from './game-details';
 import GameSearch from './game-search';
-// import FrontPage from './frontpage';
+import EditReview from './edit-review';
+import FrontPage from './frontpage';
 
-import { Game } from './db-types';
-import gameService from './game-service';
 const history = createHashHistory();
-
-class FrontPage extends Component {
-  games: Game[] = [];
-  searchQuery: string = '';
-
-  manageSearch() {
-    history.push('/gamesearch/' + this.searchQuery);
-  }
-
-  render() {
-    return (
-      <>
-        <div>
-          <Card title="GameRatings">
-            <Column right={true} width={100}>
-              <SearchBar
-                value={this.searchQuery}
-                onClick={() => this.manageSearch()}
-                onChange={(event) => {
-                  this.searchQuery = event.currentTarget.value;
-                }}
-              ></SearchBar>
-            </Column>
-            <Column right={true}>
-              <NavBar.Link to="/newgame">ADD GAME</NavBar.Link>
-            </Column>
-            Rate new and trending games - or your all time favorites!
-          </Card>
-
-          <div>
-            <Card title="Popular games right now">
-              <br></br>
-              <Row>
-                <Column>Game title</Column>
-                <Column>Description</Column>
-                <Column>Genre</Column>
-                <Column>Platform</Column>
-                <Column width={3} right={true}></Column>
-              </Row>
-            </Card>
-            {this.games.map((game) => (
-              <CardRow key={game.id}>
-                <Column>{game.title}</Column>
-                <Column>{game.description}</Column>
-                <Column>{game.genre}</Column>
-                <Column>{game.platform}</Column>
-                <Column width={3} right={true}>
-                  <Button.Dark onClick={() => history.push('/gamedetails/' + game.id)}>
-                    See Reviews
-                  </Button.Dark>
-                  <Button.Dark onClick={() => history.push('/editgame/' + game.id)}>
-                    Edit game
-                  </Button.Dark>
-                </Column>
-              </CardRow>
-            ))}
-          </div>
-        </div>
-      </>
-    );
-  }
-  mounted() {
-    gameService
-      .getAll()
-      .then((game) => {
-        this.games = game;
-      })
-      .catch((error) => Alert.danger('You got an error: ' + error.message));
-  }
-}
 
 // Meny med link til andre sider - Finn ut hva som skal med her, legg evt. til senere
 class Menu extends Component {
+  
+  searchQuery: string = '';
+
   render() {
-    return (
-      <>
-        <NavBar brand="">
-          <NavBar.Link to="/">
-            <img src="https://www.favicon.cc/logo3d/229133.png"></img>
-          </NavBar.Link>
-        </NavBar>
-      </>
-      /*<SearchBar placeholder="">Search for games</SearchBar>*/
-    );
+      return (
+          <>
+            <NavBar brand="">
+              <NavBar.Link to="/"><img src="https://www.favicon.cc/logo3d/229133.png"></img></NavBar.Link>
+            </NavBar>
+            <Card title="GameRatings">
+            <Column right={true} width={100}>
+              <SearchBar
+                value={this.searchQuery}
+                onClick={(_event, value) => history.push('/gamesearch/' + value)}
+              />
+            </Column>
+            <Column right={true}>
+              <NavBar.Link to="/newgame">Add game</NavBar.Link>
+            </Column>
+            <Column right={true}>
+              <NavBar.Link to="/">Home</NavBar.Link> {/* Må vises på alle sider for å være brukbar*/}
+            </Column>
+            
+            Rate new and trending games - or your all time favorites!
+          </Card>
+          </>
+                 /*<SearchBar placeholder="">Search for games</SearchBar>*/
+      );
   }
 }
 
-/*
+/* 
 <div className="d-flex justify-content-start">
       <div className="p-2 col-example text-left">Flex item 1</div>
       <div className="p-2 col-example text-left">Flex item 2</div>
@@ -111,20 +57,23 @@ class Menu extends Component {
 
 */
 
+
 // Definerer stiene til de ulike sidevisningene
 const root = document.getElementById('root');
 if (root)
-  ReactDOM.render(
+
+ReactDOM.render(
     <HashRouter>
       <div>
         <Alert />
         <Menu />
         <Route exact path="/" component={FrontPage} />
-        <Route path="/gamesearch/:query" component={GameSearch} />
+        <Route path="/gamesearch/:query" component={GameSearch}/>
         <Route path="/gamedetails/:id(\d+)" component={GameDetails} />
         <Route path="/new-review/:id(\d+)" component={GameReview} />
-        <Route path="/newgame" component={NewGame} />
-        <Route path="/editgame/:id(\d+)" component={EditGame} />
+        <Route path="/newgame" component={NewGame}/>
+        <Route path="/editgame/:id(\d+)" component={EditGame}/>
+        <Route path="/editreview/:id(\d+)" component={EditReview} />
       </div>
     </HashRouter>,
     document.getElementById('root')

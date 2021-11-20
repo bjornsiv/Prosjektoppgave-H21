@@ -4,6 +4,7 @@ import * as React from 'react';
 import { Component } from 'react-simplified';
 import { HashRouter, Route } from 'react-router-dom';
 import { NavBar, Card, Alert, Column, Row, Button, CardRow, SearchBar } from './widgets';
+import { createHashHistory } from 'history';
 
 import NewGame from './new-game';
 import EditGame from './edit-game';
@@ -13,15 +14,35 @@ import GameSearch from './game-search';
 import EditReview from './edit-review';
 import FrontPage from './frontpage';
 
+const history = createHashHistory();
+
 // Meny med link til andre sider - Finn ut hva som skal med her, legg evt. til senere
 class Menu extends Component {
   
+  searchQuery: string = '';
+
   render() {
       return (
           <>
             <NavBar brand="">
               <NavBar.Link to="/"><img src="https://www.favicon.cc/logo3d/229133.png"></img></NavBar.Link>
             </NavBar>
+            <Card title="GameRatings">
+            <Column right={true} width={100}>
+              <SearchBar
+                value={this.searchQuery}
+                onClick={(_event, value) => history.push('/gamesearch/' + value)}
+              />
+            </Column>
+            <Column right={true}>
+              <NavBar.Link to="/newgame">Add game</NavBar.Link>
+            </Column>
+            <Column right={true}>
+              <NavBar.Link to="/">Home</NavBar.Link> {/* Må vises på alle sider for å være brukbar*/}
+            </Column>
+            
+            Rate new and trending games - or your all time favorites!
+          </Card>
           </>
                  /*<SearchBar placeholder="">Search for games</SearchBar>*/
       );

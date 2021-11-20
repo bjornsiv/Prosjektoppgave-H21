@@ -18,24 +18,13 @@ export default class FrontPage extends Component {
         }
     }
   
-  searchQuery: string = '';
+
 
   render() {
     return (
       <>
         <div>
-          <Card title="GameRatings">
-            <Column right={true} width={100}>
-              <SearchBar
-                value={this.searchQuery}
-                onClick={(_event, value) => history.push('/gamesearch/' + value)}
-              />
-            </Column>
-            <Column right={true}>
-              <NavBar.Link to="/newgame">ADD GAME</NavBar.Link>
-            </Column>
-            Rate new and trending games - or your all time favorites!
-          </Card>
+          
 
           <div>
             <Card title="Popular games right now">

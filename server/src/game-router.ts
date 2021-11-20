@@ -4,20 +4,15 @@ import {Game} from './db-types';
 
 const router = express.Router();
 
-router.get('/:query', (request, response) => {
+router.get('/search/', (request, response) => {
   let find: any = request.query.find;
-  let order: any = request.query.order;
-  if (order == null)
-  {
-    order = "title";
-  }
   if (find == null)
   {
     response.status(400).send("Missing search string")
     return;
   }
   gameService
-    .search(find, order)
+    .search(find)
     .then((games) => response.send(games))
     .catch((error) => response.status(500).send(error));
 });
@@ -36,7 +31,7 @@ router.get('/genres/', (_request, response) => {
     .catch((error) => response.status(500).send(error));
 });
 
-router.get('/platforms/', (_request, response) => {
+router.get('/platform/', (_request, response) => {
   gameService
     .getPlatforms()
     .then((rows) => response.send(rows))
@@ -74,14 +69,14 @@ router.put('/editgame/', (request, response) => {
   if (! data)  {
     response.status(500).send('Missing data');
     return;
-  } else if (data.game.title.length == 0) {
+  } else if (data.title.length == 0) {
     response.status(500).send('Missing title');
     return;
-  } else if (data.game.description.length == 0) {
+  } else if (data.description.length == 0) {
     response.status(500).send('Missing description');
     return;
   }
-  data.game.release_date = new Date(data.game.release_date);
+  data.release_date = new Date(data.release_date);
   
   gameService
     .update(

@@ -54,7 +54,7 @@ jobs:
           sudo apt-get update
           sudo apt-get -y upgrade
           sudo apt-get -y install mysql-server
-          service mysql start
+          sudo service mysql start
           # Workaround from https://github.com/mysqljs/mysql/issues/1507#issuecomment-242885003
           echo "UPDATE user SET authentication_string=password(''), plugin='mysql_native_password' WHERE user='root';" | mysql mysql
           mysqladmin create $MYSQL_DATABASE 

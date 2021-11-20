@@ -434,20 +434,24 @@ export class SearchBar extends Component<{
   render() {
     const { value, onChange, onClick, ...rest } = this.props;
     return (
-      <form className="form-inline search-div">
-        <input
-          className="form-control mr-sm-2 search-div"
-          type="search"
-          placeholder="Search for games"
-          aria-label="Search"
-          value={value}
-          onChange={onChange}
-          {...rest}
-        />
-        <button className="btn btn-secondary my-2 my-sm-0" type="submit" onClick={onClick}>
-          Search
-        </button>
-      </form>
+        <form className="form-inline search-div">
+          <input
+            className="form-control mr-sm-2 search-div"
+            type="search"
+            placeholder="Search for games"
+            aria-label="Search"
+            value={value}
+            onChange={onChange}
+            {...rest}
+          />
+          <button 
+            className="btn btn-dark my-2 my-sm-0" 
+            type="submit"
+            onClick={onClick}
+          >
+            Search 
+          </button>
+        </form>
     );
   }
 }

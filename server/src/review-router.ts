@@ -8,7 +8,7 @@ router.get('/:gId', (request, response) => {
   const gId = Number(request.params.gId)
   reviewService
     .getAll(gId)
-    .then((reviews) => (reviews.length > 0 ? response.send(reviews) : response.status(404).send('Reviews not found')))
+    .then((reviews) => response.send(reviews))
     .catch((error) => response.status(500).send(error));
 });
 

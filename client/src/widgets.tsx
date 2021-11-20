@@ -277,8 +277,8 @@ class FormSelect extends Component<{
 
 class FormDate extends Component<{
   placeholder: string;
+  value: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  value: Date;
   [prop: string]: any;
 }> {
   render() {
@@ -290,7 +290,7 @@ class FormDate extends Component<{
           type="date"
           placeholder={placeholder}
           onChange={onChange}
-          value={value.toISOString()}
+          value={value}
           {...rest}
         ></input>
       </div>

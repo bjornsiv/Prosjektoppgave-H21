@@ -5,10 +5,10 @@ axios.defaults.baseURL = 'http://localhost:3000/api/v1';
 
 class GameService {
   get(id: number) {
-    return axios.get<Game>('/games/' + id).then((response) => response.data);
+    return axios.get<Game>('/games/' + id).then((response) => new Game(response.data));
   }
   getAll() {
-    return axios.get<Game[]>('/games/').then((response) => response.data);
+    return axios.get<Game[]>('/games/').then((response) => response.data.map((game) => new Game(game)));
   }
 
   search(query: string, orderBy:string|null=null) {
@@ -16,7 +16,7 @@ class GameService {
     if (orderBy != null) {
       query += `&order=${orderBy}`;
     }
-    return axios.get<Game[]>(query).then((response) => response.data);
+    return axios.get<Game[]>(query).then((response) => response.data.map((game) => new Game(game)));
   }
   
   create(game: Game) {

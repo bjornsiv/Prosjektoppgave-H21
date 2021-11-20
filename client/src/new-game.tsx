@@ -29,6 +29,7 @@ export default class NewGame extends Component {
     title: String = this.game.title;
     AvaliableGenres: string[] = [];
     AvaliablePlatform: string[] = []
+    release_date: string = "";
 
     render() {
         return (
@@ -54,8 +55,13 @@ export default class NewGame extends Component {
                     </Column>
                     <Column width={4}>
                         <Form.Date
-                            onChange={(event) => {this.game.release_date = new Date(event.currentTarget.value);}}
-                            value = {this.game.release_date}
+                            onChange={(event) => 
+                                {
+                                    this.release_date = event.currentTarget.value; 
+                                    this.game.release_date = new Date(this.release_date);
+                                }
+                            }
+                            value = {this.release_date}
                             placeholder = 'Release Date'
                         />
                     </Column>

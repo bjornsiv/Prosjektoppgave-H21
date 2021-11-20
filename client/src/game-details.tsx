@@ -82,9 +82,12 @@ class GameDetails extends Component <{ match: { params: { id: number } } }> {
 
   mounted(){
       gameService.get(this.props.match.params.id)
-          .then((game) => (this.game = game))
+          .then((game) => {
+            this.game = game
+            this.stringDate = this.game.release_date.getDay() + '.' + this.game.release_date.getMonth() + '.' + this.game.release_date.getFullYear();
+          })
           .catch((error) => Alert.danger('Error getting game: ' + error.message));
-          this.stringDate = this.game.release_date.getDay() + '.' + this.game.release_date.getMonth() + '.' + this.game.release_date.getFullYear();
+      
       reviewService.getAll(this.props.match.params.id)
           .then((reviews) => {
               this.reviews = reviews;

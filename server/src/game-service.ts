@@ -1,6 +1,5 @@
 import pool from './mysql-pool';
 import {Game} from './db-types';
-import { stringLiteral } from '@babel/types';
 
 /*
   Definer klasser for tabeller i database (spill og review) - Done

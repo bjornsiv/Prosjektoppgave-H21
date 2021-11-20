@@ -249,7 +249,7 @@ class FormCheckbox extends Component<{
     return (
       <input
         {...rest}
-        value={value}
+        checked={value}
         className="form-check-input form-item form-check"
         type="checkbox"
         onChange={onChange}

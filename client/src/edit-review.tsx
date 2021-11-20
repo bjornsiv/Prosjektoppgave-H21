@@ -38,6 +38,8 @@ class EditReview extends Component<{ match: { params: { id: number } } }> {
   //      };
   //  }
   
+    nextGameId: number = 0;
+
     render() {
         return (
             <>
@@ -88,7 +90,7 @@ class EditReview extends Component<{ match: { params: { id: number } } }> {
                             reviewService
                             .update(this.review)
                             .then(() => {
-                                history.push('/gamedetails/' + this.review.game_id);
+                                history.push('/gamedetails/' + this.nextGameId);
                             }).catch((error) => Alert.danger('Error ' + error.message))
                         }
                       }
@@ -100,7 +102,7 @@ class EditReview extends Component<{ match: { params: { id: number } } }> {
                             reviewService
                             .delete(this.props.match.params.id)
                             .then(() => {
-                                history.push('/gamedetails/' + this.review.game_id);
+                                history.push('/gamedetails/' + this.nextGameId);
                             }).catch((error) => Alert.danger('Error ' + error.message))
                         }
                     }
@@ -114,8 +116,13 @@ class EditReview extends Component<{ match: { params: { id: number } } }> {
     }
     mounted(){
       reviewService.get(this.props.match.params.id)
-        .then((review) => this.review = review)
+        .then((review) => {
+          this.review = review
+          this.nextGameId = this.review.game_id;
+        })
+        
         .catch((error) => Alert.danger('Error getting review: ' + error.message))
+        
     }
       
 }

@@ -1,7 +1,6 @@
 body {
-    font-family: Tahoma, sans-serif;
-    background:#151515; 
     background-image: linear-gradient( #151515, #252525);
+    font-family: Tahoma, sans-serif;
     padding: 50px;
     margin: auto 10px;
     width: auto;
@@ -18,11 +17,10 @@ body {
 
   .card-text {
     color:white;
-    font-size: 15px;
+    font-size: 16px;
     letter-spacing: 0.8px;
     font-family: Tahoma, sans-serif;
     border: 0ch;
-
   }
 
 
@@ -52,6 +50,15 @@ body {
     display: inline-block;
   }
 
+  .nav-link {
+    color:white;
+    font-size: 16px;
+    letter-spacing: 0.8px;
+    font-family: Tahoma, sans-serif;
+    border: 0ch;
+    display: inline-block;
+  }
+
   .button-darker {
     background-color: #383636;
   }
@@ -62,15 +69,15 @@ body {
   }
 
   .form-display {
-    display:inline-block;
+    display: inline-block;
   }
 
-  img{
+  img {
     width: 100px;
     height: 100px;
   }
 
-  .search-div{
+  .search-div {
     display: flex;
     justify-content: flex-end;
   }

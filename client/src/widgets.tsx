@@ -452,7 +452,7 @@ export class SearchBar extends Component <{
             {...rest}
           />
           <button 
-            className="btn btn-secondary my-2 my-sm-0" 
+            className="btn btn-dark my-2 my-sm-0" 
             type="submit"
             onClick={onClick}
           >

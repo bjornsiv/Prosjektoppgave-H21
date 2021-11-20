@@ -39,12 +39,12 @@ jobs:
       
       # Container to run SQL service for tests
       services:
-        postgres:
+        mysql:
           image: mysql
           env:
-            MYSQL_ROOT_PASSWORD: $MYSQL_PASSWORD
-          options: >-
-            --default-authentication-plugin=mysql_native_password
+            MYSQL_USER: $MYSQL_USER
+            MYSQL_PASSWORD: $MYSQL_PASSWORD
+            MYSQL_DATABASE: $MYSQL_DATABASE
 
       strategy:
         matrix:
@@ -60,7 +60,7 @@ jobs:
 
         - name: server-test
           run: |
-            mysqladmin create $MYSQL_DATABASE 
+            echo "UPDATE user SET authentication_string=password(''), plugin='mysql_native_password' WHERE user='$MYSQL_USER';" | mysql mysql
             mysql $MYSQL_DATABASE < .github/workflows/db_structure.sql
             cd server
             touch test/config.ts

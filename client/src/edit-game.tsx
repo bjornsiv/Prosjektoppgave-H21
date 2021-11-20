@@ -35,7 +35,7 @@ class EditGame extends Component <{ match: { params: { id: number } } }>{
     
     release_date: string = '';
     AvaliableGenres: string[] = [];
-    platforms: Map<string, boolean> = new Map<string, boolean>();
+    platforms: {name: string, supported:boolean}[] = [];
 
     render() {
         return (
@@ -93,27 +93,26 @@ class EditGame extends Component <{ match: { params: { id: number } } }>{
                     <Column width={4}>
                         <form className="form-group">
                             {
-                                Array.from(this.platforms).map(
-                                    ([key, value]) => 
+                                this.platforms.map(
+                                    (platform) => 
                                     (
                                         <>
                                             <Form.Checkbox
-                                                key={key}
-                                                value={value}
-                                                name={key}
+                                                key={platform.name}
+                                                value={platform.supported}
+                                                name={platform.name}
                                                 onChange={(event) => {
-                                                    value = event.currentTarget.checked;
-                                                    this.platforms.set(key, value);
-                                                    this.game.platform = Array.from(this.platforms)
-                                                        .filter(([_key, state]) => state)
-                                                        .map(([key, _value]) => key)
+                                                    platform.supported = event.currentTarget.checked;
+                                                    this.game.platform = this.platforms
+                                                        .filter((platform) => platform.supported)
+                                                        .map((platform) => platform.name)
                                                         .join(",");
                                                     
                                                     console.log('Value: ' + event.currentTarget.value, ', Checked: ' + event.currentTarget.checked, 'Game Value: ' + this.game.platform);
                                                 }
                                             }
                                             />
-                                            <Form.Label key={key + "-name"}>{key}</Form.Label>
+                                            <Form.Label key={platform.name + "-name"}>{platform.name}</Form.Label>
                                             <br/>
                                         </>
                                     )
@@ -179,7 +178,7 @@ class EditGame extends Component <{ match: { params: { id: number } } }>{
         gameService.getPlatforms()
             .then(
                 (data) => {
-                    data.map((platform) => this.platforms.set(platform, this.game.platform.includes(platform))); 
+                    data.map((name) => this.platforms.push({name: name, supported: this.game.platform.includes(name)})); 
                     console.log(this.platforms);
                 }
             )

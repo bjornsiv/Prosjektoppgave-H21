@@ -16,7 +16,7 @@ class GameService {
     if (orderBy != null) {
       query += `&order=${orderBy}`;
     }
-    return axios.post<Game[]>(query).then((response) => response.data);
+    return axios.get<Game[]>(query).then((response) => response.data);
   }
   
   create(game: Game) {

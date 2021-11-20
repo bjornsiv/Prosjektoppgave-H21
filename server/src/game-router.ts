@@ -4,7 +4,7 @@ import {Game} from './db-types';
 
 const router = express.Router();
 
-router.get('/search/', (request, response) => {
+router.get('/:query', (request, response) => {
   let find: any = request.query.find;
   let order: any = request.query.order;
   if (order == null)
@@ -25,6 +25,20 @@ router.get('/search/', (request, response) => {
 router.get('/', (_request, response) => {
   gameService
     .getAll()
+    .then((rows) => response.send(rows))
+    .catch((error) => response.status(500).send(error));
+});
+
+router.get('/genres/', (_request, response) => {
+  gameService
+    .getGenres()
+    .then((rows) => response.send(rows))
+    .catch((error) => response.status(500).send(error));
+});
+
+router.get('/platforms/', (_request, response) => {
+  gameService
+    .getPlatforms()
     .then((rows) => response.send(rows))
     .catch((error) => response.status(500).send(error));
 });
@@ -83,5 +97,6 @@ router.delete('/:id', (request, response) => {
     .then((_result) => response.send())
     .catch((error) => response.status(500).send(error));
 });
+
 
 export default router;

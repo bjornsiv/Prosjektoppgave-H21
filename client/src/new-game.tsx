@@ -29,7 +29,7 @@ export default class NewGame extends Component {
     title: String = this.game.title;
     AvaliableGenres: string[] = [];
     AvaliablePlatform: string[] = []
-   
+    currentDateValue: string = '';
 
     render() {
         return (
@@ -55,8 +55,8 @@ export default class NewGame extends Component {
                     </Column>
                     <Column width={4}>
                         <Form.Date
-                            onChange={(event) => (this.game.release_date = new Date(event.currentTarget.value))}
-                            value = {this.game.release_date}
+                            onChange={(event) => (this.currentDateValue = event.currentTarget.value)}
+                            value = {this.currentDateValue}
                             placeholder = 'Release Date'
                         />
                     </Column>
@@ -131,6 +131,7 @@ export default class NewGame extends Component {
 
                     <Button.Dark 
                         onClick={() => {
+                            this.game.release_date = new Date(this.currentDateValue);
                             gameService
                             .create(this.game)
                             .then((id: number) => {

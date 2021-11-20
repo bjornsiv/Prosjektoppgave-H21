@@ -45,6 +45,7 @@ jobs:
       - name: server-test
         run: |
           cd server
+          touch test/config.ts
           npm install
           npm run-script test
           

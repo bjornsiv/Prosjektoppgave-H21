@@ -1,7 +1,7 @@
 import * as React from 'react';
 import renderer from 'react-test-renderer';
-import GameSearch from '../src/game-search';
 import mockGameService from './mock-game-service';
+import GameSearch from '../src/game-search';
 
 jest.mock('../src/game-service', () => {
   return new mockGameService();

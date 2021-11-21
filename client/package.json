@@ -6,6 +6,7 @@
   "scripts": {
     "start": "webpack serve --static --open --mode development",
     "build": "webpack --mode development",
+    "build-prod": "webpack --mode production",
     "test": "jest --setupFiles ./test/setup.tsx"
   },
   "repository": {

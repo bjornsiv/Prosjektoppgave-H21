@@ -11,33 +11,11 @@ exports[`Game details component tests GameDetails renders correctly with snapsho
       <p
         className="card-title"
       >
-        Game details
+        
       </p>
       <div
         className="card-text"
       >
-        <div
-          className="row"
-        >
-          <div
-            className="col-2"
-          >
-            <div
-              className="float-start"
-            >
-              Game title:
-            </div>
-          </div>
-          <div
-            className="col"
-          >
-            <div
-              className="float-start"
-            >
-              
-            </div>
-          </div>
-        </div>
         <div
           className="row"
         >
@@ -362,7 +340,7 @@ exports[`Game details component tests GameDetails renders correctly with snapsho
           className="row"
         >
           <div
-            className="col-4"
+            className="col"
           >
             <div
               className="float-start"
@@ -375,7 +353,7 @@ exports[`Game details component tests GameDetails renders correctly with snapsho
             </div>
           </div>
           <div
-            className="col-4"
+            className="col-md-auto"
           >
             <div
               className="float-end"
@@ -390,7 +368,7 @@ exports[`Game details component tests GameDetails renders correctly with snapsho
             </div>
           </div>
           <div
-            className="col"
+            className="col-md-auto"
           >
             <div
               className="float-end"
@@ -401,6 +379,12 @@ exports[`Game details component tests GameDetails renders correctly with snapsho
                   onChange={[Function]}
                   value="title"
                 >
+                  <option
+                    className="dropdown-item"
+                    value="evaluation"
+                  >
+                    Most useful
+                  </option>
                   <option
                     className="dropdown-item"
                     value="title"
@@ -430,7 +414,7 @@ exports[`Game details component tests GameDetails renders correctly with snapsho
             </div>
           </div>
           <div
-            className="col"
+            className="col-md-auto"
           >
             <div
               className="float-end"

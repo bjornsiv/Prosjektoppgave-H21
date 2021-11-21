@@ -45,11 +45,7 @@ class GameDetails extends Component<{ match: { params: { id: number } } }> {
     if (!this.game) return null;
     return (
       <div>
-        <Card title="Game details">
-          <Row>
-            <Column width={2}>Game title:</Column>
-            <Column>{this.game.title}</Column>
-          </Row>
+        <Card title={this.game.title}>
           <Row>
             <Column width={2}>Release date:</Column>
             <Column>{this.stringDate}</Column>
@@ -137,7 +133,7 @@ class GameDetails extends Component<{ match: { params: { id: number } } }> {
                     <Button.Danger
                       onClick={() => {
                         reviewService.delete(review.id);
-                        history.push('/gamereview/' + review.id);
+                        history.go(0);
                       }}
                     >
                       Delete

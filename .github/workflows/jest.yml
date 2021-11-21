@@ -33,8 +33,8 @@ jobs:
       env: 
         # Configure server/src/mysql-pool.ts
         MYSQL_HOST: localhost
-        MYSQL_USER: root
-        MYSQL_PASSWORD: root
+        MYSQL_USER: test
+        MYSQL_PASSWORD: test_pw
         MYSQL_DATABASE: games_website_test
       
       # Container to run SQL service for tests

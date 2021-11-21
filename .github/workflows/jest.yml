@@ -38,15 +38,16 @@ jobs:
         MYSQL_DATABASE: games_website_test
       
       # Container to run SQL service for tests
-      # services:
-      #   mysql:
-      #     image: mysql
-      #     env:
-      #       MYSQL_USER: $MYSQL_USER
-      #       MYSQL_PASSWORD: $MYSQL_PASSWORD
-      #       MYSQL_DATABASE: $MYSQL_DATABASE
-      #     ports:
-      #       - 3306:3306
+      services:
+        mysql:
+          image: mysql
+          env:
+            MYSQL_USER: $MYSQL_USER
+            MYSQL_PASSWORD: $MYSQL_PASSWORD
+            MYSQL_DATABASE: $MYSQL_DATABASE
+          ports:
+            - '8888:3306'
+          options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
       strategy:
         matrix:
@@ -62,13 +63,8 @@ jobs:
 
         - name: server-test
           run: |
-            sudo /lib/systemd/systemd-sysv-install enable mysql
-            sudo systemctl enable mysql.service
-            sudo systemctl start mysql.service
-            sudo systemctl status mysql.service
-            # mysql -u$MYSQL_USER -p$MYSQL_PASSWORD -e "ALTER USER '$MYSQL_USER'@'localhost' IDENTIFIED WITH mysql_native_password BY '$MYSQL_PASSWORD';"            
-            mysql -u$MYSQL_USER -p$MYSQL_PASSWORD -e "CREATE DATABASE $MYSQL_DATABASE;"
-            mysql -u$MYSQL_USER  $MYSQL_DATABASE < .github/workflows/db_structure.sql
+            mysql -h 127.0.0.1 --port 8888 -u$MYSQL_USER -p$MYSQL_PASSWORD -e "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;"
+            mysql -h 127.0.0.1 --port 8888 -u$MYSQL_USER  $MYSQL_DATABASE < .github/workflows/db_structure.sql
             cd server
             touch test/config.ts
             npm install

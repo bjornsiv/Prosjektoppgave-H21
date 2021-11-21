@@ -1,5 +1,5 @@
 # Prosjektoppgave-H21
-Denne prosjektoppgaven ble utført som en del av emnet INFT2002 Webutvikling, gjennomført ved NTNU høsten 2021. Gruppe 1 består av Silje, Aida, Anna, Sivert.
+Denne prosjektoppgaven ble utført som en del av emnet INFT2002 Webutvikling, gjennomført ved NTNU høsten 2021. Gruppe 1 består av Silje, Aida, Anna og Sivert.
 
 
 
@@ -15,14 +15,14 @@ Før du begynner må du ha installert Node.js og NPM. Node.js blir blant annet b
 
 ## Kjøre nettside lokalt
 
-**1. Kopier filene lokalt** til din datamaskin ved hjelp av kommandoen ‘git clone’. Åpne deretter et terminalvindu og naviger til den mappen du klonet filene til. 
+**1.** Kopier filene lokalt til din datamaskin ved hjelp av kommandoen ‘git clone’. Åpne deretter et terminalvindu og naviger til den mappen du klonet filene til. 
 
-**2.** For å **kjøre klientsiden** lokalt må en først navigere til `./client`. Kjør kommandoen ‘npm install’ for å installere alle pakkene, etterfulgt av ‘npm start’. Sistnevnte starter webpack-dev-server, som gir deg en forhåndsvisning av klientsiden (uten databaseoppsett). Webpack-dev-server oppdaterer seg når en gjør endringer i koden, og kan gjerne kjøres i bakgrunnen. Den åpner automatisk et vindu i nettleseren med adressen http://localhost:8080/#/.
+**2.** For å kjøre klientsiden lokalt må en først navigere til `./client`. Kjør kommandoen ‘npm install’ for å installere alle pakkene, etterfulgt av ‘npm start’. Sistnevnte starter webpack-dev-server, som gir deg en forhåndsvisning av klientsiden (uten databaseoppsett). Webpack-dev-server oppdaterer seg når en gjør endringer i koden, og kan gjerne kjøres i bakgrunnen. Den åpner automatisk et vindu i nettleseren med adressen http://localhost:8080/#/.
 
 **2.1.**
-Kommandoen ‘**npm build**’ bygger en produksjonsklar bundle av nettsiden og vil legge seg i public-katalogen. Dersom dette fører til en feilmelding, kan en forsøke å bruke kommandoen ‘npm run-script build’ som et alternativ.
+Kommandoen ‘npm build’ bygger en produksjonsklar bundle av nettsiden og vil legge seg i public-katalogen. Dersom dette fører til en feilmelding, kan en forsøke å bruke kommandoen ‘npm run-script build’ som et alternativ.
 
-**3.** For å få enkelte av funksjonene på klientsiden til å fungere, må en også **kjøre serveren lokalt**. Start med å navigere til `./server` og kjør kommandoen ‘npm install’. Dette installerer alle nødvendige pakker. Deretter kjøres ‘npm start’ for å starte serveren lokalt. Denne tar utgangspunkt i bundle i `./client/public`. 
+**3.** For å få enkelte av funksjonene på klientsiden til å fungere, må en også kjøre serveren lokalt. Start med å navigere til `./server` og kjør kommandoen ‘npm install’. Dette installerer alle nødvendige pakker. Deretter kjøres ‘npm start’ for å starte serveren lokalt. Denne tar utgangspunkt i bundle i `./client/public`. 
 
 
 
@@ -38,15 +38,18 @@ Kommandoen ‘**npm build**’ bygger en produksjonsklar bundle av nettsiden og 
 
 ## Git
 
-**Git clone**. Bruk ‘git clone %repo%’ for å klone et git-prosjekt til din lokale datamaskin. Erstatt %repo% med en link til GitHub eller GitLab-mappen. 
+**Git clone:** Bruk ‘git clone %repo%’ for å klone et git-prosjekt til din lokale datamaskin. Erstatt %repo% med en link til GitHub eller GitLab-mappen. 
 
-**Git checkout**. For å opprette en ny branch; skriv kommandoen ‘git checkout -b "my-branch", der "my-branch" er navnet på den nye branchen.
+
+**Git checkout:** For å opprette en ny branch; skriv kommandoen ‘git checkout -b "my-branch", der "my-branch" er navnet på den nye branchen.
 
 Dersom en ønsker å bytte branch, kan dette gjøres ved å kjøre kommandoen ‘git checkout "my-branch", der "my-branch" er navnet på den branchen du ønsker å bytte til.
 
 Merk at en bør være i riktig branch før en begynner å gjøre endringer. Dette er ikke et absolutt krav, men gjør prosessen mye enklere. 
 
-**Sende endringer til GitHub/GitLab**. Når du er i ønsket branch og er ferdig med å gjøre endringer, kan du sende dette til GitLab eller GitHub. Følgende kommandoer bør kjøres i riktig rekkefølge, og en bør ikke foreta noen endringer i løpet av denne prosessen:
+
+**Sende endringer til GitHub/GitLab:** Når du er i ønsket branch og er ferdig med å gjøre endringer, kan du sende dette til GitLab eller GitHub. Følgende kommandoer bør kjøres i riktig rekkefølge, og en bør ikke foreta noen endringer i løpet av denne prosessen:
+
 
 'git pull' oppdaterer den branchen man er i 
 

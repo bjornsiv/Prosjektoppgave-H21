@@ -37,7 +37,7 @@ Det finnes og en 'npm build-prod' kommando som bygger en produksjonsklar bundle 
 **2. Servertesting:** Naviger til `./server` i terminalvinduet og kjør deretter kommandoen 'npm install' for å installere alle de nødvendige pakkene. Deretter kjøres 'npm test'. Dette vil resultere i en testrapport som vises direkte i terminalen, samt en mer omfattende rapport i mappen `./coverage`.
 
 
-## Prosject struktur tre
+## Prosjektets strukturtre
 ```bash
 ├───.github
 │   └───workflows

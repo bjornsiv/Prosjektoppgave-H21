@@ -29,12 +29,12 @@ export default class NewGame extends Component {
     title: '',
     description: '',
     release_date: new Date(),
-    genre: '',
+    genre: 'Real-Time Strategy',
     platform: '',
   };
   title: String = this.game.title;
   AvaliableGenres: { name: string; value: string }[] = [];
-  AvaliablePlatform: string[] = [];
+  platforms: { name: string; supported: boolean }[] = [];
   release_date: string = '';
 
   render() {
@@ -96,19 +96,18 @@ export default class NewGame extends Component {
             </Column>
             <Column width={4}>
               <form className="form-group">
-                {this.AvaliablePlatform.map((platt, value) => {
-                  return (
+                {this.platforms.map((platt) => (
                     <>
                       <Form.Checkbox
-                        key={value}
-                        value={platt}
-                        name={platt}
+                        key={platt.name}
+                        value={platt.supported}
+                        name={platt.name}
                         onChange={(event) => {
-                          if (this.game.platform == '') {
-                            this.game.platform += event.currentTarget.value;
-                          } else {
-                            this.game.platform += ',' + event.currentTarget.value;
-                          }
+                          platt.supported = event.currentTarget.checked;
+                          this.game.platform = this.platforms
+                          .filter((platform) => platform.supported)
+                          .map((platform) => platform.name)
+                          .join(',');
 
                           console.log(
                             'Value: ' + event.currentTarget.value,
@@ -117,11 +116,10 @@ export default class NewGame extends Component {
                           );
                         }}
                       />
-                      <Form.Label key={platt}>{platt}</Form.Label>
+                      <Form.Label key={platt.name + '-name'}>{platt.name}</Form.Label>
                       <br />
                     </>
-                  );
-                })}
+                ))}
               </form>
             </Column>
           </Row>
@@ -163,10 +161,15 @@ export default class NewGame extends Component {
 
   mounted() {
     gameService
-      .getPlatforms()
-      .then((data) => (this.AvaliablePlatform = data))
-      .catch((error) => Alert.danger('Error getting plattform: ' + error.message));
-    console.log(this.AvaliablePlatform);
+    .getPlatforms()
+    .then((data) => {
+      data.map((name) =>
+        this.platforms.push({ name: name, supported: this.game.platform.includes(name) })
+      );
+      console.log(this.platforms);
+    })
+    .catch((error) => Alert.danger('Error getting plattform: ' + error.message));
+    console.log(this.platforms);
     gameService
       .getGenres()
       .then(

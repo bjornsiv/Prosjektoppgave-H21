@@ -1,64 +1,52 @@
 # Prosjektoppgave-H21
-Prosjektoppgave høsten 2021 - Silje, Aida, Anna, Sivert
+Denne prosjektoppgaven ble utført som en del av emnet INFT2002 Webutvikling, gjennomført ved NTNU høsten 2021. Gruppe 1 består av Silje, Aida, Anna, Sivert.
 
 
 ## Informasjon om prosjektet
-
-Prosjektet er to delt i en client del, og en server del. client delen er kun det estetiske, server delen kjører lokalt ved å ta utgangspunkt i client mappen. Dette betyr at for å kjøre server siden må den orginale mappe strukturen ivaretas. Server siden bruker NTNU sin database server, og det er påkrevd å være koblet til NTNUs nettverk for å fungere. Dette kan bli gjort gjennom en vpn. 
-
-## Før du starter - Node.js og NPM
-
-Du må ha Node.js og NPM installert på PC-en din. Node.js blir blant annet brukt når vi vil kjøre JavaScript kode i en server. NPM er en pakkebehandler, denne gjør det enklere å installere programvarebiblioteker som vi kan benytte oss av når vi programmer. NPM (Node Package Manager) bruker vi både på client og server delen.
+Prosjektet er todelt - med en klientside og en serverside. Klientsiden representerer det estetiske, mens serversiden kjører lokalt ved å ta utgangspunkt i klient-mappen. Dette betyr at for å kjøre serversiden, må den originale mappestrukturen ivaretas. Serversiden bruker NTNU sin databaseserver, og det er påkrevd å være tilkoblet NTNUs nettverk for at dette skal fungere. Dette kan gjøres ved bruk av en VPN.
 
 
-## Kjøring av Nettside lokalt.
-
-**1. Først**
-Start med å kopiere filene lokalt til maskinen din med 'git clone' kommandoen. Når det er gjort må du åpne et terminalvindu og navigere til mappen der du klonet filene
-
-**2. Client**
-For å kjøre client siden lokalt må du navigere til './client'. Der må du kjøre 'npm install' for å installere alle pakkene. 
-Deretter må du kjøre 'npm start' kommandoen, denne starter webpack-dev-server, som gir deg en forhåndsvisning av client siden, dog uten database oppsett. Den oppdaterer seg når en gjør endringer i koden, og kan gjernes kjøres i bakgrunnen. Den åpner automatisk en nettleser vindu med riktig adresse, som er : 'http://localhost:8080/#/'
-
-**2.1. npm build**
-'npm build' bygger en produksjonsklar bundle av nettsiden og den vil legge seg i './public' mappen.  Hvis kommandoen får feilmelding kan man prøve med 'npm run-script build' som et alternativ. 
+## Node.js og NPM 
+Før du begynner må du ha installert Node.js og NPM. Node.js blir blant annet brukt til å kjøre JavaScript-kode i serveren, mens NPM er en pakkebehandler som forenkler installasjonen av programvarebiblioteker slik at vi kan benytte oss av disse. NPM brukes både på klient- og serversiden.  
 
 
-**3. Server**
-For at noen av funksjonene av client siden til å fungere, må man og kjøre serveren lokalt. Her må man navigere til './server' og kjøre 'npm install' for å installere alle nødvendige pakker. Deretter må man kjøre 'npm start' for å starte serveren lokalt. Den vil ta utgangspunkt i client bundlen i './client/public' mappen
+## Kjøre nettside lokalt
+
+**1. Kopier filene lokalt** til din datamaskin ved hjelp av kommandoen ‘git clone’. Åpne deretter et terminalvindu og naviger til den mappen du klonet filene til. 
+
+**2.** For å **kjøre klientsiden** lokalt må en først navigere til `./client`. Kjør kommandoen ‘npm install’ for å installere alle pakkene, etterfulgt av ‘npm start’. Sistnevnte starter webpack-dev-server, som gir deg en forhåndsvisning av klientsiden (uten databaseoppsett). Webpack-dev-server oppdaterer seg når en gjør endringer i koden, og kan gjerne kjøres i bakgrunnen. Den åpner automatisk et vindu i nettleseren med adressen http://localhost:8080/#/.
+
+**2.1.**
+Kommandoen ‘**npm build**’ bygger en produksjonsklar bundle av nettsiden og vil legge seg i public-katalogen. Dersom dette fører til en feilmelding, kan en forsøke å bruke kommandoen ‘npm run-script build’ som et alternativ.
+
+**3.** For å få enkelte av funksjonene på klientsiden til å fungere, må en også **kjøre serveren lokalt**. Start med å navigere til `./server` og kjør kommandoen ‘npm install’. Dette installerer alle nødvendige pakker. Deretter kjøres ‘npm start’ for å starte serveren lokalt. Denne tar utgangspunkt i bundle i `./client/public`. 
+
+
 
 ## Testing
 
-**1. client testing**
-Naviger til client mappen i terminalvinduet og kjør kommandoen 'npm test', her vil man få en test rapport direkte i terminalen, samt en mer omfattende rapport i './coverage' mappen
+**1. Klienttesting:** Naviger til `./client` i terminalvinduet og kjør deretter kommandoen 'npm test'. Dette vil resultere i en testrapport som vises direkte i terminalen, samt en mer omfattende rapport i mappen `./coverage`.
 
-**2. server testing**
-Naviger til server mappen i terminalvinduet og kjør kommandoen 'npm test', her vil man få en test rapport direkte i terminalen, samt en mer omfattende rapport i './coverage' mappen
+**2. Servertesting:** Naviger til `./server` i terminalvinduet og kjør deretter kommandoen 'npm test'. Dette vil resultere i en testrapport som vises direkte i terminalen, samt en mer omfattende rapport i mappen `./coverage`.
 
 
-## git
 
-**git clone**
-git clone %repo% - for å klone et git prosjekt til sin lokale maskin. erstatt %repo% med link til github/gitlab mappen. 
+## Git
 
-**git checkout**
-for å lage en ny branch må du kjøre 'git checkout -b "my-branch"' der my-branch er navnet på den nye branchen
+**git clone**. Bruk ‘git clone %repo%’ for å klone et git-prosjekt til din lokale datamaskin. Erstatt %repo% med en link til GitHub eller GitLab-mappen. 
 
-for å bytte branch, må du kjøre 'git checkout "my-branch"'. der my-branch er navnet på branchen du vil bytte til. 
+**git checkout**. For å opprette en ny branch; skriv kommandoen ‘git checkout -b "my-branch", der "my-branch" er navnet på den nye branchen.
 
-det skal merkes at du bør være i riktig branch før du starter å gjøre endringer. Dette er ikke et absolutt krav, men det gjør prosessen mye enklere. 
+Dersom en ønsker å bytte branch, kan dette gjøres ved å kjøre kommandoen ‘git checkout "my-branch", der "my-branch" er navnet på den branchen du ønsker å bytte til.
 
-**sende endringer til git hub/lab**
-Hvis du er i ønsket branch, og er ferdig med å gjøre endringer kan du sende det til github/lab. Da bør følgende kommandoer kjøres i følgende rekkefølge, det bør merkes at man ikke bør gjøre endringene i filene iløpet av denne prosessen: 
+Merk at en bør være i riktig branch før en begynner å gjøre endringer. Dette er ikke et absolutt krav, men gjør prosessen mye enklere. 
 
-'git pull' - oppdaterer branchen man er i 
+**Sende endringer til GitHub/GitLab**. Når du er i ønsket branch og er ferdig med å gjøre endringer, kan du sende dette til GitLab eller GitHub. Følgende kommandoer bør kjøres i riktig rekkefølge, og en bør ikke foreta noen endringer i løpet av denne prosessen:
 
-'git add .' - Denne legger alle filene med endringer i en 'pakke' som skal sendes til git. 
+'git pull' oppdaterer den branchen man er i 
+'git add .' legger alle filene med endringer i en pakke som skal sendes til Git 
+'git stage .' fryser filene som er lagt i pakken
+'git commit -m "my-message"' ferdigstiller pakken. Bytt ut "my-message" med en beskrivende kommentar som forklarer hva som er gjort av endringer
+'git push' sender den ferdigstilte pakken til GitHub eller GitLab-serveren
 
-'git stage .' - Denne 'fryser' filene som er lagt i 'pakka'.
-
-'git commit -m "My-message"' - Denne ferdigstiller 'pakka', og my-message er meldingen som beskriver hva som er gjort
-
-'git push' - Denne sender den ferdigstilte pakka til github serveren
-
-    Hvis det er en ny branch du sender opp, som ikke enda eksisterer i github repositorien så er du nødt til å bruke 'git push -u origin my-branch-name', der 'my-branch-name' er navnet til branchen du nettopp har laget
+Dersom du ønsker å sende opp en ny branch som enda ikke eksisterer i GitHub eller GitLab-repository, er det nødvendig å kjøre kommandoen 'git push -u origin "my-branch", der "my-branch" er navnet på den branchen du nettopp laget.

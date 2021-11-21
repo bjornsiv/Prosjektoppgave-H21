@@ -552,36 +552,7 @@ export class Alert extends Component {
   }
 }
 
-/*
-// Messages (Sivert) - ta bort hvis fra chat-app?
-class Messages extends Component<{ from: string; message: string; key: number }> {
-  render() {
-    return (
-      <div className="card" style={{ width: '18rem' }} key={this.props.key}>
-        <span className="card-text">
-          {this.props.from}: {this.props.message}{' '}
-        </span>
-      </div>
-    );
-  }
-}
 
-// Send (Sivert) - ta bort hvis fra chat-app?
-class Send extends Component<{ incomName: string; key: number }> {
-  render() {
-    return (
-      <div className="card" style={{ width: '18rem' }} key={this.props.key}>
-        <span className="card-text"> {this.props.incomName} </span>
-      </div>
-    );
-  }
-}
-
-export class List {
-  static Message = Messages;
-  static Send = Send;
-}
-*/
 
 // Søkefelt. Hentet fra (Forms) https://getbootstrap.com/docs/4.0/components/navbar/#forms
 // Har endret fra success til secondary button

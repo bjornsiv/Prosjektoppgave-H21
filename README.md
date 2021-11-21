@@ -38,7 +38,7 @@ Det finnes og en 'npm build-prod' kommando som bygger en produksjonsklar bundle 
 
 
 ## Prosject struktur tre
-
+```bash
 ├───.github
 │   └───workflows
 ├───client
@@ -50,6 +50,7 @@ Det finnes og en 'npm build-prod' kommando som bygger en produksjonsklar bundle 
 └───server
     ├───src
     └───test
+```
 
 ## Git tutorial
 

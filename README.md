@@ -22,7 +22,10 @@ Før du begynner må du ha installert Node.js og NPM. Node.js blir blant annet b
 Et alternativ er å kjøre webpack-dev-server, som gir deg en forhåndsvisning av klientsiden (uten databaseoppsett). Den fungerer ikke på alle maskiner uten å gjøre endringer i de lokale instillingene. Webpack-dev-server oppdaterer seg når en gjør endringer i koden, og kan gjerne kjøres i bakgrunnen. Den åpner automatisk et vindu i nettleseren med adressen http://localhost:8080/#/.
 
 **2.1.**
-Kommandoen ‘npm build’ bygger en produksjonsklar bundle av nettsiden og vil legge seg i public-katalogen. Dersom dette fører til en feilmelding, kan en forsøke å bruke kommandoen ‘npm run-script build’ som et alternativ.
+Kommandoen ‘npm build’ bygger en utvikling bundle av nettsiden og vil legge seg i public-katalogen. Dersom dette fører til en feilmelding, kan en forsøke å bruke kommandoen ‘npm run-script build’ som et alternativ.
+
+**2.2** 
+Det finnes og en 'nom build-prod' kommando som bygger en produksjonsklar bundle av nettsiden. Denne vil legge seg i './client/public' mappen. 
 
 **3.** For å kjøre serveren, start med å navigere til `./server` og kjør kommandoen ‘npm install’. Dette installerer alle nødvendige pakker. Deretter kjøres ‘npm start’ for å starte serveren lokalt. Denne tar utgangspunkt i bundle i `./client/public`. 
 

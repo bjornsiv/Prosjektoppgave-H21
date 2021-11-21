@@ -68,7 +68,7 @@ jobs:
 
         - name: server-test
           run: |
-            mysql -h=127.0.0.1 --port=${{ job.services.mysql.ports[3306] }} -u$MYSQL_USER --password=$MYSQL_PASSWORD  $MYSQL_DATABASE < .github/workflows/db_structure.sql
+            mysql -h127.0.0.1 --port=${{ job.services.mysql.ports[3306] }} -u$MYSQL_USER --password=$MYSQL_PASSWORD  $MYSQL_DATABASE < .github/workflows/db_structure.sql
             cd server
             touch test/config.ts
             npm install

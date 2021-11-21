@@ -6,22 +6,7 @@ import gameService from './game-service';
 import { Game } from './db-types';
 
 const history = createHashHistory();
-/* 
 
-FORSLAG/IDÉER
-- Genre: Endre fra Form.Input til at man kan velge fra en liste med besteme genres og platforms?
-- Legge til sjekk slik at man ikke kan legge til spill som allerede eksisterer?
-
-- FIKS FEIL MED Release date: onChange={(event) => (this.game.release_date...)
-
-*/
-
-//const checked = React.useState(true);
-//const setChecked = React.useState(true);
-//  
-//const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-//    setChecked(event.target.checked);
-//};
 
 export default class NewGame extends Component {
 

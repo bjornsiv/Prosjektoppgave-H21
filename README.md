@@ -17,26 +17,27 @@ Før du begynner må du ha installert Node.js og NPM. Node.js blir blant annet b
 
 **1.** Kopier filene lokalt til din datamaskin ved hjelp av kommandoen ‘git clone’. Åpne deretter et terminalvindu og naviger til den mappen du klonet filene til. 
 
-**2.** For å kjøre klientsiden lokalt må en først navigere til `./client`. Kjør kommandoen ‘npm install’ for å installere alle pakkene, etterfulgt av ‘npm start’. Sistnevnte starter webpack-dev-server, som gir deg en forhåndsvisning av klientsiden (uten databaseoppsett). Webpack-dev-server oppdaterer seg når en gjør endringer i koden, og kan gjerne kjøres i bakgrunnen. Den åpner automatisk et vindu i nettleseren med adressen http://localhost:8080/#/.
+**2.** For å kjøre klientsiden lokalt må en først navigere til `./client`. Kjør kommandoen ‘npm install’ for å installere alle pakkene, etterfulgt av ‘npm run-script build’. Sistnevnte lager en publiserbar versjon av nettsiden og alle de nødvendige pakkene. ‘npm run-script build’ må kjøres hver gang en skal vise nye endringer. 
+
+Et alternativ er å kjøre webpack-dev-server, som gir deg en forhåndsvisning av klientsiden (uten databaseoppsett). Den fungerer ikke på alle maskiner uten å gjøre endringer i de lokale instillingene. Webpack-dev-server oppdaterer seg når en gjør endringer i koden, og kan gjerne kjøres i bakgrunnen. Den åpner automatisk et vindu i nettleseren med adressen http://localhost:8080/#/.
 
 **2.1.**
 Kommandoen ‘npm build’ bygger en produksjonsklar bundle av nettsiden og vil legge seg i public-katalogen. Dersom dette fører til en feilmelding, kan en forsøke å bruke kommandoen ‘npm run-script build’ som et alternativ.
 
-**3.** For å få enkelte av funksjonene på klientsiden til å fungere, må en også kjøre serveren lokalt. Start med å navigere til `./server` og kjør kommandoen ‘npm install’. Dette installerer alle nødvendige pakker. Deretter kjøres ‘npm start’ for å starte serveren lokalt. Denne tar utgangspunkt i bundle i `./client/public`. 
-
+**3.** For å kjøre serveren, start med å navigere til `./server` og kjør kommandoen ‘npm install’. Dette installerer alle nødvendige pakker. Deretter kjøres ‘npm start’ for å starte serveren lokalt. Denne tar utgangspunkt i bundle i `./client/public`. 
 
 
 
 ## Testing
 
-**1. Klienttesting:** Naviger til `./client` i terminalvinduet og kjør deretter kommandoen 'npm test'. Dette vil resultere i en testrapport som vises direkte i terminalen, samt en mer omfattende rapport i mappen `./coverage`.
+**1. Klienttesting:** Naviger til `./client` i terminalvinduet og kjør deretter kommandoen 'npm install' for å installere alle de nødvendige pakkene. Deretter kjøres 'npm test'. Dette vil resultere i en testrapport som vises direkte i terminalen, samt en mer omfattende rapport i mappen `./coverage`.
 
-**2. Servertesting:** Naviger til `./server` i terminalvinduet og kjør deretter kommandoen 'npm test'. Dette vil resultere i en testrapport som vises direkte i terminalen, samt en mer omfattende rapport i mappen `./coverage`.
-
-
+**2. Servertesting:** Naviger til `./server` i terminalvinduet og kjør deretter kommandoen 'npm install' for å installere alle de nødvendige pakkene. Deretter kjøres 'npm test'. Dette vil resultere i en testrapport som vises direkte i terminalen, samt en mer omfattende rapport i mappen `./coverage`.
 
 
-## Git
+
+
+## Git tutorial
 
 **Git clone:** Bruk ‘git clone %repo%’ for å klone et git-prosjekt til din lokale datamaskin. Erstatt %repo% med en link til GitHub eller GitLab-mappen. 
 
@@ -67,3 +68,7 @@ Merk at en bør være i riktig branch før en begynner å gjøre endringer. Dett
 
 
 Dersom du ønsker å sende opp en ny branch som enda ikke eksisterer i GitHub eller GitLab-repository, er det nødvendig å kjøre kommandoen 'git push -u origin "my-branch", der "my-branch" er navnet på den branchen du nettopp laget.
+
+
+## Referanser
+I dette prosjektet har vi tatt utgangspunkt i egen kode og kode fra leksjoner, samt tatt inspirasjon fra sider som StackOverflow, Bootstrap-biblioteket og lignende. Ved kopi av kode har vi referert til dette i den gjeldende filen.

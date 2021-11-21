@@ -16,7 +16,7 @@ import FrontPage from './frontpage';
 
 const history = createHashHistory();
 
-// Meny med link til andre sider - Finn ut hva som skal med her, legg evt. til senere
+// Meny med link til andre sider 
 class Menu extends Component {
   
   searchQuery: string = '';

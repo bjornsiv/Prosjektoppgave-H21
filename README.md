@@ -25,7 +25,7 @@ Et alternativ er å kjøre webpack-dev-server, som gir deg en forhåndsvisning a
 Kommandoen ‘npm build’ bygger en utvikling bundle av nettsiden og vil legge seg i public-katalogen. Dersom dette fører til en feilmelding, kan en forsøke å bruke kommandoen ‘npm run-script build’ som et alternativ.
 
 **2.2** 
-Det finnes og en 'nom build-prod' kommando som bygger en produksjonsklar bundle av nettsiden. Denne vil legge seg i './client/public' mappen. 
+Det finnes og en 'npm build-prod' kommando som bygger en produksjonsklar bundle av nettsiden. Denne vil legge seg i './client/public' mappen. 
 
 **3.** For å kjøre serveren, start med å navigere til `./server` og kjør kommandoen ‘npm install’. Dette installerer alle nødvendige pakker. Deretter kjøres ‘npm start’ for å starte serveren lokalt. Denne tar utgangspunkt i bundle i `./client/public`. 
 

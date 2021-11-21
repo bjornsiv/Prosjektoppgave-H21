@@ -30,7 +30,6 @@ Det finnes og en 'npm build-prod' kommando som bygger en produksjonsklar bundle 
 **3.** For å kjøre serveren, start med å navigere til `./server` og kjør kommandoen ‘npm install’. Dette installerer alle nødvendige pakker. Deretter kjøres ‘npm start’ for å starte serveren lokalt. Denne tar utgangspunkt i bundle i `./client/public`. 
 
 
-
 ## Testing
 
 **1. Klienttesting:** Naviger til `./client` i terminalvinduet og kjør deretter kommandoen 'npm install' for å installere alle de nødvendige pakkene. Deretter kjøres 'npm test'. Dette vil resultere i en testrapport som vises direkte i terminalen, samt en mer omfattende rapport i mappen `./coverage`.
@@ -38,7 +37,19 @@ Det finnes og en 'npm build-prod' kommando som bygger en produksjonsklar bundle 
 **2. Servertesting:** Naviger til `./server` i terminalvinduet og kjør deretter kommandoen 'npm install' for å installere alle de nødvendige pakkene. Deretter kjøres 'npm test'. Dette vil resultere i en testrapport som vises direkte i terminalen, samt en mer omfattende rapport i mappen `./coverage`.
 
 
+## Prosject struktur tre
 
+├───.github
+│   └───workflows
+├───client
+│   ├───public
+│   ├───src
+│   ├───test
+│   │   └───__snapshots__
+│   └───__mocks__
+└───server
+    ├───src
+    └───test
 
 ## Git tutorial
 

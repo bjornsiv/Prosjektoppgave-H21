@@ -66,7 +66,7 @@ class GameDetails extends Component<{ match: { params: { id: number } } }> {
           </Row>
           <Row>
             <Column width={2}>Platforms:</Column>
-            <Column>{this.game.platform}</Column>
+            <Column>{this.game.platform.replace(/,/g, ', ')}</Column>
           </Row>
           <Row>
             <Column width={2}>Description:</Column>

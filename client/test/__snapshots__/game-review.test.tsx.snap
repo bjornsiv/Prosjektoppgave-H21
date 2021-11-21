@@ -91,7 +91,7 @@ Array [
             <div
               className="float-start"
             >
-              score:
+              Score:
             </div>
           </div>
           <div
@@ -273,7 +273,7 @@ Array [
           onClick={[Function]}
           type="button"
         >
-          Save
+          Publish
         </button>
       </div>
     </div>

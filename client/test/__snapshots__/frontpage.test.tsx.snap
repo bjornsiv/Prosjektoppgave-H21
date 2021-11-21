@@ -12,7 +12,7 @@ exports[`Game review component tests GameReview renders correctly with snapshot 
         <p
           className="card-title"
         >
-          Popular games right now
+          Browse our games
         </p>
         <div
           className="card-text"

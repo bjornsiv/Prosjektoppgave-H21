@@ -69,13 +69,13 @@ jobs:
         - name: server-test
           run: |
             sudo /etc/init.d/mysql start
-            mysql -e 'CREATE DATABASE $MYSQL_DATABASE;' -u$MYSQL_USER -p$MYSQL_PASSWORD
+            mysql -e 'CREATE DATABASE ${{ env.MYSQL_DATABASE }};' -u${{ env.MYSQL_USER }} -p${{ env.MYSQL_PASSWORD }}
             echo "Database created"
-            mysql -e 'SHOW DATABASES;' -u$MYSQL_USER -p$MYSQL_PASSWORD
+            mysql -e 'SHOW DATABASES;' -u${{ env.MYSQL_USER }} -p${{ env.MYSQL_PASSWORD }}
             echo "Databases listed"
-            mysql -u$MYSQL_USER -p$MYSQL_PASSWORD --verbose $MYSQL_DATABASE < .github/workflows/db_structure.sql
+            mysql -u${{ env.MYSQL_USER -p${{ env.MYSQL_PASSWORD }} --verbose ${{ env.MYSQL_DATABASE }} < .github/workflows/db_structure.sql
             echo "Database structure applied"
-            mysql -e 'ALTER USER '$MYSQL_USER'@'$MYSQL_HOST' IDENTIFIED WITH mysql_native_password BY '$MYSQL_PASSWORD';' -u$MYSQL_USER -p$MYSQL_PASSWORD
+            mysql -e 'ALTER USER '${{ env.MYSQL_USER }}'@'${{ env.MYSQL_HOST }}' IDENTIFIED WITH mysql_native_password BY '${{ env.MYSQL_PASSWORD }}';' -u${{ env.MYSQL_USER }} -p${{ env.MYSQL_PASSWORD }}
             echo "Database setup done"
             cd server
             touch test/config.ts

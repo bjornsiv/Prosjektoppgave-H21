@@ -79,6 +79,24 @@ describe('Fetch games (GET)', () => {
   });
 });
 
+describe('Fetch extra data (GET)', () => {
+  test('Fetch genres (200 OK)', (done) => {
+   axios.get('/games/genres').then((response) => {
+      expect(response.status).toEqual(200);
+      expect(response.data.length).toBeGreaterThan(0);
+      done();
+    });
+  });
+
+  test('Fetch platforms (200 OK)', (done) => {
+    axios.get('/games/platforms').then((response) => {
+      expect(response.status).toEqual(200);
+      expect(response.data.length).toBeGreaterThan(0);
+      done();
+    });
+  });
+});
+
 describe('Create new game (POST)', () => {
   test('Create new game (200 OK)', (done) => {
     axios.post('/games', testGames[2]).then((response) => {

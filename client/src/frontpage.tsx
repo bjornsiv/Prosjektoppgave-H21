@@ -16,15 +16,20 @@ export default class FrontPage extends Component {
   sortOrder:string = '1';
   sortKey:string = 'title';
 
-  compare = ( first: any, second: any ) => {
-    if ( first < second ){
-      return 1;
+  compare = (first: any, second: any) => {
+    if (typeof(first) === 'string') {
+      return first.localeCompare(second);
     }
-    if ( first > second ){
-      return -1;
+    else{
+      if (first < second) {
+        return 1;
+      }
+      if (first > second) {
+        return -1;
+      }
+      return 0;
     }
-    return 0;
-  }
+  };
   sortGames = () => {
     this.games.sort(
       (first: {game: Game, avgReview: number}, second: {game: Game, avgReview: number}) => {
@@ -129,6 +134,11 @@ export default class FrontPage extends Component {
                             game: game
                         }
                     );
+                    // When we have pushed the last game, sort the list according to settings.
+                    if (this.games.length == games.length)
+                    {
+                      this.sortGames();
+                    }
                 })
                 .catch((error) => Alert.danger('Error getting reviews: ' + error.message));
             }

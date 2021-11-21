@@ -33,20 +33,26 @@ jobs:
       env: 
         # Configure server/src/mysql-pool.ts
         MYSQL_HOST: localhost
-        MYSQL_USER: root
-        MYSQL_PASSWORD: root
+        MYSQL_USER: test
+        MYSQL_PASSWORD: test_pw
         MYSQL_DATABASE: games_website_test
       
       # Container to run SQL service for tests
-      # services:
-      #   mysql:
-      #     image: mysql
-      #     env:
-      #       MYSQL_USER: $MYSQL_USER
-      #       MYSQL_PASSWORD: $MYSQL_PASSWORD
-      #       MYSQL_DATABASE: $MYSQL_DATABASE
-      #     ports:
-      #       - 3306:3306
+      services:
+        mysql:
+          image: mysql:latest
+          env:
+            MYSQL_USER: $MYSQL_USER
+            MYSQL_PASSWORD: $MYSQL_PASSWORD
+            MYSQL_DATABASE: $MYSQL_DATABASE
+            MYSQL_ROOT_PASSWORD: $MYSQL_PASSWORD
+          ports:
+            - 3306:3306
+          options: >-
+            --health-cmd="mysqladmin ping" 
+            --health-interval=10s 
+            --health-timeout=5s 
+            --health-retries=3
 
       strategy:
         matrix:
@@ -62,9 +68,7 @@ jobs:
 
         - name: server-test
           run: |
-            sudo systemctl start mysql
-            echo "UPDATE user SET authentication_string=password('$MYSQL_PASSWORD'), plugin='mysql_native_password' WHERE user='$MYSQL_USER';" | mysql mysql -u$MYSQL_USER -p$MYSQL_PASSWORD
-            mysql $MYSQL_DATABASE < .github/workflows/db_structure.sql
+            mysql -h 127.0.0.1 -u$MYSQL_USER -p$MYSQL_PASSWORD  $MYSQL_DATABASE < .github/workflows/db_structure.sql
             cd server
             touch test/config.ts
             npm install

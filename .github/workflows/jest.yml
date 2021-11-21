@@ -68,8 +68,8 @@ jobs:
 
         - name: server-test
           run: |
-            mysql -h 127.0.0.1 --port 3306 -u$MYSQL_USER -p$MYSQL_PASSWORD -e "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;"
-            mysql -h 127.0.0.1 --port 3306 -u$MYSQL_USER  $MYSQL_DATABASE < .github/workflows/db_structure.sql
+            mysql -h 127.0.0.1 --port 3306 -u$MYSQL_USER@127.0.0.1 -p$MYSQL_PASSWORD -e "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;"
+            mysql -h 127.0.0.1 --port 3306 -u$MYSQL_USER@127.0.0.1  $MYSQL_DATABASE < .github/workflows/db_structure.sql
             cd server
             touch test/config.ts
             npm install

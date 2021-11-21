@@ -42,11 +42,16 @@ jobs:
         mysql:
           image: mysql:latest
           env:
-            MYSQL_ROOT_PASSWORD: $MYSQL_PASSWORD
+            MYSQL_USER: $MYSQL_USER
+            MYSQL_PASSWORD: $MYSQL_PASSWORD
             MYSQL_DATABASE: $MYSQL_DATABASE
           ports:
             - 3306:3306
-          options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+          options: >-
+            --health-cmd="mysqladmin ping" 
+            --health-interval=10s 
+            --health-timeout=5s 
+            --health-retries=3
 
       strategy:
         matrix:

@@ -1,4 +1,3 @@
-// Her ligger widgets, laget med Bootstrap
 import * as React from 'react';
 import { ReactNode, ChangeEvent, useState } from 'react';
 import { Component } from 'react-simplified';
@@ -17,7 +16,6 @@ import EmptyStar from '../public/star.svg';
 import ThumbsUpFilled from '../public/hand-thumbs-up-fill.svg';
 // @ts-ignore: Ignore import error for svg file.
 import ThumbsUpEmpty from '../public/hand-thumbs-up.svg';
-
 
 // Card - for å ramme inn innhold på nettsiden, kan sette tittel
 // Properties: title
@@ -555,7 +553,6 @@ export class Alert extends Component {
 
 
 // Søkefelt. Hentet fra (Forms) https://getbootstrap.com/docs/4.0/components/navbar/#forms
-// Har endret fra success til secondary button
 export class SearchBar extends Component<{
   value: string;
   onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, value: string) => void;
@@ -637,25 +634,10 @@ export class SignIn extends Component {
   }
 }
 
-/* Må legge inn Bootstrap Vue hvis disse skal brukes */
-
 /*
-// Rating 1-5 stjerner (fungerer ikke, må fikses senere)
-class Rating extends Component<{ onClick: () => void, ratingValue: number }> {
-  render() {
-    return (
-      <template>
-        <div>
-          <label htmlFor="rating-inline">Inline rating:</label>
-          <b className="form-rating" id="rating-inline" inline-value="4"></b>
-        </div>
-      </template>
-    );
-  }
-}
+// Image - bilder av spill o.l. Vi ble aldri ferdige med denne, men lar den likevel stå 
+// for å vise at vi har tenkt på denne funksjonaliteten.
 
-/*
-// Image - bilder av spill o.l.
 export class Image extends Component {
   render() {
     return (

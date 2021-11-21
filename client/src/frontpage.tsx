@@ -49,7 +49,7 @@ export default class FrontPage extends Component {
       <>
         <div>
           <div>
-            <Card title="Popular games right now">
+            <Card title="Browse our games">
               <br></br>
               <Row>
                 <Column></Column>

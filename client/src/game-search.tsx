@@ -35,7 +35,7 @@ class GameSearch extends Component <{ match: { params: { query: string } } }>{
               <Column>{game.genre}</Column>
               <Column>{game.platform}</Column>
               <Column width={3} right= {true}>
-                <Button.Dark onClick={() => history.push('/gamedetails/' + game.id)}>Details</Button.Dark>
+                <Button.Dark onClick={() => history.push('/gamedetails/' + game.id)}>More info</Button.Dark>
                 <Button.Dark onClick={() => history.push('/editgame/' + game.id)}>Edit game</Button.Dark>
               </Column>
             </CardRow>

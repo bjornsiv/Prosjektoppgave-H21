@@ -52,7 +52,7 @@ export default class GameReview extends Component<{ match: { params: { id: numbe
                 </Column>
               </Row>
               <Row>
-                <Column width={2}>score:</Column>
+                <Column width={2}>Score:</Column>
                 <Column>
                   <Form.StarRating
                     value={this.review.score}
@@ -80,7 +80,7 @@ export default class GameReview extends Component<{ match: { params: { id: numbe
                       })}
                   }
                 >
-                  Save
+                  Publish
                 </Button.Dark>
               </Column>
             </Row>

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import mockGameService from './mock-game-service';
+import mockGameService from '../__mocks__/mock-game-service';
 import renderer from 'react-test-renderer';
 import NewGame from '../src/game-details';
 

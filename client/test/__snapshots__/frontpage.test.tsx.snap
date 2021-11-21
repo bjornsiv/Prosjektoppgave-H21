@@ -2,67 +2,6 @@
 
 exports[`Game review component tests GameReview renders correctly with snapshot 1`] = `
 <div>
-  <div
-    className="card rounded"
-  >
-    <div
-      className="card-body"
-    >
-      <p
-        className="card-title"
-      >
-        GameRatings
-      </p>
-      <div
-        className="card-text"
-      >
-        <div
-          className="col-100"
-        >
-          <div
-            className="float-end"
-          >
-            <form
-              className="form-inline search-div"
-            >
-              <input
-                aria-label="Search"
-                className="form-control mr-sm-2 search-div"
-                onChange={[Function]}
-                placeholder="Search for games"
-                type="search"
-                value=""
-              />
-              <button
-                className="btn btn-dark my-2 my-sm-0"
-                onClick={[Function]}
-                type="submit"
-              >
-                Search
-              </button>
-            </form>
-          </div>
-        </div>
-        <div
-          className="col"
-        >
-          <div
-            className="float-end"
-          >
-            <a
-              aria-current={null}
-              className="nav-link"
-              href="#/newgame"
-              onClick={[Function]}
-            >
-              ADD GAME
-            </a>
-          </div>
-        </div>
-        Rate new and trending games - or your all time favorites!
-      </div>
-    </div>
-  </div>
   <div>
     <div
       className="card rounded"
@@ -82,42 +21,6 @@ exports[`Game review component tests GameReview renders correctly with snapshot 
           <div
             className="row"
           >
-            <div
-              className="col"
-            >
-              <div
-                className="float-start"
-              >
-                Game title
-              </div>
-            </div>
-            <div
-              className="col"
-            >
-              <div
-                className="float-start"
-              >
-                Description
-              </div>
-            </div>
-            <div
-              className="col"
-            >
-              <div
-                className="float-start"
-              >
-                Genre
-              </div>
-            </div>
-            <div
-              className="col"
-            >
-              <div
-                className="float-start"
-              >
-                Platform
-              </div>
-            </div>
             <div
               className="col-3"
             >

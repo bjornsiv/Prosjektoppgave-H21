@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import { Component } from 'react-simplified';
-import { Card, Row, Column, Button, Alert, StarRating, Form } from './widgets';
+import { Card, Row, Column, Button, Alert, Form, AutoColumn } from './widgets';
 import { createHashHistory } from 'history';
 import { Review, Game } from './db-types';
 import gameService from './game-service';
@@ -18,8 +18,8 @@ class GameDetails extends Component<{ match: { params: { id: number } } }> {
   title: String = this.game.title;
   stringDate: string = '';
   sortOptions: {name: string, value: string}[] = [];
-
-  state = { sortOrder: '1', sortKey: 'title'};
+  sortOrder:string = '1';
+  sortKey:string = 'title';
 
   compare = ( first: any, second: any ) => {
     if ( first < second ){
@@ -33,14 +33,16 @@ class GameDetails extends Component<{ match: { params: { id: number } } }> {
   sortReviews = () => {
     this.reviews.sort(
       (first: Review, second: Review) => {
-        return Number(this.state.sortOrder) * this.compare(first[this.state.sortKey], second[this.state.sortKey]);
+        // The following line uses dynamic typing to create a common comparison operator for strings, dates, and numbers. 
+        // Disable warning about [] operator not being appliccable to class.
+        // @ts-ignore: Ignore error for duck typing
+        return Number(this.sortOrder) * this.compare(first[this.sortKey], second[this.sortKey]);
       }
     );
   }
 
   render() {
     if (!this.game) return null;
-    this.sortReviews();
     return (
       <div>
         <Card title="Game details">
@@ -67,7 +69,7 @@ class GameDetails extends Component<{ match: { params: { id: number } } }> {
         </Card>
         <Card title="Average rating:">
           <Column>
-            <StarRating value={this.average} edit={false} size={26} />
+            <Form.StarRating edit={false} value={this.average} size={26} label="Average rating" onChange={undefined}/>
           </Column>
 
           <Column right={true}>
@@ -82,43 +84,45 @@ class GameDetails extends Component<{ match: { params: { id: number } } }> {
 
         <Card title="">
           <Row>
-            <Column  width={4} >
+            <Column>
               <p className="card-title">Game reviews</p>
             </Column>
-            <Column width={4} right={true}>
+            <AutoColumn right={true} >
                 <Form.Label>Order by:</Form.Label>
-            </Column>
-            <Column right={true}>
+            </AutoColumn>
+            <AutoColumn right={true}>
               <Form.SelectDropDown
-                value={this.state.sortKey}
+                value={this.sortKey}
                 valueList={this.sortOptions}
                 onChange={
                   (event) => {
-                    this.setState({sortKey: event.currentTarget.value});
+                    this.sortKey = event.currentTarget.value;
+                    this.sortReviews();
                   }
                 }
               />
-            </Column>
-            <Column right={true}>
+            </AutoColumn>
+            <AutoColumn right={true}>
               <Form.SelectDropDown
-                value={this.state.sortOrder}
+                value={this.sortOrder}
                 valueList={[{name: "Ascending", value: "1"}, {name: "Descending", value: "-1"}]}
                 onChange={
                   (event) => {
-                    this.setState({sortOrder:  event.currentTarget.value});
+                    this.sortOrder = event.currentTarget.value;
+                    this.sortReviews();
                   }
                 }
               />
-            </Column>
+            </AutoColumn>
           </Row>
           <Row>
             {this.reviews.map((review) => {
               return (
                 <Card title={review.title} key={review.id}>
                   <Row>
-                    <Row/>
-                    <Column>
-                      <StarRating edit={false} value={review.score} size={16} />
+                    <Column/>
+                    <Column right={true}>
+                      <Form.StarRating edit={false} label="Game rating" value={review.score} size={undefined} onChange={undefined}/>
                     </Column>
                   </Row>
                   <Row>{review.description}</Row>

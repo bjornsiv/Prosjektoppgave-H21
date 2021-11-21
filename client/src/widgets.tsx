@@ -6,6 +6,16 @@ import { NavLink } from 'react-router-dom';
 import rater from 'rater-js';
 import ReactDOM from 'react-dom';
 
+// TS Lint doesn't understand svgr syntax for importing svgs.
+// @ts-ignore: Ignore import error for svg file.
+import FullStar from '../public/star-fill.svg';
+// @ts-ignore: Ignore import error for svg file.
+import HalfStar from '../public/star-half.svg';
+// @ts-ignore: Ignore import error for svg file.
+import EmptyStar from '../public/star.svg';
+
+import PropTypes from 'prop-types';
+
 // Card - for å ramme inn innhold på nettsiden, kan sette tittel
 // Properties: title
 export class Card extends Component<{ title: ReactNode }> {
@@ -47,6 +57,15 @@ export class ColumnPadd extends Component<{ width?: number; right?: boolean }> {
             {this.props.children}
           </div>
         </div>
+      </div>
+    );
+  }
+}
+export class AutoColumn extends Component<{ right?: boolean }> {
+  render() {
+    return (
+      <div className={'col-md-auto'}>
+        <div className={'float-' + (this.props.right ? 'end' : 'start')}>{this.props.children}</div>
       </div>
     );
   }
@@ -129,6 +148,39 @@ class ButtonSecondary extends Component<{ onClick: () => void }> {
   }
 }
 
+class ButtonStar extends Component<{ value: number, title: string, size: number, hover: boolean, onClick: () => void }> {
+    
+  getIcon = () => {
+    if (this.props.value < 0.33){
+      return <EmptyStar className="star" fill="yellow" style={{fontSize: this.props.size}}/>;
+    }
+    else if (this.props.value < 0.66){
+      return <HalfStar className="star" fill="yellow" style={{fontSize: this.props.size}}/>;
+    }
+    else {
+      return <FullStar className="star" fill="yellow" style={{fontSize: this.props.size}}/>;
+    }
+  }
+
+  getStyle = () : React.CSSProperties => {
+    return this.props.hover ? {backgroundColor: 'transparent', borderColor: 'transparent'} : {backgroundColor: 'transparent', borderColor: 'transparent', cursor: 'pointer', pointerEvents: 'none'};
+  }
+
+  render() {
+    return (
+      <button 
+        type="button" 
+        className="star-btn btn btn-outline-secondary" 
+        onClick={this.props.onClick} 
+        title={this.props.title}
+        style={this.getStyle()}
+      >
+        { this.getIcon() }
+      </button>
+    );
+  }
+}
+
 export class Button {
   static Dark = ButtonDark;
   static Success = ButtonSuccess;
@@ -136,6 +188,7 @@ export class Button {
   static Light = ButtonLight;
   static Info = ButtonInfo;
   static Secondary = ButtonSecondary;
+  static Star = ButtonStar;
 }
 
 // Navigation bar link (properties: to)
@@ -323,6 +376,38 @@ class FormSelectDropdown extends Component<{
   }
 }
 
+class FormStarRating extends Component<{
+  value: number;
+  label: string;
+  edit: boolean;
+  size: number | undefined;
+
+  onChange:  ((currentTarget: FormStarRating, value: number) => void) | undefined;
+  [prop: string]: any;
+}> {
+
+  render() {
+    const { value, label, edit, size, onChange, ...rest } = this.props;
+    return (
+      <div className="custom-star-rating btn-group" role="group" aria-label={label} style={{width: "100%", height: "100%", backgroundSize: "100%"}}>
+        {[...Array(5)].map((star, index) => {
+          index += 1;
+          return (
+            <Button.Star 
+              key={index}
+              value={value - index + 1}
+              title={value.toString()}
+              onClick={() => onChange ? onChange(this, index) : () => {}}
+              hover={edit}
+              size={size ? size : 16}
+            />
+          );
+        })}
+      </div>
+    );
+  };
+}
+
 export class Form {
   static Label = FormLabel; // = From.Label osv.
   static Input = FormInput;
@@ -332,6 +417,7 @@ export class Form {
   static NumberInput = FormNumberInput;
   static Date = FormDate;
   static SelectDropDown = FormSelectDropdown;
+  static StarRating = FormStarRating;
 }
 
 // Alert messages - beskjeder på nettsiden
@@ -507,49 +593,6 @@ export class SignIn extends Component {
         </a>
       </div>
     );
-  }
-}
-
-// Rating stjerner 1-5 med rater-js: https://www.npmjs.com/package/rater-js
-
-export class StarRating extends Component<{
-  value: number;
-  edit: boolean;
-  size: number | undefined;
-  onChange?: (element: StarRating, value: number) => void;
-}> {
-  rating: Rater | null = null;
-
-  
-  onChange(value: number, done?: (() => any) | undefined) {
-    if (this.props.onChange) {
-      this.props.onChange(this, value);
-    }
-    if (done) {
-      done();
-    }
-    this.mounted();
-    console.log(value);
-  }
-
-  mounted() {
-    const element = ReactDOM.findDOMNode(this);
-
-    if (element instanceof HTMLElement && !isNaN(this.props.value)) {
-      this.rating = rater({
-        element: element,
-        rateCallback: this.props.onChange ? this.onChange : undefined,
-        readOnly: !this.props.edit,
-        step: 0.1,
-        starSize: this.props.size,
-      });
-
-      this.rating.setRating(Math.round((this.props.value * 10) / 10));
-    }
-  }
-
-  render() {
-    return <div />;
   }
 }
 

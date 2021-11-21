@@ -32,7 +32,7 @@ jobs:
 
       env: 
         # Configure server/src/mysql-pool.ts
-        MYSQL_HOST: localhost
+        MYSQL_HOST: 127.0.0.1
         MYSQL_USER: test
         MYSQL_PASSWORD: test_pw
         MYSQL_DATABASE: games_website_test
@@ -47,7 +47,7 @@ jobs:
             MYSQL_DATABASE: $MYSQL_DATABASE
             MYSQL_ROOT_PASSWORD: $MYSQL_PASSWORD
           ports:
-            - 3306:3306
+            - 3306
           options: >-
             --health-cmd="mysqladmin ping" 
             --health-interval=10s 
@@ -68,7 +68,7 @@ jobs:
 
         - name: server-test
           run: |
-            mysql -h 127.0.0.1 -u$MYSQL_USER -p$MYSQL_PASSWORD  $MYSQL_DATABASE < .github/workflows/db_structure.sql
+            mysql -h=127.0.0.1 --port=${{ job.services.mysql.ports[3306] }} -u$MYSQL_USER --password=$MYSQL_PASSWORD  $MYSQL_DATABASE < .github/workflows/db_structure.sql
             cd server
             touch test/config.ts
             npm install

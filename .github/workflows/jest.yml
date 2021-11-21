@@ -33,26 +33,26 @@ jobs:
       env: 
         # Configure server/src/mysql-pool.ts
         MYSQL_HOST: 127.0.0.1
-        MYSQL_USER: test
-        MYSQL_PASSWORD: test_pw
+        MYSQL_USER: root
+        MYSQL_PASSWORD: root
         MYSQL_DATABASE: games_website_test
       
       # Container to run SQL service for tests
-      services:
-        mysql:
-          image: mysql:latest
-          env:
-            MYSQL_USER: $MYSQL_USER
-            MYSQL_PASSWORD: $MYSQL_PASSWORD
-            MYSQL_DATABASE: $MYSQL_DATABASE
-            MYSQL_ROOT_PASSWORD: $MYSQL_PASSWORD
-          ports:
-            - 3306
-          options: >-
-            --health-cmd="mysqladmin ping" 
-            --health-interval=10s 
-            --health-timeout=5s 
-            --health-retries=3
+      #services:
+      #  mysql:
+      #    image: mysql:latest
+      #    env:
+      #      MYSQL_USER: $MYSQL_USER
+      #      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      #      MYSQL_DATABASE: $MYSQL_DATABASE
+      #      MYSQL_ROOT_PASSWORD: $MYSQL_PASSWORD
+      #    ports:
+      #      - 3306
+      #    options: >-
+      #      --health-cmd="mysqladmin ping" 
+      #      --health-interval=10s 
+      #      --health-timeout=5s 
+      #      --health-retries=3
 
       strategy:
         matrix:
@@ -69,7 +69,9 @@ jobs:
         - name: server-test
           run: |
             echo "Setting up database"
-            mysql -h127.0.0.1 --port=${{ job.services.mysql.ports[3306] }} -u$MYSQL_USER --password=$MYSQL_PASSWORD --verbose $MYSQL_DATABASE < .github/workflows/db_structure.sql
+            sudo /etc/init.d/mysql start
+            mysql -e 'CREATE DATABASE ${{ env.MYSQL_DATABASE }};' -u${{ env.MYSQL_USER }} -p${{ env.MYSQL_PASSWORD }}
+            mysql -u${{ env.MYSQL_USER }} -p${{ env.MYSQL_PASSWORD }} --verbose ${{ env.MYSQL_DATABASE }} < .github/workflows/db_structure.sql
             echo "Database setup done"
             cd server
             touch test/config.ts

@@ -1,5 +1,5 @@
 import pool from './mysql-pool';
-import {Game} from './db-types';
+import { Game } from './db-types';
 
 /*
   Definer klasser for tabeller i database (spill og review) - Done
@@ -16,61 +16,61 @@ import {Game} from './db-types';
 
 class GameService {
   get(id: number) {
-    return new Promise<Game| undefined>((resolve, reject) => {
+    return new Promise<Game | undefined>((resolve, reject) => {
       pool.query('SELECT * FROM games WHERE id = ?', [id], (error, results) => {
         if (error) return reject(error);
-        if (results[0] == undefined)
-        {
+        if (results[0] == undefined) {
           return resolve(undefined);
         }
 
         resolve(new Game(results[0]));
       });
     });
-  } 
+  }
 
   getAll() {
     return new Promise<Game[]>((resolve, reject) => {
       pool.query('SELECT * FROM games', (error, results) => {
         if (error) return reject(error);
 
-        resolve(results.map((game: any) => { return new Game(game) }));
+        resolve(
+          results.map((game: any) => {
+            return new Game(game);
+          })
+        );
       });
     });
-
-  }
-  
-  getGenres(){
-    return new Promise<string[]>((resolve, reject) => {
-      pool.query(
-        "SELECT column_type FROM information_schema.COLUMNS WHERE TABLE_NAME = 'games' AND COLUMN_NAME = 'genre';",
-        (error, results) => {
-          if(error) return reject(error);
-          
-          resolve(results[0].column_type.match(/'([^\']*)'/g).map((s: String) => s.replace(/'/g, "")));
-        })
-    })
-  }
-  
-  getPlatforms(){
-    return new Promise<string[]>((resolve, reject) => {
-      pool.query(
-        "SELECT column_type FROM information_schema.COLUMNS WHERE TABLE_NAME = 'games' AND COLUMN_NAME = 'platform';",
-        (error, results) => {
-          if(error) return reject(error);
-          
-          resolve(results[0].column_type.match(/'([^\']*)'/g).map((s: String) => s.replace(/'/g, "")));
-        })
-    })
   }
 
-  search(query: string, order_by: string){ //order by kan sikert brueks her. "Gratis" søkerfunksjon
+  getGenres() {
+    return new Promise<string[]>((resolve, reject) => {
+      pool.query("SHOW COLUMNS FROM games LIKE 'genre';", (error, results) => {
+        if (error) return reject(error);
+
+        resolve(results[0].Type.match(/'([^\']*)'/g).map((s: String) => s.replace(/'/g, '')));
+      });
+    });
+  }
+
+  getPlatforms() {
+    return new Promise<string[]>((resolve, reject) => {
+      pool.query("SHOW COLUMNS FROM games LIKE 'platform';", (error, results) => {
+        if (error) return reject(error);
+
+        resolve(results[0].Type.match(/'([^\']*)'/g).map((s: String) => s.replace(/'/g, '')));
+      });
+    });
+  }
+
+  search(query: string, order_by: string) {
+    //order by kan sikert brueks her. "Gratis" søkerfunksjon
     return new Promise<Game[]>((resolve, reject) => {
       query = `%${query}%`;
-      pool.query('SELECT * FROM games WHERE title LIKE ? OR description LIKE ? OR platform LIKE ? OR genre LIKE ? ORDER BY ?', 
-        [query, query, query, query, order_by], 
+      pool.query(
+        'SELECT * FROM games WHERE title LIKE ? OR description LIKE ? OR platform LIKE ? OR genre LIKE ? ORDER BY ?',
+        [query, query, query, query, order_by],
         (error, results) => {
-          if(error) return reject(error);
+          if (error) return reject(error);
 
           resolve(results);
         }
@@ -118,12 +118,7 @@ class GameService {
   }
 }
 
-
-//Dersom flere sevices, må huske å legge dem til her også. 
-//Se på å splitte i flere filer. Feks: en per service. 
+//Dersom flere sevices, må huske å legge dem til her også.
+//Se på å splitte i flere filer. Feks: en per service.
 const gameService = new GameService();
 export default gameService;
-
-
-
-

@@ -11,33 +11,11 @@ exports[`Game details component tests GameDetails renders correctly with snapsho
       <p
         className="card-title"
       >
-        Game details
+        
       </p>
       <div
         className="card-text"
       >
-        <div
-          className="row"
-        >
-          <div
-            className="col-2"
-          >
-            <div
-              className="float-start"
-            >
-              Game title:
-            </div>
-          </div>
-          <div
-            className="col"
-          >
-            <div
-              className="float-start"
-            >
-              
-            </div>
-          </div>
-        </div>
         <div
           className="row"
         >
@@ -56,7 +34,7 @@ exports[`Game details component tests GameDetails renders correctly with snapsho
             <div
               className="float-start"
             >
-              2.10.1985
+              
             </div>
           </div>
         </div>
@@ -149,14 +127,181 @@ exports[`Game details component tests GameDetails renders correctly with snapsho
           <div
             className="float-start"
           >
-            <div />
+            <div
+              aria-label="Average rating"
+              className="custom-star-rating btn-group"
+              role="group"
+              style={
+                Object {
+                  "backgroundSize": "100%",
+                  "height": "100%",
+                  "width": "100%",
+                }
+              }
+            >
+              <button
+                className="star-btn btn btn-outline-secondary"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderColor": "transparent",
+                    "cursor": "pointer",
+                    "pointerEvents": "none",
+                  }
+                }
+                title="0"
+                type="button"
+              >
+                <svg
+                  className="star"
+                  fill="yellow"
+                  height="16"
+                  style={
+                    Object {
+                      "fontSize": 26,
+                    }
+                  }
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"
+                  />
+                </svg>
+              </button>
+              <button
+                className="star-btn btn btn-outline-secondary"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderColor": "transparent",
+                    "cursor": "pointer",
+                    "pointerEvents": "none",
+                  }
+                }
+                title="0"
+                type="button"
+              >
+                <svg
+                  className="star"
+                  fill="yellow"
+                  height="16"
+                  style={
+                    Object {
+                      "fontSize": 26,
+                    }
+                  }
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"
+                  />
+                </svg>
+              </button>
+              <button
+                className="star-btn btn btn-outline-secondary"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderColor": "transparent",
+                    "cursor": "pointer",
+                    "pointerEvents": "none",
+                  }
+                }
+                title="0"
+                type="button"
+              >
+                <svg
+                  className="star"
+                  fill="yellow"
+                  height="16"
+                  style={
+                    Object {
+                      "fontSize": 26,
+                    }
+                  }
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"
+                  />
+                </svg>
+              </button>
+              <button
+                className="star-btn btn btn-outline-secondary"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderColor": "transparent",
+                    "cursor": "pointer",
+                    "pointerEvents": "none",
+                  }
+                }
+                title="0"
+                type="button"
+              >
+                <svg
+                  className="star"
+                  fill="yellow"
+                  height="16"
+                  style={
+                    Object {
+                      "fontSize": 26,
+                    }
+                  }
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"
+                  />
+                </svg>
+              </button>
+              <button
+                className="star-btn btn btn-outline-secondary"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderColor": "transparent",
+                    "cursor": "pointer",
+                    "pointerEvents": "none",
+                  }
+                }
+                title="0"
+                type="button"
+              >
+                <svg
+                  className="star"
+                  fill="yellow"
+                  height="16"
+                  style={
+                    Object {
+                      "fontSize": 26,
+                    }
+                  }
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
         <div
           className="col"
         >
           <div
-            className="float-start"
+            className="float-end"
           >
             <button
               className="btn btn-dark button-darker"
@@ -164,6 +309,13 @@ exports[`Game details component tests GameDetails renders correctly with snapsho
               type="button"
             >
               Add review
+            </button>
+            <button
+              className="btn btn-dark button-darker"
+              onClick={[Function]}
+              type="button"
+            >
+              Edit game
             </button>
           </div>
         </div>
@@ -179,11 +331,121 @@ exports[`Game details component tests GameDetails renders correctly with snapsho
       <p
         className="card-title"
       >
-        Game reviews
+        
       </p>
       <div
         className="card-text"
-      />
+      >
+        <div
+          className="row"
+        >
+          <div
+            className="col"
+          >
+            <div
+              className="float-start"
+            >
+              <p
+                className="card-title"
+              >
+                Game reviews
+              </p>
+            </div>
+          </div>
+          <div
+            className="col-md-auto"
+          >
+            <div
+              className="float-end"
+            >
+              <span>
+                <label
+                  className="form col-form-label form-display"
+                >
+                  Order by:
+                </label>
+              </span>
+            </div>
+          </div>
+          <div
+            className="col-md-auto"
+          >
+            <div
+              className="float-end"
+            >
+              <div>
+                <select
+                  className="form-select"
+                  onChange={[Function]}
+                  value="title"
+                >
+                  <option
+                    className="dropdown-item"
+                    value="evaluation"
+                  >
+                    Most useful
+                  </option>
+                  <option
+                    className="dropdown-item"
+                    value="title"
+                  >
+                    Title
+                  </option>
+                  <option
+                    className="dropdown-item"
+                    value="description"
+                  >
+                    Description
+                  </option>
+                  <option
+                    className="dropdown-item"
+                    value="score"
+                  >
+                    Score
+                  </option>
+                  <option
+                    className="dropdown-item"
+                    value="created_at"
+                  >
+                    Created at
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-auto"
+          >
+            <div
+              className="float-end"
+            >
+              <div>
+                <select
+                  className="form-select"
+                  onChange={[Function]}
+                  value="1"
+                >
+                  <option
+                    className="dropdown-item"
+                    value="1"
+                  >
+                    Ascending
+                  </option>
+                  <option
+                    className="dropdown-item"
+                    value="-1"
+                  >
+                    Descending
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="row"
+        />
+      </div>
     </div>
   </div>
 </div>

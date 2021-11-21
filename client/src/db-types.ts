@@ -9,14 +9,24 @@ export class Game {
   genre: string;
   platform: string;
 
-  constructor(source: any)
+  constructor(source?: any)
   {
-    this.id = source.id;
-    this.title = source.title;
-    this.description = source.description;
-    this.release_date = new Date(source.release_date);
-    this.genre = source.genre;
-    this.platform = source.platform;
+    if (source) {
+      this.id = source.id;
+      this.title = source.title;
+      this.description = source.description;
+      this.release_date = new Date(source.release_date);
+      this.genre = source.genre;
+      this.platform = source.platform;
+    }
+    else {
+      this.id = 0;
+      this.title = "";
+      this.description = "";
+      this.release_date = new Date();
+      this.genre = "";
+      this.platform = "";
+    }
   }
 }
 
@@ -29,15 +39,26 @@ export class Review {
   score: number;
   created_at: Date;
 
-  constructor(source: any)
+  constructor(source?: any)
   {
-    this.id = source.id;
-    this.game_id = source.game_id;
-    this.user_id = source.user_id;
-    this.title = source.title;
-    this.description = source.description;
-    this.score = source.score;
-    this.created_at = new Date(source.created_at);
+    if (source) {
+      this.id = source.id;
+      this.game_id = source.game_id;
+      this.user_id = source.user_id;
+      this.title = source.title;
+      this.description = source.description;
+      this.score = source.score;
+      this.created_at = new Date(source.created_at);
+    }
+    else {
+      this.id = 0;
+      this.game_id = 0;
+      this.user_id = 0;
+      this.title = "";
+      this.description = "";
+      this.score = 0;
+      this.created_at = new Date();
+    }
   }
 }
 

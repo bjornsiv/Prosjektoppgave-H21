@@ -52,14 +52,15 @@ export default class GameReview extends Component<{ match: { params: { id: numbe
                 </Column>
               </Row>
               <Row>
-                <Column width={2}>score:</Column>
+                <Column width={2}>Score:</Column>
                 <Column>
-                  <Form.NumberInput
+                  <Form.StarRating
                     value={this.review.score}
-                    min={0}
-                    max={5}
-                    onChange={(event) => {
-                      this.review.score = Number(event.currentTarget.value);
+                    edit={true}
+                    label="Game rating"
+                    size={28}
+                    onChange={(event, value) => {
+                      this.review.score = value;
                     }}
                   />
                 </Column> 
@@ -79,7 +80,7 @@ export default class GameReview extends Component<{ match: { params: { id: numbe
                       })}
                   }
                 >
-                  Save
+                  Publish
                 </Button.Dark>
               </Column>
             </Row>

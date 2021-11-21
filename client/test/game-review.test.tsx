@@ -1,8 +1,8 @@
 import * as React from 'react';
-import mockReviewService from './mock-review-service';
-import mockGameService from './mock-game-service';
+import mockReviewService from '../__mocks__/mock-review-service';
+import mockGameService from '../__mocks__/mock-game-service';
 import renderer from 'react-test-renderer';
-import GameReview from '../src/game-review';
+import GameReview from '../src/new-review';
 
 jest.mock('../src/game-service', () => {
   return new mockGameService();

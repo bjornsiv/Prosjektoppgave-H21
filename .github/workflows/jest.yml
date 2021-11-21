@@ -38,15 +38,21 @@ jobs:
         MYSQL_DATABASE: games_website_test
       
       # Container to run SQL service for tests
-      # services:
-      #   mysql:
-      #     image: mysql
-      #     env:
-      #       MYSQL_USER: $MYSQL_USER
-      #       MYSQL_PASSWORD: $MYSQL_PASSWORD
-      #       MYSQL_DATABASE: $MYSQL_DATABASE
-      #     ports:
-      #       - 3306:3306
+      #services:
+      #  mysql:
+      #    image: mysql:latest
+      #    env:
+      #      MYSQL_USER: $MYSQL_USER
+      #      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      #      MYSQL_DATABASE: $MYSQL_DATABASE
+      #      MYSQL_ROOT_PASSWORD: $MYSQL_PASSWORD
+      #    ports:
+      #      - 3306
+      #    options: >-
+      #      --health-cmd="mysqladmin ping" 
+      #      --health-interval=10s 
+      #      --health-timeout=5s 
+      #      --health-retries=3
 
       strategy:
         matrix:
@@ -62,12 +68,18 @@ jobs:
 
         - name: server-test
           run: |
-            sudo systemctl start mysql
-            echo "UPDATE user SET authentication_string=password('$MYSQL_PASSWORD'), plugin='mysql_native_password' WHERE user='$MYSQL_USER';" | mysql mysql -u$MYSQL_USER -p$MYSQL_PASSWORD
-            mysql $MYSQL_DATABASE < .github/workflows/db_structure.sql
+            sudo /etc/init.d/mysql start
+            mysql -e 'CREATE DATABASE ${{ env.MYSQL_DATABASE }};' -u${{ env.MYSQL_USER }} -p${{ env.MYSQL_PASSWORD }}
+            echo "Database created"
+            mysql -e 'SHOW DATABASES;' -u${{ env.MYSQL_USER }} -p${{ env.MYSQL_PASSWORD }}
+            echo "Databases listed"
+            mysql -u${{ env.MYSQL_USER }} -p${{ env.MYSQL_PASSWORD }} --verbose ${{ env.MYSQL_DATABASE }} < .github/workflows/db_structure.sql
+            echo "Database structure applied"
+            echo "Database setup done"
             cd server
             touch test/config.ts
             npm install
             npm run-script test
           
-    
+    #mysql -e 'ALTER USER '${{ env.MYSQL_USER }}'@'${{ env.MYSQL_HOST }}' IDENTIFIED WITH mysql_native_password BY '${{ env.MYSQL_PASSWORD }}';' -u${{ env.MYSQL_USER }} -p${{ env.MYSQL_PASSWORD }}
+            

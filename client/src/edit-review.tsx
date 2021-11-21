@@ -8,19 +8,38 @@ import { Review } from './db-types';
 const history = createHashHistory();
 
 class EditReview extends Component<{ match: { params: { id: number } } }> {
-   
-    constructor(props: any)
+  review: Review = new Review(
     {
-      super(props);
-      this.state = {id: 0,
-          game_id: 0,
-          user_id: 1,
-          title: 'title',
-          description: 'description',
-          score: 0,
-          created_at: new Date()};
+      id: 0,
+      game_id: 0,
+      user_id: 1,
+      title: 'title',
+      description: 'description',
+      score: 0,
+      created_at: new Date()
     }
+  );
+  //  constructor(props: any)
+  //  {
+  //    super(props);
+  //    this.state = {
+  //      review: 
+  //        new Review(
+  //          {
+  //            id: 0,
+  //            game_id: 0,
+  //            user_id: 1,
+  //            title: 'title',
+  //            description: 'description',
+  //            score: 0,
+  //            created_at: new Date()
+  //          }
+  //        )
+  //      };
+  //  }
   
+    nextGameId: number = 0;
+
     render() {
         return (
             <>
@@ -32,8 +51,9 @@ class EditReview extends Component<{ match: { params: { id: number } } }> {
                 <Column>
                   <Form.Input
                     type="text"
-                    value={this.state.title}
-                    onChange={(event) => this.setState({title: event.currentTarget.value})}
+                    placeholder="Add title"
+                    value={this.review.title}
+                    onChange={(event) => this.review.title = event.currentTarget.value}
                   />
                 </Column>
               </Row>
@@ -43,53 +63,75 @@ class EditReview extends Component<{ match: { params: { id: number } } }> {
                 </Column>
                 <Column>
                   <Form.Textarea
-                    value={this.state.description}
-                    onChange={(event) => this.setState({description: event.currentTarget.value})}
+                    value={this.review.description}
+                    onChange={(event) => this.review.description = event.currentTarget.value}
                     rows={10}
                   />
                 </Column>
               </Row>
               <Row>
-                <Column width={2}>score:</Column>
                 <Column>
-                  <Form.NumberInput
-                    value={this.state.score}
-                    min={0}
-                    max={5}
-                    onChange={(event) => this.setState({score: event.currentTarget.value})}
+                  <Form.StarRating
+                    value={this.review.score}
+                    edit={true}
+                    label="Game rating"
+                    size={28}
+                    onChange={(event, value) => {
+                      this.review.score = value;
+                    }}
                   />
                 </Column> 
               </Row>
-            </Card>
-            <Row>
+              </Card>
               <Column>
-                <Button.Dark
-                  onClick={() =>{
-                    if(this.state.score > 5){
-                      Alert.info('Pick a Score between 0-5')
+                    <Button.Dark 
+                        onClick={() => {   
+                          if(this.review.score > 5){
+                            Alert.info('Score must be between 0-5')
+                          }                
+                            reviewService
+                            .update(this.review)
+                            .then(() => {
+                                history.push('/gamedetails/' + this.nextGameId);
+                            }).catch((error) => Alert.danger('Error ' + error.message))
+                        }
+                      }
+                        >
+                    Add changes
+                    </Button.Dark >
+                    <Button.Danger
+                        onClick={() => {
+                            reviewService
+                            .delete(this.props.match.params.id)
+                            .then(() => {
+                                history.push('/gamedetails/' + this.nextGameId);
+                            }).catch((error) => Alert.danger('Error ' + error.message))
+                        }
                     }
-                    reviewService
-                      .update(new Review(this.state))
-                      .then(() => {
-                        history.push('/gamedetails/' + this.state.game_id);
-                      })}
-                  }
-                >
-                  Save
-                </Button.Dark>
-              </Column>
-            </Row>
-          </>
+                    >
+                        Delete review
+                    </Button.Danger>
+                </Column>
             
-
+          </>
         );
     }
     mounted(){
       reviewService.get(this.props.match.params.id)
-        .then((review) => this.setState(review))
+        .then((review) => {
+          this.review = review
+          this.nextGameId = this.review.game_id;
+        })
+        
         .catch((error) => Alert.danger('Error getting review: ' + error.message))
+        
     }
       
 }
 
 export default EditReview;
+
+
+/*
+
+*/

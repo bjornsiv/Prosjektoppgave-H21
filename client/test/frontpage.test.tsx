@@ -1,6 +1,6 @@
 import * as React from 'react';
-import mockReviewService from './mock-review-service';
-import mockGameService from './mock-game-service';
+import mockReviewService from '../__mocks__/mock-review-service';
+import mockGameService from '../__mocks__/mock-game-service';
 import renderer from 'react-test-renderer';
 import FrontPage from '../src/frontpage';
 import { HashRouter } from 'react-router-dom';

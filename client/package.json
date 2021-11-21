@@ -22,7 +22,10 @@
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ],
-    "collectCoverage": true
+    "collectCoverage": true,
+    "moduleNameMapper": {
+      "\\.svg": "../__mocks__/mock-svgr.js"
+    }
   },
   "browserslist": [
     "last 1 chrome version",
@@ -43,6 +46,7 @@
     "@babel/preset-env": "^7.15.0",
     "@babel/preset-react": "^7.14.5",
     "@babel/preset-typescript": "^7.15.0",
+    "@svgr/webpack": "^5.5.0",
     "@types/enzyme": "^3.10.9",
     "@types/jest": "^27.0.0",
     "@types/react-dom": "^17.0.11",
@@ -51,6 +55,7 @@
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "babel-jest": "^27.0.6",
     "babel-loader": "^8.2.2",
+    "babel-plugin-inline-react-svg": "^2.0.1",
     "enzyme": "^3.11.0",
     "enzyme-to-json": "^3.6.2",
     "file-loader": "^6.2.0",

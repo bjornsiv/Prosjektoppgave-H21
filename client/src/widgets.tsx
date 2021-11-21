@@ -5,6 +5,17 @@ import { NavLink } from 'react-router-dom';
 import rater from 'rater-js';
 import ReactDOM from 'react-dom';
 
+// TS Lint doesn't understand svgr syntax for importing svgs.
+// @ts-ignore: Ignore import error for svg file.
+import FullStar from '../public/star-fill.svg';
+// @ts-ignore: Ignore import error for svg file.
+import HalfStar from '../public/star-half.svg';
+// @ts-ignore: Ignore import error for svg file.
+import EmptyStar from '../public/star.svg';
+// @ts-ignore: Ignore import error for svg file.
+import ThumbsUpFilled from '../public/hand-thumbs-up-fill.svg';
+// @ts-ignore: Ignore import error for svg file.
+import ThumbsUpEmpty from '../public/hand-thumbs-up.svg';
 
 // Card - for å ramme inn innhold på nettsiden, kan sette tittel
 // Properties: title
@@ -47,6 +58,15 @@ export class ColumnPadd extends Component<{ width?: number; right?: boolean }> {
             {this.props.children}
           </div>
         </div>
+      </div>
+    );
+  }
+}
+export class AutoColumn extends Component<{ right?: boolean }> {
+  render() {
+    return (
+      <div className={'col-md-auto'}>
+        <div className={'float-' + (this.props.right ? 'end' : 'start')}>{this.props.children}</div>
       </div>
     );
   }
@@ -129,6 +149,75 @@ class ButtonSecondary extends Component<{ onClick: () => void }> {
   }
 }
 
+class ButtonStar extends Component<{ value: number, title: string, size: number, hover: boolean, onClick: () => void }> {
+    
+  getIcon = () => {
+    if (this.props.value < 0.33){
+      return <EmptyStar className="star" fill="yellow" style={{fontSize: this.props.size}}/>;
+    }
+    else if (this.props.value < 0.66){
+      return <HalfStar className="star" fill="yellow" style={{fontSize: this.props.size}}/>;
+    }
+    else {
+      return <FullStar className="star" fill="yellow" style={{fontSize: this.props.size}}/>;
+    }
+  }
+
+  getStyle = () : React.CSSProperties => {
+    return this.props.hover ? 
+      {borderColor: 'transparent'} : 
+      {backgroundColor: 'transparent', borderColor: 'transparent', cursor: 'pointer', pointerEvents: 'none'};
+  }
+
+  render() {
+    return (
+      <button 
+        type="button" 
+        className="star-btn btn btn-outline-secondary" 
+        onClick={this.props.onClick} 
+        title={this.props.title}
+        style={this.getStyle()}
+      >
+        { this.getIcon() }
+      </button>
+    );
+  }
+}
+
+class ButtonThumbsUp extends Component<{ size: number, onClick: () => void }> {
+  render() {
+    return (
+      <button 
+        type="button" 
+        className="thumbs-btn btn btn-outline-secondary" 
+        onClick={this.props.onClick} 
+        style={{backgroundColor: 'transparent', borderColor: 'transparent'}}
+      >
+        { 
+          <ThumbsUpFilled className="thumbs-up" fill="green" style={{fontSize: this.props.size}}/>
+        }
+      </button>
+    );
+  }
+}
+
+class ButtonThumbsDown extends Component<{size: number, onClick: () => void }> {
+  render() {
+    return (
+      <button 
+        type="button" 
+        className="thumbs-btn btn btn-outline-secondary" 
+        onClick={this.props.onClick} 
+        style={{backgroundColor: 'transparent', borderColor: 'transparent'}}
+      >
+        { 
+          <ThumbsUpFilled className="thumbs-up" fill="green" style={{fontSize: this.props.size, transform: "rotate(180deg)"}}/>
+        }
+      </button>
+    );
+  }
+}
+
 export class Button {
   static Dark = ButtonDark;
   static Success = ButtonSuccess;
@@ -136,6 +225,9 @@ export class Button {
   static Light = ButtonLight;
   static Info = ButtonInfo;
   static Secondary = ButtonSecondary;
+  static Star = ButtonStar;
+  static ThumbsUp = ButtonThumbsUp;
+  static ThumbsDown = ButtonThumbsDown;
 }
 
 // Navigation bar link (properties: to)
@@ -299,7 +391,7 @@ class FormDate extends Component<{
 }
 
 class FormSelectDropdown extends Component<{
-  valueList: string[];
+  valueList: { name: string, value: string }[];
   value: string;
 
   onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
@@ -312,8 +404,8 @@ class FormSelectDropdown extends Component<{
         <select className="form-select" value={value} onChange={onChange} {...rest}>
           {valueList.map((option) => {
             return (
-              <option key={option} className="dropdown-item" value={option}>
-                {option}
+              <option key={option.value} className="dropdown-item" value={option.value}>
+                {option.name}
               </option>
             );
           })}
@@ -321,6 +413,66 @@ class FormSelectDropdown extends Component<{
       </div>
     );
   }
+}
+
+class FormStarRating extends Component<{
+  value: number;
+  label: string;
+  edit: boolean;
+  size: number | undefined;
+
+  onChange:  ((currentTarget: FormStarRating, value: number) => void) | undefined;
+  [prop: string]: any;
+}> {
+
+  render() {
+    const { value, label, edit, size, onChange, ...rest } = this.props;
+    return (
+      <div className="custom-star-rating btn-group" role="group" aria-label={label} style={{width: "100%", height: "100%", backgroundSize: "100%"}}>
+        {[...Array(5)].map((star, index) => {
+          index += 1;
+          return (
+            <Button.Star 
+              key={index}
+              value={value - index + 1}
+              title={value.toString()}
+              onClick={() => onChange ? onChange(this, index) : () => {}}
+              hover={edit}
+              size={size ? size : 16}
+            />
+          );
+        })}
+      </div>
+    );
+  };
+}
+
+class FormEvalButtons extends Component<{
+  value: number;
+  label: string;
+  size: number | undefined;
+
+  onClickUp:   (() => void) | undefined;
+  onClickDown: (() => void) | undefined;
+  [prop: string]: any;
+}> {
+
+  render() {
+    const { value, label, edit, size, onChange, ...rest } = this.props;
+    return (
+      <div className="btn-group" role="group" aria-label={this.props.label} style={{width: "100%", height: "100%", backgroundSize: "100%", fontSize: this.props.size}}>
+        <Button.ThumbsDown
+          size={this.props.size ? this.props.size : 16}
+          onClick={this.props.onClickDown ? this.props.onClickDown : () => {}}
+        />
+        <Button.ThumbsUp
+          size={this.props.size ? this.props.size : 16}
+          onClick={this.props.onClickUp ? this.props.onClickUp : () => {}}
+        />
+        <Form.Label>+ {value}</Form.Label>
+      </div>
+    );
+  };
 }
 
 export class Form {
@@ -331,7 +483,9 @@ export class Form {
   static Select = FormSelect;
   static NumberInput = FormNumberInput;
   static Date = FormDate;
-  static Genra = FormSelectDropdown;
+  static SelectDropDown = FormSelectDropdown;
+  static StarRating = FormStarRating;
+  static EvalButtons = FormEvalButtons;
 }
 
 // Alert messages - beskjeder på nettsiden
@@ -479,48 +633,6 @@ export class SignIn extends Component {
     );
   }
 }
-
-
-// Rating stjerner 1-5 med rater-js, hentet fra: https://www.npmjs.com/package/rater-js
-export class StarRating extends Component<{
-  value: number;
-  edit: boolean;
-  size: number | undefined;
-  onChange?: (element: StarRating, value: number) => void;
-}> {
-  rating: Rater | null = null;
-
-  onChange(value: number, done?: (() => any) | undefined) {
-    if (this.props.onChange) {
-      this.props.onChange(this, value);
-    }
-    if (done) {
-      done();
-    }
-    console.log(value);
-  }
-
-  mounted() {
-    const element = ReactDOM.findDOMNode(this);
-
-    if (element instanceof HTMLElement && !isNaN(this.props.value)) {
-      this.rating = rater({
-        element: element,
-        rateCallback: this.props.onChange ? this.onChange : undefined,
-        readOnly: !this.props.edit,
-        step: 0.1,
-        starSize: this.props.size,
-      });
-
-      this.rating.setRating(Math.round((this.props.value * 10) / 10));
-    }
-  }
-
-  render() {
-    return <div />;
-  }
-}
-
 
 /*
 // Image - bilder av spill o.l. Vi ble aldri ferdige med denne, men lar den likevel stå 

@@ -20,6 +20,7 @@ class ReviewEvalService {
             if (has_evaluted)
             {
               reject("User has already evaluated this review.");
+              return;
             }
 
             pool.query(

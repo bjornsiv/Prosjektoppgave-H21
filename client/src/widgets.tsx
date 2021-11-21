@@ -13,8 +13,11 @@ import FullStar from '../public/star-fill.svg';
 import HalfStar from '../public/star-half.svg';
 // @ts-ignore: Ignore import error for svg file.
 import EmptyStar from '../public/star.svg';
+// @ts-ignore: Ignore import error for svg file.
+import ThumbsUpFilled from '../public/hand-thumbs-up-fill.svg';
+// @ts-ignore: Ignore import error for svg file.
+import ThumbsUpEmpty from '../public/hand-thumbs-up.svg';
 
-import PropTypes from 'prop-types';
 
 // Card - for å ramme inn innhold på nettsiden, kan sette tittel
 // Properties: title
@@ -163,7 +166,9 @@ class ButtonStar extends Component<{ value: number, title: string, size: number,
   }
 
   getStyle = () : React.CSSProperties => {
-    return this.props.hover ? {backgroundColor: 'transparent', borderColor: 'transparent'} : {backgroundColor: 'transparent', borderColor: 'transparent', cursor: 'pointer', pointerEvents: 'none'};
+    return this.props.hover ? 
+      {borderColor: 'transparent'} : 
+      {backgroundColor: 'transparent', borderColor: 'transparent', cursor: 'pointer', pointerEvents: 'none'};
   }
 
   render() {
@@ -181,6 +186,40 @@ class ButtonStar extends Component<{ value: number, title: string, size: number,
   }
 }
 
+class ButtonThumbsUp extends Component<{ size: number, onClick: () => void }> {
+  render() {
+    return (
+      <button 
+        type="button" 
+        className="thumbs-btn btn btn-outline-secondary" 
+        onClick={this.props.onClick} 
+        style={{backgroundColor: 'transparent', borderColor: 'transparent'}}
+      >
+        { 
+          <ThumbsUpFilled className="thumbs-up" fill="green" style={{fontSize: this.props.size}}/>
+        }
+      </button>
+    );
+  }
+}
+
+class ButtonThumbsDown extends Component<{size: number, onClick: () => void }> {
+  render() {
+    return (
+      <button 
+        type="button" 
+        className="thumbs-btn btn btn-outline-secondary" 
+        onClick={this.props.onClick} 
+        style={{backgroundColor: 'transparent', borderColor: 'transparent'}}
+      >
+        { 
+          <ThumbsUpFilled className="thumbs-up" fill="green" style={{fontSize: this.props.size, transform: "rotate(180deg)"}}/>
+        }
+      </button>
+    );
+  }
+}
+
 export class Button {
   static Dark = ButtonDark;
   static Success = ButtonSuccess;
@@ -189,6 +228,8 @@ export class Button {
   static Info = ButtonInfo;
   static Secondary = ButtonSecondary;
   static Star = ButtonStar;
+  static ThumbsUp = ButtonThumbsUp;
+  static ThumbsDown = ButtonThumbsDown;
 }
 
 // Navigation bar link (properties: to)
@@ -408,6 +449,34 @@ class FormStarRating extends Component<{
   };
 }
 
+class FormEvalButtons extends Component<{
+  value: number;
+  label: string;
+  size: number | undefined;
+
+  onClickUp:   (() => void) | undefined;
+  onClickDown: (() => void) | undefined;
+  [prop: string]: any;
+}> {
+
+  render() {
+    const { value, label, edit, size, onChange, ...rest } = this.props;
+    return (
+      <div className="btn-group" role="group" aria-label={this.props.label} style={{width: "100%", height: "100%", backgroundSize: "100%", fontSize: this.props.size}}>
+        <Button.ThumbsDown
+          size={this.props.size ? this.props.size : 16}
+          onClick={this.props.onClickDown ? this.props.onClickDown : () => {}}
+        />
+        <Button.ThumbsUp
+          size={this.props.size ? this.props.size : 16}
+          onClick={this.props.onClickUp ? this.props.onClickUp : () => {}}
+        />
+        <Form.Label>+ {value}</Form.Label>
+      </div>
+    );
+  };
+}
+
 export class Form {
   static Label = FormLabel; // = From.Label osv.
   static Input = FormInput;
@@ -418,6 +487,7 @@ export class Form {
   static Date = FormDate;
   static SelectDropDown = FormSelectDropdown;
   static StarRating = FormStarRating;
+  static EvalButtons = FormEvalButtons;
 }
 
 // Alert messages - beskjeder på nettsiden

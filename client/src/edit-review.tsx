@@ -70,13 +70,15 @@ class EditReview extends Component<{ match: { params: { id: number } } }> {
                 </Column>
               </Row>
               <Row>
-                <Column width={2}>score:</Column>
                 <Column>
-                  <Form.NumberInput
+                  <Form.StarRating
                     value={this.review.score}
-                    min={0}
-                    max={5}
-                    onChange={(event) => this.review.score = Number(event.currentTarget.value)}
+                    edit={true}
+                    label="Game rating"
+                    size={28}
+                    onChange={(event, value) => {
+                      this.review.score = value;
+                    }}
                   />
                 </Column> 
               </Row>

@@ -63,7 +63,7 @@ jobs:
         - name: server-test
           run: |
             sudo systemctl start mysql
-            mysql -u$MYSQL_USER -p$MYSQL_PASSWORD -e "CREATE DATABASE $MYSQL_DATABASE;""
+            mysql -u$MYSQL_USER -p$MYSQL_PASSWORD -e "CREATE DATABASE $MYSQL_DATABASE;"
             mysql -u$MYSQL_USER  $MYSQL_DATABASE < .github/workflows/db_structure.sql
             cd server
             touch test/config.ts

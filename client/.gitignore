@@ -2,7 +2,7 @@
 /.git
 /config.ts
 /test/config.ts
-/test/_snapshots/
+/test/__snapshots__/
 /public/bootstrap.min.css
 /public/bootstrap.min.css.map
 /public/bootstrap.min.js

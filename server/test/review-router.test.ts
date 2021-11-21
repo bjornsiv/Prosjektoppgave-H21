@@ -41,15 +41,15 @@ afterAll((done) => {
   webServer.close(() => pool.end(() => done()));
 });
 
-describe('Fetch review (GET)', () => {
-  test('Fetch reviews (200 OK)', (done) => {
+describe('Search review (GET)', () => {
+  test('Search reviews (200 OK)', (done) => {
     var ref1:any = testReviewsSource[1];
     var ref2:any = testReviewsSource[2];
 
     delete ref1.created_at;
     delete ref2.created_at;
 
-    axios.get('/reviews/8').then((response) => {
+    axios.get('/reviews/search/8').then((response) => {
       expect(response.status).toEqual(200);
       expect(new Review(response.data[0])).toMatchObject(ref1);
       expect(new Review(response.data[1])).toMatchObject(ref2);
@@ -58,9 +58,32 @@ describe('Fetch review (GET)', () => {
     });
   });
 
-  test('Fetch review (404 Not Found)', (done) => {
+  test('Search review (200 OK) - no results', (done) => {
     axios
-      .get('/reviews/4')
+      .get('/reviews/search/4')
+      .then((response)  => {
+        expect(response.status).toEqual(200);
+        expect(response.data.length).toEqual(0);
+        done();
+      });
+  });
+});
+
+describe('Get review (GET)', () => {
+  test('Get review (200 OK)', (done) => {
+    var ref:any = testReviewsSource[1];
+    delete ref.created_at;
+
+    axios.get('/reviews/' + ref.id).then((response) => {
+      expect(response.status).toEqual(200);
+      expect(new Review(response.data)).toMatchObject(ref);
+      done();
+    });
+  });
+
+  test('Get review (404 Not Found)', (done) => {
+    axios
+      .get('/reviews/8')
       .then((_response) => {throw new Error(`Expected failure, got ${_response}`)})
       .catch((error) => {
         expect(error.message).toEqual('Request failed with status code 404');

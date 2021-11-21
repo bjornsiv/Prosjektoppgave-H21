@@ -62,7 +62,7 @@ class ReviewService {
 
   delete(id: number) {
     return new Promise<void>((resolve, reject) => {
-      pool.query('DELETE FROM reviews WHERE id = ?', [id], (error, results) => {
+      pool.query('DELETE FROM reviews WHERE id = ?', [id], (error, _results) => {
         if (error) return reject(error);
 
         resolve();

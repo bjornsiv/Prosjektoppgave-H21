@@ -7,8 +7,7 @@ import { Card, Row, Column, Button, Alert, Form, AutoColumn } from './widgets';
 import { createHashHistory } from 'history';
 import { Review, Game, ReviewEvaluation } from './db-types';
 import gameService from './game-service';
-import reviewService from './review-service';
-import reviewservice from './review-service';
+import reviewService from './review-service'; 
 import reviewEvalService from './review-eval-service';
 
 const history = createHashHistory();
@@ -163,7 +162,7 @@ class GameDetails extends Component<{ match: { params: { id: number } } }> {
                             reviewEvalService
                               .get(reviewData.review.id)
                               .then((evals) => reviewEvalService.delete(evals[0].id).catch((_error) => {}))
-                              .then(() => reviewEvalService.get(reviewData.review.id))
+                               .then(() => reviewEvalService.get(reviewData.review.id))
                               .then((evals) => (reviewData.evaluations = evals));
                           }
                         }
@@ -177,14 +176,6 @@ class GameDetails extends Component<{ match: { params: { id: number } } }> {
                       >
                         Edit
                       </Button.Dark>
-                      <Button.Danger
-                        onClick={() => {
-                          reviewService.delete(reviewData.review.id);
-                          history.go(0);
-                        }}
-                      >
-                        Delete
-                      </Button.Danger>
                     </Column>
                   </Row>
                 </Card>

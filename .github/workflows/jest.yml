@@ -65,7 +65,7 @@ jobs:
             sudo apt-get update
             sudo apt-get -y upgrade
             sudo systemctl start mysql
-            mysql -u$MYSQL_USER -p$MYSQL_PASSWORD -e "UPDATE user SET authentication_string=password('$MYSQL_PASSWORD'), plugin='mysql_native_password' WHERE user='$MYSQL_USER';"
+            mysql -u$MYSQL_USER -p$MYSQL_PASSWORD -e "ALTER USER '$MYSQL_USER'@'localhost' IDENTIFIED WITH mysql_native_password BY '$MYSQL_PASSWORD';"
             mysql $MYSQL_DATABASE < .github/workflows/db_structure.sql
             cd server
             touch test/config.ts
